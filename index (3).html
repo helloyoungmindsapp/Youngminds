@@ -1,0 +1,2363 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    YoungMinds.app — School builds the employee. We build the founder.
+  </title>
+  <link rel="icon" type="image/png" href="./images/logo.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/logo.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="./images/logo.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --blue: #3C52D6;
+      --yellow: #FED700;
+      --yellow-deep: #ffcf33;
+      --navy: #1b1b3a;
+      --navy-soft: #2a2a52;
+      --cream: #fdf2e1;
+      --teal: #22c3b6;
+      --coral: #f14c6e;
+      --green: #1aae6f;
+      --ink: #1a1a2e;
+      --gray: #6b6b7c;
+      --line: #edebe4;
+      --white: #ffffff;
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --shadow-soft: 0 10px 30px rgba(27, 27, 58, 0.08);
+      --line-dashed: #d8dae2;
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Gabarito", sans-serif;
+      color: var(--ink);
+      background: var(--white);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: "Gabarito", sans-serif;
+      margin: 0;
+      line-height: 1.15;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 14px;
+    }
+
+    mark {
+      background: var(--yellow);
+      color: var(--ink);
+      padding: 2px 10px;
+      border-radius: 8px;
+      font-style: normal;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 15px;
+      border: 2px solid var(--ink);
+      cursor: pointer;
+      background: var(--white);
+      color: var(--ink);
+      transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        color 0.15s ease;
+      font-family: "Gabarito", sans-serif;
+      box-shadow: 4px 4px 0px 0px #0c0d19, 0 2px 20px rgba(26, 18, 48, 0.07);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid var(--navy);
+      outline-offset: 2px;
+    }
+
+    .btn-navy {
+      background: var(--white);
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-blue {
+      background: var(--blue);
+      color: var(--white);
+      border: 0px;
+      box-shadow: 4px 4px 0px 0px #FED700, 0 2px 20px rgba(26, 18, 48, 0.07);
+    }
+
+    .btn-navy:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .btn-yellow {
+      background: var(--yellow);
+      color: var(--ink);
+      border-color: var(--ink);
+      box-shadow: 4px 4px 0px 0px #ffffff, 0 2px 20px rgba(26, 18, 48, 0.07);
+    }
+
+    .btn-yellow:hover {
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .btn-outline {
+      background: var(--white);
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .btn-outline:hover {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    section {
+      padding: 88px 0;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .logo {
+      font-family: "Gabarito", sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo span {
+      font-family: "Gabarito", sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      color: var(--gray);
+      letter-spacing: 0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 34px;
+      align-items: center;
+      font-weight: 500;
+      font-size: 15px;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .nav-actions .btn {
+      padding: 10px 22px;
+      font-size: 14px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background: var(--navy);
+      margin: 5px 0;
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      padding: 80px 0 60px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--cream);
+      color: var(--navy);
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 26px;
+    }
+
+    .badge--plain {
+      background: none;
+    }
+
+    .hero h1 {
+      font-size: 46px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      max-width: 820px;
+      margin: 0 auto 22px;
+    }
+
+    .hero p.lead {
+      max-width: 560px;
+      margin: 0 auto 34px;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    /* ---------- STATS BAR ---------- */
+    .stats-section {
+      padding-top: 0;
+      padding-bottom: 70px;
+    }
+
+    .stats-bar {
+      background: var(--yellow);
+      border-radius: var(--radius-lg);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 34px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .stats-bar h3 {
+      font-size: 24px;
+      font-weight: 700;
+      max-width: 220px;
+    }
+
+    .stats-group {
+      display: flex;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+
+    .stat b {
+      display: block;
+      font-size: 30px;
+      font-weight: 800;
+      font-family: "Gabarito", sans-serif;
+    }
+
+    .stat span {
+      font-size: 13px;
+      color: #4a4a1f;
+      font-weight: 500;
+    }
+
+    .stats-bar--light {
+      background: #f9e96a;
+    }
+
+    /* ---------- GAP SECTION ---------- */
+    .center-head {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 56px;
+    }
+
+    .center-head h2 {
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .flip-card {
+      border: 2px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 120px 36px 36px 36px;
+      transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+      border: 1px solid #FED700;
+      box-shadow: 6px 6px 0px 0px #FED700, 0 2px 20px rgba(26, 18, 48, 0.07);
+    }
+
+    .flip-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .flip-card .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .flip-card h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .flip-card p {
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .gap-note {
+      text-align: center;
+      max-width: 700px;
+      margin: 44px auto 0;
+      color: var(--gray);
+      font-size: 16px;
+    }
+
+    /* ---------- SENSE THE GAP (peach) ---------- */
+    .peach {
+      background: var(--cream);
+    }
+
+    .grid-2x2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .info-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 120px 36px 26px 26px;
+      box-shadow: rgb(254, 215, 0) 6px 6px 0px 0px, rgba(26, 18, 48, 0.07) 0px 2px 20px 0px;
+    }
+
+    .info-card h3 {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .info-card p {
+      color: var(--gray);
+      font-size: 14.5px;
+    }
+
+    /* ---------- HOW IT WORKS ---------- */
+    .how-it-works {
+      text-align: center;
+    }
+
+    .steps {
+      display: flex;
+      justify-content: center;
+      gap: 70px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .step .circle {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .step:nth-child(1) .circle {
+      background: #3C52D6;
+      color: #fff;
+    }
+
+    .step:nth-child(2) .circle {
+      background: #F93F51;
+      color: #fff;
+    }
+
+    .step:nth-child(3) .circle {
+      background: #02A673;
+      color: #fff;
+    }
+
+    .step span {
+      font-weight: 700;
+      font-size: 20px;
+    }
+
+    /* ---------- PROGRAMS ---------- */
+
+
+
+  .programs__list{
+    display:flex;
+    flex-direction:column;
+    gap:52px;
+  }
+
+  /* ----- Program card ----- */
+
+
+  .program-card{
+    position:relative;
+    z-index:1;
+    background:var(--paper);
+    border:1.5px solid var(--ink);
+    border-radius:var(--radius);
+    padding:28px;
+    display:grid;
+    grid-template-columns:340px 1fr 220px;
+    gap:36px;
+    align-items:start;
+  }
+
+  .program-card__image{
+    width:100%;
+    aspect-ratio:1/1;
+    border-radius:14px;
+    overflow:hidden;
+    background:#eee;
+  }
+
+  .program-card__image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .program-card__title-row{
+    display:flex;
+    align-items:baseline;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:14px;
+  }
+
+  .program-card__title{
+    font-size:26px;
+    font-weight:800;
+    margin:0;
+  }
+
+  .program-card__subtitle{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    font-weight:500;
+  }
+
+  .program-card__desc{
+    font-size:15px;
+    line-height:1.55;
+    color:var(--ink-soft);
+    margin:0 0 20px;
+    max-width:460px;
+  }
+
+  .program-card__divider{
+    border:none;
+    border-top:1.5px dashed var(--line-dashed);
+    margin:0 0 20px;
+    max-width:460px;
+  }
+
+  .program-card__features{
+    list-style:none;
+    margin:0 0 26px;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    max-width:460px;
+  }
+
+  .program-card__feature{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    font-size:14.5px;
+    font-weight:600;
+    line-height:1.4;
+  }
+
+  .program-card__check{
+    flex:0 0 auto;
+    width:19px;
+    height:19px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:2px;
+  }
+
+  .program-card__check svg{ width:11px; height:11px; }
+
+  .program-card__check--teal{ background:#1fbf7a; }
+  .program-card__check--coral{ background:#ff5a63; }
+  .program-card__check--violet{ background:#5f5ef0; }
+
+  /* ----- Program button ----- */
+
+  .program-btn{
+    position:relative;
+    display:inline-block;
+  }
+
+  .program-btn::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:var(--ink);
+    border-radius:9px;
+    transform:translate(4px,4px);
+    z-index:0;
+  }
+
+  .program-btn__inner{
+    position:relative;
+    z-index:1;
+    display:inline-block;
+    background:var(--yellow);
+    border:1.5px solid var(--ink);
+    border-radius:9px;
+    padding:12px 26px;
+    font-family:inherit;
+    font-weight:700;
+    font-size:14.5px;
+    color:var(--ink);
+    cursor:pointer;
+    text-decoration:none;
+  }
+
+  /* ----- Program meta ----- */
+
+  .program-card__meta{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    padding-left:26px;
+    border-left:1.5px dashed var(--line-dashed);
+  }
+
+  .program-card__meta-item{
+    padding:0 0 16px;
+    border-bottom:1.5px dashed var(--line-dashed);
+    margin-bottom:16px;
+  }
+
+  .program-card__meta-item:last-child{
+    border-bottom:none;
+    margin-bottom:0;
+    padding-bottom:0;
+  }
+
+  .program-card__meta-label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+    text-transform:uppercase;
+  }
+
+  .program-card__meta-value{
+    font-size:14.5px;
+    font-weight:700;
+    line-height:1.35;
+  }
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .program-card{
+      grid-template-columns:280px 1fr;
+      grid-template-areas:
+        "image body"
+        "meta meta";
+    }
+    .program-card__image{ grid-area:image; }
+    .program-card__body{ grid-area:body; }
+    .program-card__meta{
+      grid-area:meta;
+      flex-direction:row;
+      flex-wrap:wrap;
+      gap:20px;
+      border-left:none;
+      border-top:1.5px dashed var(--line-dashed);
+      padding-left:0;
+      padding-top:22px;
+      margin-top:22px;
+    }
+    .program-card__meta-item{
+      border-bottom:none;
+      margin-bottom:0;
+      padding:0 20px 0 0;
+      flex:1 1 45%;
+      min-width:150px;
+    }
+  }
+
+  @media (max-width: 680px){
+    .programs{ padding:40px 18px 70px; }
+    .program-card{
+      grid-template-columns:1fr;
+      grid-template-areas:
+        "image"
+        "body"
+        "meta";
+      padding:20px;
+    }
+    .program-card__image{ aspect-ratio:16/10; }
+    .program-card-shadow::after{ transform:translate(7px,7px); }
+    .program-card__meta{
+      flex-direction:column;
+      gap:0;
+    }
+    .program-card__meta-item{
+      border-bottom:1.5px dashed var(--line-dashed);
+      margin-bottom:14px;
+      padding:0 0 14px;
+      flex:none;
+    }
+    .program-card__meta-item:last-child{
+      border-bottom:none; margin-bottom:0; padding-bottom:0;
+    }
+    .programs__headline{ margin-bottom:36px; }
+    .programs__list{ gap:40px; }
+  }
+    /* ---------- FEATURED ---------- */
+    .featured-card {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      border: 2px solid var(--yellow-deep);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--cream);
+    }
+
+    .featured-media {
+      background: linear-gradient(135deg, #3b3b63, #1b1b3a);
+      min-height: 260px;
+    }
+
+    .featured-body {
+      padding: 34px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .featured-body .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    .featured-body h3 {
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .featured-body p {
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    /* ---------- OUTCOMES / REVIEWS ---------- */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .review-card {
+      background: var(--cream);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+
+    .review-card p {
+      font-size: 14.5px;
+      color: var(--ink);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .review-card b {
+      font-size: 14px;
+      display: block;
+    }
+
+    .review-card small {
+      color: var(--gray);
+      font-size: 12.5px;
+    }
+
+    /* ---------- CTA BANNER ---------- */
+    .cta-banner {
+      background: #200B2B;
+      border-radius: var(--radius-lg);
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 56px 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      /* flex-wrap: wrap; */
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner h2 {
+      color: #fff;
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .cta-banner p {
+      color: #b9b9cc;
+      font-size: 15px;
+    }
+
+    .cta-banner .btn {
+      flex-shrink: 0;
+    }
+
+    /* ---------- FOOTER ---------- */
+  .ym-footer {
+    background: var(--yellow);
+    color: var(--navy);
+    padding: 56px var(--footer-pad-x) 0;
+  }
+
+  .ym-footer__top {
+    display: grid;
+    grid-template-columns: 1.4fr auto 1fr 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+    padding-bottom: 48px;
+  }
+
+  /* Brand block */
+  .ym-footer__brand {
+    padding-right: 24px;
+  }
+
+  .ym-footer__logo {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .ym-footer__tagline {
+    margin: 6px 0 0;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+  }
+  .ym-footer__tagline-tinkering { color: var(--ym-blue); }
+  .ym-footer__tagline-innovation { color: var(--ym-pink); }
+  .ym-footer__tagline-entrepreneurship { color: var(--ym-green); }
+  .ym-footer__tagline-sep { color: var(--navy); }
+
+  .ym-footer__desc {
+    margin: 20px 0 0;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    max-width: 360px;
+  }
+
+  .ym-footer__socials {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .ym-footer__social {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--navy);
+    background: var(--card-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--navy);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+    background-color: var(--white);
+    color: var(--navy);
+    text-decoration: none;
+
+  }
+  .ym-footer__social:hover { transform: translateY(-2px); }
+  .ym-footer__social svg { width: 18px; height: 18px; }
+
+  /* Divider between brand and links */
+  .ym-footer__divider {
+    width: 1px;
+    align-self: stretch;
+    background: var(--navy);
+    min-height: 200px;
+  }
+
+  /* Link columns */
+  .ym-footer__col-title {
+    margin: 0 0 20px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+  }
+
+  .ym-footer__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .ym-footer__links a {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .ym-footer__links a:hover { text-decoration: underline; }
+
+  /* Bottom bar */
+  .ym-footer__bottom {
+    border-top: 1px solid var(--navy);
+    padding: 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .ym-footer__copyright {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .ym-footer__legal {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .ym-footer__legal a {
+    color: var(--navy);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .ym-footer__legal a:hover { text-decoration: underline; }
+
+  .ym-footer__legal-sep {
+    width: 1px;
+    height: 16px;
+    background: var(--navy);
+  }
+
+  /* ===== Responsive ===== */
+
+  @media (max-width: 1024px) {
+    :root { --footer-pad-x: 56px; }
+
+    .ym-footer__top {
+      grid-template-columns: 1fr 1fr;
+      row-gap: 40px;
+      column-gap: 32px;
+    }
+
+    .ym-footer__brand {
+      grid-column: 1 / -1;
+      padding-right: 0;
+    }
+
+    .ym-footer__divider {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    :root { --footer-pad-x: 24px; }
+
+    .ym-footer {
+      padding-top: 40px;
+    }
+
+    .ym-footer__top {
+      grid-template-columns: 1fr;
+      gap: 32px;
+      padding-bottom: 32px;
+    }
+
+    .ym-footer__desc {
+      max-width: none;
+    }
+
+    .ym-footer__logo { font-size: 24px; }
+
+    .ym-footer__bottom {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 20px 0 24px;
+      text-align: left;
+    }
+
+    .ym-footer__legal {
+      width: 100%;
+      justify-content: flex-start;
+    }
+  }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 968px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-links--open {
+        display: flex;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--white);
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        padding: 24px 32px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .nav-links--open .nav-actions {
+        width: 100%;
+        margin-top: 6px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+      }
+
+      .nav-links--open .nav-actions .btn {
+        flex: 1;
+        text-align: center;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .stats-bar {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .stats-group {
+        justify-content: center;
+      }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-2x2 {
+        grid-template-columns: 1fr;
+      }
+
+      .program-card {
+        grid-template-columns: 1fr;
+      }
+
+      .program-meta {
+        border-left: none;
+        border-top: 1px solid var(--line);
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .program-meta div {
+        flex: 1 1 40%;
+      }
+
+      .featured-card {
+        grid-template-columns: 1fr;
+      }
+
+      .parents-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .reviews-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 34px;
+      }
+
+      .cta-banner {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        padding: 0 20px;
+      }
+
+      section {
+        padding: 60px 0;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .center-head h2,
+      .programs-head h2 {
+        font-size: 28px;
+      }
+
+      .steps {
+        gap: 34px;
+      }
+
+      .reviews-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-group {
+        gap: 30px;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .cta-banner {
+        padding: 40px 28px;
+      }
+      .step .circle {
+    width: 120px;
+    height: 120px;
+      }
+    }
+
+    /* ---- Featured Card ---- */
+    /* ----- 2. Card layout ----- */
+    .featured {
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: clamp(28px, 4vw, 56px);
+      padding: clamp(20px, 3vw, 36px);
+      background: var(--white);
+      border: 2px solid var(--yellow);
+      border-radius: 24px;
+      box-shadow: 8px 10px 0 var(--yellow);
+      font-family: 'Gabarito', sans-serif;
+      box-sizing: border-box;
+    }
+
+    /* ----- 3. Image ----- */
+    .featured__img {
+      flex: 0 0 auto;
+      width: clamp(220px, 28vw, 360px);
+      aspect-ratio: 360 / 365;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+    }
+
+    /* ----- 4. Body ----- */
+    .featured__body {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    /* ----- 5. Title ----- */
+    .featured__title {
+      margin: 0 0 16px;
+      font-size: clamp(24px, 2.4vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    /* ----- 6. Description ----- */
+    .featured__text {
+      margin: 0 0 26px;
+      max-width: 640px;
+      font-size: clamp(16px, 1.3vw, 19px);
+      line-height: 1.6;
+      color: var(--body);
+    }
+
+    .featured__text strong {
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* ----- 7. Tags ----- */
+    .featured__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .tag1 {
+      padding: 9px 22px;
+      font-family: inherit;
+      font-size: clamp(14px, 1.1vw, 17px);
+      font-weight: 500;
+      color: var(--ink);
+      background: var(--card);
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      box-shadow: 0 4px 0 var(--ink);
+      white-space: nowrap;
+    }
+
+    /* ----- 8. Responsive (stack ≤760px) ----- */
+    @media (max-width: 760px) {
+      .featured {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 22px;
+        box-shadow: 5px 7px 0 var(--yellow);
+      }
+
+      .featured__img {
+        width: 100%;
+        aspect-ratio: 16 / 10;
+      }
+    }
+
+
+    /* ---- Testimonials ---- */
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-family: 'Gabarito', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin: 0 0 14px;
+    }
+
+    .headline {
+      font-family: 'Gabarito', sans-serif;
+      font-weight: 800;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.15;
+      margin: 0 0 40px;
+    }
+
+    .headline mark {
+      background: var(--yellow);
+      color: var(--navy);
+      padding: 0.05em 0.28em;
+      border-radius: 8px;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+
+    /* ---- Carousel ---- */
+    .carousel-shell {
+      position: relative;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 8px 28px;
+      margin: 0 -8px;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+
+    .carousel-track.dragging {
+      cursor: grabbing;
+      scroll-snap-type: none;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .card {
+      scroll-snap-align: start;
+      flex: 0 0 auto;
+      width: 340px;
+      background: var(--white);
+      border: 2px solid var(--yellow);
+      border-radius: 34px;
+      box-shadow: 0px 4px 0 var(--yellow);
+      padding: 28px 26px 24px;
+      display: flex;
+      flex-direction: column;
+      min-height: 340px;
+      user-select: none;
+    }
+
+    .card p {
+      font-family: 'Gabarito', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--navy);
+      margin: 0 0 auto;
+    }
+
+    .card .attribution {
+      margin-top: 24px;
+      padding-top: 0;
+    }
+
+    .card .name {
+      font-family: 'Gabarito', sans-serif;
+      font-weight: 800;
+      font-size: 16px;
+      margin: 0 0 2px;
+    }
+
+    .card .role {
+      font-size: 13.5px;
+      color: var(--gray);
+      margin: 0;
+    }
+
+    /* ---- Controls ---- */
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .nav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid var(--navy);
+      background: var(--card-bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 2px 2px 0 var(--navy);
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+      background-color: var(--white);
+    }
+
+    .nav-btn:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 3px 3px 0 var(--navy);
+    }
+
+    .nav-btn:active {
+      transform: translate(0, 0);
+      box-shadow: 2px 2px 0 var(--navy);
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+      box-shadow: 4px 4px 0 var(--navy);
+      transform: none;
+    }
+
+    .nav-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .dots {
+      display: flex;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #E3D8C4;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background 0.15s ease, width 0.15s ease;
+    }
+
+    .dot.active {
+      background: var(--navy);
+      width: 22px;
+      border-radius: 5px;
+    }
+
+    @media (max-width:640px) {
+      .wrap {
+        padding: 0 20px;
+      }
+
+      .headline {
+        margin-bottom: 26px;
+      }
+
+      .card {
+        width: 72vw;
+        min-height: 300px;
+      }
+
+      .controls {
+        display: none;
+      }
+    }
+
+    /* ---- Founders ---- */
+
+    .ym {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: clamp(48px, 7vw, 96px) clamp(20px, 5vw, 60px);
+    }
+
+    /* ---------- Header ---------- */
+    .ym__head {
+      text-align: center;
+      margin-bottom: clamp(36px, 5vw, 60px);
+    }
+
+    .ym__eyebrow {
+      font-size: clamp(11px, 1.4vw, 13px);
+      font-weight: 600;
+      letter-spacing: .18em;
+      color: var(--navy);
+      margin-bottom: clamp(16px, 2.5vw, 26px);
+    }
+
+    .ym__title {
+      font-weight: 800;
+      line-height: 1.15;
+      font-size: clamp(26px, 5vw, 46px);
+      letter-spacing: -.01em;
+      color: var(--navy);
+    }
+
+    .ym__title+.ym__title {
+      margin-top: .35em;
+    }
+
+    .ym__hl {
+      background: var(--yellow);
+      padding: .02em .22em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* ---------- Grid ---------- */
+    .ym__grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(22px, 3.2vw, 40px);
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    /* ---------- Card ---------- */
+    .founders {
+      position: relative;
+      background: var(--blue);
+      border-radius: 16px;
+      padding-bottom: clamp(22px, 3vw, 34px);
+      overflow: hidden;
+    }
+
+    .founders__yellow {
+      position: relative;
+      background: var(--yellow);
+      padding: clamp(22px, 3vw, 34px) clamp(22px, 3.4vw, 40px) clamp(34px, 4.5vw, 52px);
+      z-index: 1;
+    }
+
+    /* downward speech-bubble tail under the yellow block */
+    .founders__yellow::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -13px;
+      width: 34px;
+      height: 34px;
+      background: var(--yellow);
+      transform: translateX(-50%) rotate(45deg);
+      border-radius: 0 0 8px 0;
+      z-index: 0;
+    }
+
+    /* ---------- Photo (speech bubble) ---------- */
+    .founders__photo {
+      position: relative;
+      margin: 0 0 clamp(26px, 3.5vw, 22px);
+    }
+
+    .founders__photo .frame {
+      position: relative;
+      border-radius: 26px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      box-shadow: 10px 12px 0 0 var(--shadow);
+    }
+
+    .founders__photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* little tail on the photo bubble (bottom-right) */
+    .founders__photo::after {
+      content: "";
+      position: absolute;
+      right: 34px;
+      bottom: -14px;
+      width: 30px;
+      height: 30px;
+      background: inherit;
+      z-index: -1;
+    }
+
+    /* ---------- Quote ---------- */
+    .founders__quote {
+      text-align: center;
+      font-weight: 600;
+      color: var(--ink);
+      font-size: clamp(15px, 1.7vw, 16px);
+      line-height: 1.55;
+      margin: 0px;
+      margin-bottom: 18px;
+    }
+
+    .founders__by {
+      text-align: right;
+      line-height: 1.4;
+    }
+
+    .founders__name {
+      display: block;
+      font-weight: 700;
+      font-size: clamp(15px, 1.7vw, 18px);
+      color: var(--navy);
+    }
+
+    .founders__role {
+      display: block;
+      font-weight: 500;
+      font-size: clamp(12px, 1.4vw, 14px);
+      color: var(--navy);
+    }
+
+    /* ---------- Button ---------- */
+    .founders__btn {
+      display: block;
+      margin: clamp(26px, 3.4vw, 38px) clamp(22px, 3.4vw, 40px) clamp(8px, 1vw, 14px);
+      background: var(--white);
+      color: var(--navy);
+      text-decoration: none;
+      text-align: center;
+      font-weight: 600;
+      font-size: clamp(14px, 1.6vw, 16px);
+      padding: 16px 24px;
+      border-radius: 16px;
+      box-shadow: 6px 7px 0 0 #000;
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+
+    .founders__btn:hover {
+      transform: translate(3px, 3px);
+      box-shadow: 3px 4px 0 0 #000;
+    }
+
+    .founders__btn:active {
+      transform: translate(6px, 7px);
+      box-shadow: 0 0 0 0 #000;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:720px) {
+      .ym__grid {
+        grid-template-columns: 1fr;
+      }
+
+      .founders__photo .frame {
+        box-shadow: 7px 8px 0 0 var(--shadow);
+      }
+
+      .founders__btn {
+        box-shadow: 5px 6px 0 0 #000;
+      }
+    }
+
+    .whatsapp-fab {
+      position: fixed;
+      right: 24px;
+      bottom: 24px;
+      width: 58px;
+      height: 58px;
+      background: #25D366;
+      border: 3px solid var(--ink, #1a1a2e);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 4px 5px 0 0 #000;
+      z-index: 999;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .whatsapp-fab:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 7px 0 0 #000;
+    }
+
+    .whatsapp-fab:active {
+      transform: translate(1px, 2px);
+      box-shadow: 2px 3px 0 0 #000;
+    }
+
+    .whatsapp-fab svg {
+      width: 30px;
+      height: 30px;
+    }
+
+    @media (max-width:720px) {
+      .whatsapp-fab {
+        right: 16px;
+        bottom: 16px;
+        width: 52px;
+        height: 52px;
+      }
+
+      .whatsapp-fab svg {
+        width: 26px;
+        height: 26px;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <header>
+    <nav class="nav">
+      <a href="#" class="logo">
+        <img src="./images/logo.png" alt="YoungMinds.app" class="logo" width="150" />
+      </a>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#programs">Programs</a>
+        <a href="#">For Schools</a>
+        <a href="#">Book A Free Session</a>
+        <div class="nav-actions">
+          <a href="#" class="btn btn-outline">Login</a>
+          <a href="#" class="btn btn-yellow">Sign Up</a>
+        </div>
+      </div>
+      <button class="nav-toggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <span class="badge badge--plain">
+          <img src="./images/for-children.png" alt="">
+        </span>
+        <h1>
+          School builds the employee.<br />We build the <mark>founder.</mark>
+        </h1>
+        <p class="lead">
+          Your child learns to find real problems, build real products, and
+          stand in front of an audience, and mean it.
+        </p>
+        <a href="#programs" class="btn btn-blue">Explore Programs</a>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-bar stats-bar--light">
+          <h3>Numbers That Tell Our Story</h3>
+          <div class="stats-group">
+            <div class="stat"><b>1000+</b><span>Families enrolled</span></div>
+            <div class="stat">
+              <b>100+</b><span>Student built products</span>
+            </div>
+            <div class="stat"><b>4.9</b><span>Parent rating</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE GAP -->
+    <section>
+      <div class="container">
+        <div class="center-head">
+          <span class="eyebrow">The gap we fill</span>
+          <h2>Two mindsets. One gap.<br /><mark>One solution.</mark></h2>
+        </div>
+        <div class="two-col">
+          <div class="flip-card">
+            <span class="tag">What school builds</span>
+            <h3>The Employee Mindset</h3>
+            <p>
+              Follow instructions well. Score high. Get a good job. The school
+              system was designed to do exactly this, and it does it well.
+              That foundation matters.
+            </p>
+          </div>
+          <div class="flip-card">
+            <span class="tag">What we actually build</span>
+            <h3>The Employer Mindset</h3>
+            <p>
+              See a problem, build a solution. Lead without waiting to be
+              told. Create the jobs. Solve the problems others are waiting to
+              be assigned.
+            </p>
+          </div>
+        </div>
+        <p class="gap-note">
+          We are not anti-school. We are the space school was never built to
+          be. Starting at age 8, before the window closes.
+        </p>
+      </div>
+    </section>
+
+    <!-- SENSE THE GAP -->
+    <section class="peach">
+      <div class="container">
+        <div class="center-head">
+          <span class="eyebrow">This is for you if</span>
+          <h2>You already sense <mark>the gap.</mark></h2>
+        </div>
+        <div class="grid-2x2">
+          <div class="info-card">
+            <h3>Your child is curious, but has no outlet for it</h3>
+            <p>
+              They ask questions that go beyond textbooks. They tinker. They
+              notice things. School doesn't quite know what to do with that.
+              We do.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>You've tried edtech before, certificate earned not skills</h3>
+            <p>
+              At YoungMinds.app, your child doesn't get a certificate for
+              completing modules. They get one for building and pitching a
+              real product.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>Your child is busy. But not building anything</h3>
+            <p>
+              Tuitions. Sport. School events. And somehow, nothing they're
+              doing is theirs. At YoungMinds.app, they build something real.
+              From idea, to prototype, to pitch.
+            </p>
+          </div>
+          <div class="info-card">
+            <h3>You want a partner, not another vendor</h3>
+            <p>
+              Not content to consume. A mentor who tracks their progress,
+              knows where they're stuck, and cares about the outcome, not just
+              the enrollment number.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+      <div class="container">
+        <div class="center-head">
+          <h2> How it <mark>Works</mark></h2>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="circle">
+              <img src="./images/tinkering.png" alt="Tinkering" width="90" />
+            </div>
+            <span>Tinkering</span>
+          </div>
+          <div class="step">
+            <div class="circle">
+              <img src="./images/innovation.png" alt="Innovation" width="90" />
+            </div>
+            <span>Innovation</span>
+          </div>
+          <div class="step">
+            <div class="circle">
+              <img src="./images/entrepreneurship.png" alt="Entrepreneurship" width="90" />
+            </div>
+            <span>Entrepreneurship</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAMS -->
+    <section id="programs">
+      <div class="container">
+
+        <div class="center-head" style="text-align:left; margin:50px 0px;">
+          <span class="eyebrow">PROGRAMS</span>
+          <h2>
+           Every child starts <br> somewhere different
+          </h2>
+        </div>
+
+
+  <div class="programs__list">
+
+    <!-- Program: YoungPreneur.ai -->
+
+      <div class="program-card" style="box-shadow: #2EFDBD 9px 9px 0px 0px, rgba(26, 18, 48, 0.07) 0px 2px 20px 0px;">
+        <div class="program-card__image">
+          <img src="./images/YoungPreneur.png" alt="Two students presenting a startup pitch on stage">
+        </div>
+        <div class="program-card__body">
+          <div class="program-card__title-row">
+            <h2 class="program-card__title">YoungPreneur.ai</h2>
+            <span class="program-card__subtitle">One year. One real startup.</span>
+          </div>
+          <p class="program-card__desc">Your child finds a real problem, builds a working product, and pitches it to an independent panel, for a real seed fund. Not content. A complete startup, built in one year.</p>
+          <hr class="program-card__divider">
+          <ul class="program-card__features">
+            <li class="program-card__feature"><span class="program-card__check program-card__check--teal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Problem validation with real users</li>
+            <li class="program-card__feature"><span class="program-card__check program-card__check--teal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>A working product, tested and scored</li>
+            <li class="program-card__feature"><span class="program-card__check program-card__check--teal"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Live investor pitch, with ₹1,00,000 seed fund at stake</li>
+          </ul>
+          <a href="#" class="program-btn"><span class="program-btn__inner">Learn More</span></a>
+        </div>
+        <div class="program-card__meta">
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Start Date</div>
+            <div class="program-card__meta-value">Rolling intake</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Student Ages</div>
+            <div class="program-card__meta-value">11 – 18 years</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Program Duration</div>
+            <div class="program-card__meta-value">6 months Foundation + 6 months Acceleration</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Format</div>
+            <div class="program-card__meta-value">Online · Weekly 1:1 mentoring</div>
+          </div>
+        </div>
+      </div>
+
+
+    <!-- Program: Innovation School -->
+
+      <div class="program-card" style="box-shadow: #F77F8A 9px 9px 0px 0px, rgba(26, 18, 48, 0.07) 0px 2px 20px 0px;">
+        <div class="program-card__image">
+          <img src="./images/Innovation-school.png" alt="Two students holding trophies and certificates on stage">
+        </div>
+        <div class="program-card__body">
+          <div class="program-card__title-row">
+            <h2 class="program-card__title">Innovation School</h2>
+            <span class="program-card__subtitle">24 weeks. 15+ real builds. One national stage.</span>
+          </div>
+          <p class="program-card__desc">Your child builds 15+ real innovations across electronics, coding, AI, and design, then takes one to national competition. Grade-based. Same coach, all year.</p>
+          <hr class="program-card__divider">
+          <ul class="program-card__features">
+            <li class="program-card__feature"><span class="program-card__check program-card__check--coral"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>15+ hands-on builds — electronics, coding, AI, design</li>
+            <li class="program-card__feature"><span class="program-card__check program-card__check--coral"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Real innovation project submitted to national competition</li>
+            <li class="program-card__feature"><span class="program-card__check program-card__check--coral"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>YoungInnovator Certification — earned through build and pitch</li>
+          </ul>
+          <a href="#" class="program-btn"><span class="program-btn__inner">Learn More</span></a>
+        </div>
+        <div class="program-card__meta">
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Start Date</div>
+            <div class="program-card__meta-value">July 1</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Students Ages</div>
+            <div class="program-card__meta-value">Class 3 - 8</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Duration</div>
+            <div class="program-card__meta-value">24 weeks · 60 min/week</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Format</div>
+            <div class="program-card__meta-value">Online · Live coach-led · Hardware kit included</div>
+          </div>
+        </div>
+      </div>
+  
+
+    <!-- Program: TinkerPark -->
+
+      <div class="program-card" style="box-shadow: #6D7DDE 9px 9px 0px 0px, rgba(26, 18, 48, 0.07) 0px 2px 20px 0px;">
+        <div class="program-card__image">
+          <img src="./images/TinkerPark.png" alt="Modern innovation hub building at dusk">
+        </div>
+        <div class="program-card__body">
+          <div class="program-card__title-row">
+            <h2 class="program-card__title">TinkerPark</h2>
+            <span class="program-card__subtitle">Flexible Access</span>
+          </div>
+          <p class="program-card__desc">A hands-on tinkering space where young builders experiment with robotics, AI, design, and prototyping equipment. Walk in curious. Walk out having built something..</p>
+          <hr class="program-card__divider">
+          <ul class="program-card__features">
+            <li class="program-card__feature"><span class="program-card__check program-card__check--violet"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Time &amp; Development</li>
+            <li class="program-card__feature"><span class="program-card__check program-card__check--violet"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Language &amp; Communication</li>
+            <li class="program-card__feature"><span class="program-card__check program-card__check--violet"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Language &amp; Communication</li>
+          </ul>
+          <a href="#" class="program-btn"><span class="program-btn__inner">Learn More</span></a>
+        </div>
+        <div class="program-card__meta">
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Start Date</div>
+            <div class="program-card__meta-value">Coming Soon</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Student Ages</div>
+            <div class="program-card__meta-value">All Ages</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Duration</div>
+            <div class="program-card__meta-value">Flexible memberships . Day Passes . Workshops</div>
+          </div>
+          <div class="program-card__meta-item">
+            <div class="program-card__meta-label">Format</div>
+            <div class="program-card__meta-value">Innovation Hub . Maker Space . STEAM Labs . Creative Studios</div>
+          </div>
+        </div>
+      </div>
+    </div>
+      </div>
+    </section>
+
+
+    <!-- FEATURED -->
+    <section class="peach">
+      <div class="container">
+        <article class="featured">
+
+          <!-- ----- Image ----- -->
+          <img class="featured__img" src="./images/featured-img.png" alt="Mentor with students working on a project" />
+
+          <!-- ----- Content ----- -->
+          <div class="featured__body">
+
+            <!-- Title -->
+            <h2 class="featured__title">Featured this week</h2>
+
+            <!-- Description -->
+            <p class="featured__text">
+              <strong>What the task was:</strong> We started as a small team of
+              innovators and grew into 50+ experts, helping businesses turn ideas
+              into measurable success.
+            </p>
+
+            <!-- Tags -->
+            <div class="featured__tags">
+              <span class="tag1">Arjun</span>
+              <span class="tag1">YoungPreneur.ai</span>
+              <span class="tag1">Week 3</span>
+            </div>
+
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- FOUNDERS -->
+    <section>
+      <div class="container">
+        <div class="center-head">
+          <span class="eyebrow">Why we built this</span>
+          <h2>
+            Built by parents.<br>For parents
+            <mark>who see what school misses.</mark>
+          </h2>
+        </div>
+        <div class="ym__grid">
+
+          <!-- Card 1 -->
+          <article class="founders">
+            <div class="founders__yellow">
+              <figure class="founders__photo">
+                <div class="frame">
+                  <!-- Replace src with the founder photo -->
+                  <img
+                    src="./images/founders-mu.png"
+                    alt="Mubassir, Co-founder of YoungMinds">
+                </div>
+              </figure>
+              <blockquote class="founders__quote">
+                &ldquo; Ten years inside real schools and government innovation programs. I kept seeing the same
+                thing — curious children with nowhere to put that curiosity. YoungMinds is what I kept wishing
+                existed. &rdquo;
+              </blockquote>
+              <div class="founders__by">
+                <span class="founders__name">Mubassir</span>
+                <span class="founders__role">Co-founder, YoungMinds.app</span>
+                <span class="founders__role">Certified Regional Mentor of Change, AIM NITI Aayog</span>
+              </div>
+            </div>
+            <a class="founders__btn" href="https://www.linkedin.com/in/mubassirmk/" target="_blank" rel="noopener">Connect to Linked-In</a>
+          </article>
+
+          <!-- Card 2 -->
+          <article class="founders">
+            <div class="founders__yellow">
+              <figure class="founders__photo">
+                <div class="frame">
+                  <!-- Replace src with the founder photo -->
+                  <img
+                    src="/images/founders-la.png"
+                    alt="Lameesa, Co-founder of YoungMinds">
+                </div>
+              </figure>
+              <blockquote class="founders__quote">
+                We're parents first. We built YoungMinds because we know what it feels like to want more for your
+                child than a good grade. We wanted somewhere that knows your child by name and holds them to
+                something real.
+              </blockquote>
+              <div class="founders__by">
+                <span class="founders__name">Lameesa</span>
+                <span class="founders__role">Co-founder, YoungMinds.app</span>
+              </div>
+            </div>
+            <a class="founders__btn" href="https://www.linkedin.com/in/lameesa-kp-787a1b237/" target="_blank" rel="noopener">Connect to Linked-In</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTCOMES / TESTIMONIALS CAROUSEL -->
+    <section class="peach">
+      <div class="container">
+        <div class="wrap">
+          <p class="eyebrow">This is for you if</p>
+          <h1 class="headline">Not reviews. <mark>Real outcomes.</mark></h1>
+
+          <div class="carousel-shell">
+            <div class="carousel-track" id="track">
+
+              <div class="card">
+                <p>I've spent money on tuitions, on apps, on workshops. This is the first time I feel my daughter
+                  has did something important for her future.</p>
+                <div class="attribution">
+                  <p class="name">Meera's father</p>
+                  <p class="role">YoungPreneur Cohort 3 · Kochi</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <p>Honestly I was skeptical. He's done two coding classes before and nothing stuck. By Week 4 he was
+                  showing me interview notes from people he'd spoken to in our apartment complex. I didn't expect
+                  him to do that.</p>
+                <div class="attribution">
+                  <p class="name">Rahul's Mother</p>
+                  <p class="role">YoungPreneur, Malappuram</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <p>My daughter used to ask me to solve every small problem for her. Three months in, she stopped.
+                  She'd come to dinner and tell us what she tried, what didn't work, and what she was doing next.
+                </p>
+                <div class="attribution">
+                  <p class="name">Sreya's father</p>
+                  <p class="role">YoungPreneur, Kozhikode</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <p>He used to say he was "bad at typing" and avoid anything on a screen. Now he's the one showing us
+                  how his group split up the work.</p>
+                <div class="attribution">
+                  <p class="name">Nihal's mother</p>
+                  <p class="role">YoungPreneur, Tirur</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <p>We tried a robotics camp last year and it fizzled out after two weeks. This one she actually
+                  finishes. She asks when the next session is before I even bring it up.</p>
+                <div class="attribution">
+                  <p class="name">Anjali's father</p>
+                  <p class="role">YoungPreneur, Kannur</p>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="controls">
+              <button class="nav-btn" id="prevBtn" aria-label="Previous">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B1230" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+              <button class="nav-btn" id="nextBtn" aria-label="Next">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B1230" stroke-width="2.4" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="dots" id="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="container">
+        <div class="cta-banner">
+          <div>
+            <h2>Not sure where your child starts?<br />Talk to a mentor.</h2>
+            <p>
+              One free session. No pitch. Just an honest conversation about
+              your child, where they are, and what's possible.
+            </p>
+          </div>
+          <a href="#" class="btn btn-yellow">Book a free mentor session</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="ym-footer">
+      <div class="container" style="padding-top: 40px;">
+  <div class="ym-footer__top">
+
+    <div class="ym-footer__brand">
+      <div class="ym-footer__logo">
+        <img src="./images/logo.png" alt="YoungMinds.app" class="ym-footer__logo-img" width="180" />
+      </div>
+      <p class="ym-footer__desc">
+        The First AI-Native Platform Transforming K-12 Students into Innovators and Entrepreneurs<br>
+        1M YoungPreneurs by 2031.
+      </p>
+
+      <div class="ym-footer__socials">
+        <a href="#" target="_blank"  class="ym-footer__social" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"/></svg>
+        </a>
+        <a href="instagram.com/youngminds.app" target="_blank" class="ym-footer__social" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="linkedin.com/company/youngmindsapp" target="_blank"  class="ym-footer__social" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.75c0-1.37-.02-3.14-1.92-3.14-1.92 0-2.22 1.5-2.22 3.04V21h-4V9Z"/></svg>
+        </a>
+        <a href="www.youtube.com/@youngminds_app" target="_blank"  class="ym-footer__social" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.45-5.17a2.78 2.78 0 0 0-1.96-1.97C18.88 4.4 12 4.4 12 4.4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.96 1.97C1 8.5 1 12 1 12s0 3.5.45 5.17a2.78 2.78 0 0 0 1.96 1.97c1.71.46 8.59.46 8.59.46s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.97C23 15.5 23 12 23 12ZM9.75 15.5v-7l6 3.5-6 3.5Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="ym-footer__divider" aria-hidden="true"></div>
+
+    <nav class="ym-footer__col" aria-label="Quick Links">
+      <h3 class="ym-footer__col-title">Quick Links</h3>
+      <ul class="ym-footer__links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Blogs</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+    <nav class="ym-footer__col" aria-label="Programs">
+      <h3 class="ym-footer__col-title">Programs</h3>
+      <ul class="ym-footer__links">
+        <li><a href="#">YoungPreneur.ai</a></li>
+        <li><a href="#">Innovation School</a></li>
+      </ul>
+    </nav>
+
+    <nav class="ym-footer__col" aria-label="School">
+      <h3 class="ym-footer__col-title">School</h3>
+      <ul class="ym-footer__links">
+        <li><a href="#">IEH Partnership</a></li>
+        <li><a href="#">Educator Bootcamp</a></li>
+        <li><a href="#">NEP 2020 Alignment</a></li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <div class="ym-footer__bottom">
+    <p class="ym-footer__copyright">©2026 YM Innovations Pvt Ltd. All rights reserved</p>
+    <div class="ym-footer__legal">
+      <a href="#">Terms &amp; conditions</a>
+      <span class="ym-footer__legal-sep" aria-hidden="true"></span>
+      <a href="#">Privacy policy</a>
+    </div>
+  </div>
+  </div>
+</footer>
+  </main>
+
+  <script>
+    // Mobile nav toggle
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.querySelector(".nav-links");
+    toggle.addEventListener("click", () => {
+      links.classList.toggle("nav-links--open");
+    });
+
+    const track = document.getElementById('track');
+    const cards = Array.from(track.children);
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsWrap = document.getElementById('dots');
+
+    cards.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
+      d.addEventListener('click', () => scrollToCard(i));
+      dotsWrap.appendChild(d);
+    });
+    const dots = Array.from(dotsWrap.children);
+
+    function cardStep() {
+      return cards[0].getBoundingClientRect().width + 24; // gap
+    }
+
+    function scrollToCard(i) {
+      track.scrollTo({ left: i * cardStep(), behavior: 'smooth' });
+    }
+
+    function currentIndex() {
+      return Math.round(track.scrollLeft / cardStep());
+    }
+
+    function updateUI() {
+      const idx = Math.max(0, Math.min(cards.length - 1, currentIndex()));
+      dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      prevBtn.disabled = track.scrollLeft <= 4;
+      nextBtn.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 4;
+    }
+
+    prevBtn.addEventListener('click', () => scrollToCard(Math.max(0, currentIndex() - 1)));
+    nextBtn.addEventListener('click', () => scrollToCard(Math.min(cards.length - 1, currentIndex() + 1)));
+
+    let scrollTimeout;
+    track.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(updateUI, 60);
+    });
+
+    // drag-to-scroll (desktop)
+    let isDown = false, startX, scrollStart;
+    track.addEventListener('mousedown', (e) => {
+      isDown = true;
+      track.classList.add('dragging');
+      startX = e.pageX;
+      scrollStart = track.scrollLeft;
+    });
+    window.addEventListener('mouseup', () => {
+      if (!isDown) return;
+      isDown = false;
+      track.classList.remove('dragging');
+      scrollToCard(currentIndex());
+    });
+    window.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      track.scrollLeft = scrollStart - (e.pageX - startX);
+    });
+
+    window.addEventListener('resize', updateUI);
+    updateUI();
+
+  </script>
+
+  <a class="whatsapp-fab" href="https://wa.me/919999999999" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M16 0C7.163 0 0 7.163 0 16c0 2.823.738 5.472 2.03 7.77L0 32l8.412-2.005A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0z" fill="#25D366"/>
+      <path d="M23.472 18.72c-.397-.199-2.35-1.159-2.714-1.292-.365-.133-.63-.199-.895.199-.265.397-1.026 1.292-1.258 1.557-.232.265-.464.298-.861.1-.397-.2-1.676-.618-3.193-1.97-1.18-1.053-1.977-2.353-2.209-2.75-.232-.397-.025-.612.174-.81.179-.178.397-.464.596-.696.199-.232.265-.397.397-.662.133-.265.066-.497-.033-.696-.1-.199-.895-2.157-1.226-2.953-.323-.776-.651-.671-.895-.683-.232-.011-.497-.013-.762-.013-.265 0-.696.1-1.06.497-.365.397-1.391 1.359-1.391 3.316 0 1.957 1.424 3.848 1.623 4.113.199.265 2.803 4.28 6.792 6.001.95.41 1.69.655 2.267.838.952.303 1.818.26 2.503.158.764-.114 2.35-.96 2.68-1.888.331-.928.331-1.723.232-1.888-.1-.166-.365-.265-.762-.464z" fill="#fff"/>
+    </svg>
+  </a>
+</body>
+</html>
