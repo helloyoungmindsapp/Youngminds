@@ -120,9 +120,7 @@ window.YM_CONFIG = {
       name: "Labeeb",
       age: 16,
       description: "Startup Idea Session Participant",
-      // Drafted from a description of Labeeb's experience — NOT his own words yet.
-      // Hidden on the live site until he approves this wording; then delete "pending".
-      pending: true,
+      // Wording approved by Labeeb (Nov 2026).
       text: "I never thought a simple problem I see every day could become a startup idea. It was something I had never really paid attention to before. This session helped me look at ordinary problems differently and discover an idea I could actually work on.",
     },
   ],
