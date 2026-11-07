@@ -253,7 +253,7 @@
     if (r.photo) { var im = new Image(); im.src = r.photo; im.alt = ""; im.loading = "lazy"; im.decoding = "async"; im.width = 50; im.height = 50; av.appendChild(im); }
     else av.innerHTML = ICON_USER;
     var who = document.createElement("div");
-    var nm = document.createElement("p"); nm.className = "review-name"; nm.textContent = r.name || "Startup Idea Session Student";
+    var nm = document.createElement("p"); nm.className = "review-name"; nm.textContent = (r.name || "Startup Idea Session Student") + (r.age ? " · Age " + r.age : "");
     var rl = document.createElement("p"); rl.className = "review-role";
     if (r.source === "linkedin") { rl.innerHTML = '<span class="review-source">' + ICON_LINKEDIN + "</span> "; rl.firstChild.appendChild(document.createTextNode(r.description || "LinkedIn Review")); }
     else rl.textContent = r.description || "Startup Idea Session Participant";
@@ -286,7 +286,7 @@
       more.lastChild.appendChild(document.createTextNode(r.name || "this student"));
       li.appendChild(more);
     }
-    if (r.placeholder) { var tag = document.createElement("span"); tag.className = "review-ph-tag"; tag.textContent = "Placeholder — replace with actual feedback"; li.appendChild(tag); }
+    if (r.placeholder || r.pending) { var tag = document.createElement("span"); tag.className = "review-ph-tag"; tag.textContent = r.pending ? "Draft — pending student approval" : "Placeholder — replace with actual feedback"; li.appendChild(tag); }
     return li;
   }
 
@@ -307,7 +307,7 @@
   function initReviews() {
     var section = $("#reviews"), vp = $("#reviews-viewport"), track_ = $("#reviews-track");
     var list = (C.reviews || []).filter(function (r) { return r && r.text; });
-    if (!dev) list = list.filter(function (r) { return !r.placeholder; });
+    if (!dev) list = list.filter(function (r) { return !r.placeholder && !r.pending; }); // drafts never go live
     if (!list.length) { section.hidden = true; return; }
 
     var originals = list.map(reviewCard);
