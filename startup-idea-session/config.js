@@ -38,7 +38,7 @@ window.YM_CONFIG = {
      NOTE: a booking-button click is tracked as a click only, never as a
      booking or purchase. Confirmed bookings must come from Wise.live. */
   analytics: {
-    gtmId: "",             // e.g. "GTM-AB12CD3" — paste the real container ID
+    gtmId: "GTM-5N65PMRQ", // YoungMinds.app container
     requireConsent: true,  // keep true: the audience includes 13–18 year olds
     debug: false,          // true (or ?ym_debug=1 in the URL) logs events in the console
   },
