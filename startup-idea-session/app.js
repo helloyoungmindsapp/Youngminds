@@ -7,73 +7,7 @@
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var dev = !!C.showIntegrationPlaceholders;
 
-  /* =====================================================
-     1. ANALYTICS (GTM / GA4 / Meta Pixel) + CONSENT
-     ===================================================== */
-  var A = C.analytics || {};
-  var hasTracking = !!(A.gtmId || A.ga4Id || A.metaPixelId);
-  var CONSENT_KEY = "ym_consent_v1";
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { window.dataLayer.push(arguments); }
-  window.gtag = window.gtag || gtag;
-  gtag("consent", "default", { ad_storage: "denied", analytics_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
-
-  var loaded = false;
-  function loadScript(src) { var s = document.createElement("script"); s.async = true; s.src = src; document.head.appendChild(s); }
-
-  function loadTracking() {
-    if (loaded || !hasTracking) return;
-    loaded = true;
-    gtag("consent", "update", { ad_storage: "granted", analytics_storage: "granted", ad_user_data: "granted", ad_personalization: "granted" });
-    if (A.gtmId) {
-      window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
-      loadScript("https://www.googletagmanager.com/gtm.js?id=" + encodeURIComponent(A.gtmId));
-      return; // GA4 + Pixel are configured inside GTM
-    }
-    if (A.ga4Id) {
-      loadScript("https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(A.ga4Id));
-      gtag("js", new Date());
-      gtag("config", A.ga4Id);
-    }
-    if (A.metaPixelId) {
-      /* Meta Pixel base code */
-      !function (f, b, e, v, n, t, s) { if (f.fbq) return; n = f.fbq = function () { n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments); }; if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = "2.0"; n.queue = []; t = b.createElement(e); t.async = !0; t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s); }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
-      window.fbq("init", A.metaPixelId);
-      window.fbq("track", "PageView");
-    }
-  }
-
-  /* Events are fire-and-forget (GA4 uses sendBeacon), so they never delay
-     navigation. A booking-link click is NOT a purchase: completed bookings
-     must be measured from Wise.live booking/payment data. */
-  function track(event, params) {
-    params = params || {};
-    window.dataLayer.push(Object.assign({ event: event }, params));   // GTM listens to these
-    if (!loaded || A.gtmId) return;
-    if (A.ga4Id) gtag("event", event, Object.assign({ transport_type: "beacon" }, params));
-    if (window.fbq && A.metaPixelId) window.fbq("trackCustom", event, params);
-  }
-
-  function setupConsent() {
-    var banner = $("#consent"), settings = $("#cookie-settings");
-    if (!hasTracking) return;
-    settings.hidden = false;
-    var choice = null;
-    try { choice = localStorage.getItem(CONSENT_KEY); } catch (e) {}
-    if (!A.requireConsent || choice === "granted") loadTracking();
-    else if (!choice) banner.hidden = false;
-    $$("[data-consent]", banner).forEach(function (b) {
-      b.addEventListener("click", function () {
-        var v = b.getAttribute("data-consent") === "grant" ? "granted" : "denied";
-        try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {}
-        banner.hidden = true;
-        if (v === "granted") { loadTracking(); track("page_view_consented"); }
-      });
-    });
-    settings.addEventListener("click", function () { banner.hidden = false; });
-  }
-  setupConsent();
-  track("lp_page_view", { page: "startup_idea_session" });
+  /* Analytics, consent and all event tracking live in analytics.js (loaded after this file). */
 
   /* =====================================================
      2. CONFIG-DRIVEN CONTENT + BOOKING LINKS
@@ -88,16 +22,8 @@
   $$("[data-legal]").forEach(function (a) { var u = legal[a.getAttribute("data-legal")]; if (u) { a.href = u; a.hidden = false; } });
   $("#year").textContent = new Date().getFullYear();
 
-  function areaOf(el) { var s = el.closest("section, footer, header, .sticky-cta"); return s ? (s.id || s.className.split(" ")[0]) : ""; }
-  $$("[data-track]").forEach(function (el) { el.addEventListener("click", function () { track(el.getAttribute("data-track"), { location: areaOf(el) }); }); });
-
-  // Booking CTAs: plain links to Wise.live (same tab). Track the click only.
-  $$("[data-book]").forEach(function (a) {
-    if (C.bookingUrl) a.href = C.bookingUrl;
-    a.addEventListener("click", function () {
-      track("book_session_click", { location: a.getAttribute("data-book"), link_url: a.href });
-    });
-  });
+  // Booking CTAs: plain links to Wise.live (same tab). Click tracking is in analytics.js.
+  $$("[data-book]").forEach(function (a) { if (C.bookingUrl) a.href = C.bookingUrl; });
 
   // Optional verified student example
   var ex = C.studentExample;
@@ -211,7 +137,6 @@
           btn.replaceWith(holder);
           v.play().catch(function () {}); // started by the visitor's tap
           v.focus();
-          track("testimonial_video_play", { index: i + 1 });
         }, { once: true });
         fig.appendChild(btn);
         if (t.name) { var cap = document.createElement("figcaption"); cap.className = "t-name"; cap.textContent = t.name; fig.appendChild(cap); }
@@ -299,7 +224,6 @@
     var tx = document.createElement("p"); tx.className = "review-text"; tx.textContent = r.text; body.appendChild(tx);
     reviewDialog._trigger = trigger;
     reviewDialog.showModal();
-    track("review_read_more", { reviewer: r.name || "" });
   }
   reviewDialog.addEventListener("click", function (e) { if (e.target === reviewDialog || e.target.closest("[data-close]")) reviewDialog.close(); });
   reviewDialog.addEventListener("close", function () { var t = reviewDialog._trigger; if (t && t.isConnected && t.tabIndex >= 0) t.focus(); });

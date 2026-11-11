@@ -31,16 +31,16 @@ window.YM_CONFIG = {
   },
 
   /* ---------------- ANALYTICS ----------------
-     Leave empty to disable. If gtmId is set, GA4 + Meta Pixel should be
-     configured inside GTM and only dataLayer events are pushed from here.
+     Only the Google Tag Manager container ID goes here. The GA4
+     Measurement ID and Meta Pixel ID are set INSIDE GTM (as constants).
+     Empty (or a placeholder) = nothing loads and no banner is shown.
      Nothing loads until the visitor accepts the consent banner.
-     NOTE: a click on a booking button is tracked as a click only.
-     Completed bookings/purchases must come from Wise.live data. */
+     NOTE: a booking-button click is tracked as a click only, never as a
+     booking or purchase. Confirmed bookings must come from Wise.live. */
   analytics: {
-    gtmId: "",          // e.g. "GTM-XXXXXXX"
-    ga4Id: "",          // e.g. "G-XXXXXXXXXX"
-    metaPixelId: "",    // e.g. "123456789012345"
-    requireConsent: true,
+    gtmId: "",             // e.g. "GTM-AB12CD3" — paste the real container ID
+    requireConsent: true,  // keep true: the audience includes 13–18 year olds
+    debug: false,          // true (or ?ym_debug=1 in the URL) logs events in the console
   },
 
   /* ---------------- HERO VIDEO ----------------
