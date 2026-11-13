@@ -166,7 +166,9 @@
     var a = e.target.closest && e.target.closest("a[data-whatsapp]");
     if (!a) return;
     var s = a.closest("section, footer, header");
-    track("contact_click", { contact_method: "whatsapp", contact_location: s ? (s.id || s.className.split(" ")[0]) : "other" });
+    var raw = s ? (s.id || s.className.split(" ")[0]) : "other";
+    var LOC = { hero: "hero", book: "final_booking", "site-footer": "footer", top: "header" }; // same names as cta_location
+    track("contact_click", { contact_method: "whatsapp", contact_location: LOC[raw] || raw });
   }, true);
 
   // 6. Testimonial videos — first manual play, 50 %, complete (per video, per page view).
@@ -196,24 +198,28 @@
     }, true);
   }
 
-  // 7. FAQ opens
+  // 7. FAQ opens — once per question per page view (closing and re-opening is not counted again)
   var FAQ_IDS = ["need_startup_idea", "suitable_for_beginners", "what_happens_during", "what_happens_after"];
-  var faq = $(".faq");
+  var faq = $(".faq"), faqSeen = {};
   if (faq) {
     faq.addEventListener("toggle", function (e) {
       var d = e.target; if (d.tagName !== "DETAILS" || !d.open) return;
-      var i = $$("details", faq).indexOf(d);
-      track("faq_open", { faq_id: FAQ_IDS[i] || "faq_" + (i + 1) });
+      var i = $$("details", faq).indexOf(d), id = FAQ_IDS[i] || "faq_" + (i + 1);
+      if (faqSeen[id]) return; faqSeen[id] = true;
+      track("faq_open", { faq_id: id });
     }, true);
   }
 
-  // 8. "Read more" on long written reviews (carousel movement and hovers are not tracked)
-  var reviewTrack = $("#reviews-track");
+  // 8. "Read more" on long written reviews — once per review per page view
+  //    (carousel movement and hovers are not tracked)
+  var reviewTrack = $("#reviews-track"), reviewSeen = {};
   if (reviewTrack) {
     reviewTrack.addEventListener("click", function (e) {
       var b = e.target.closest && e.target.closest("[data-review]");
       if (!b) return;
-      track("review_read_more", { review_id: "review_" + (Number(b.getAttribute("data-review")) + 1) });
+      var id = "review_" + (Number(b.getAttribute("data-review")) + 1);
+      if (reviewSeen[id]) return; reviewSeen[id] = true;
+      track("review_read_more", { review_id: id });
     }, true);
   }
 })();
