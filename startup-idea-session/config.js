@@ -25,7 +25,7 @@ window.YM_CONFIG = {
   /* The main site's legal links are currently placeholders ("#").
      Add the real URLs here; empty values hide the link. */
   legal: {
-    privacyUrl: "",
+    privacyUrl: "/privacy-policy/",
     termsUrl: "",
     refundUrl: "",
   },

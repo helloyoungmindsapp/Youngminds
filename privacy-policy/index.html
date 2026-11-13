@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Privacy Policy | YoungMinds.app</title>
+  <meta name="description" content="How YoungMinds.app uses analytics and cookies, what we do not collect, and the choices you have." />
+  <link rel="canonical" href="https://www.youngminds.app/privacy-policy/" />
+  <meta name="theme-color" content="#3C52D6" />
+  <link rel="icon" type="image/png" href="/images/fav.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" />
+  <!--
+    MAINTAINERS — keep this page true to the live setup:
+    • Data retention below says 14 months: it must match GA4 → Admin → Data collection → Data retention.
+    • If Meta Pixel (or any other tracker) is switched on in GTM, update "Services we use", the cookie
+      table and the "We do not use Meta" line BEFORE publishing that GTM version.
+    • Have the "Students under 18" section reviewed against the DPDP Act 2023 and its Rules.
+  -->
+  <style>
+    :root {
+      --blue: #3C52D6; --blue-soft: #eef0fc; --yellow: #FED700; --yellow-soft: #fff8cc;
+      --ink: #1a1a2e; --gray: #5d5d6e; --line: #e8e7e1; --cream: #fdf8ee; --white: #fff;
+      --font: "Gabarito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-padding-top: 88px; }
+    body { margin: 0; font-family: var(--font); color: var(--ink); background: var(--white); line-height: 1.6; font-size: 17px; -webkit-font-smoothing: antialiased; }
+    a { color: var(--blue); text-underline-offset: 2px; }
+    img { max-width: 100%; height: auto; display: block; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 6px; }
+    .skip-link { position: absolute; left: -999px; top: 8px; z-index: 10; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px; }
+    .skip-link:focus { left: 12px; }
+    .container { width: 100%; max-width: 820px; margin: 0 auto; padding: 0 24px; }
+
+    .site-header { position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+    .site-header .container { max-width: 1200px; display: flex; align-items: center; justify-content: space-between; height: 68px; gap: 16px; }
+    .site-header img { width: 150px; }
+    .back { font-weight: 600; font-size: 15px; color: var(--ink); text-decoration: none; border: 2px solid var(--ink); border-radius: 999px; padding: 7px 16px; box-shadow: 3px 3px 0 var(--ink); background: var(--yellow); white-space: nowrap; }
+    .back:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--ink); }
+
+    .hero { background: var(--cream); border-bottom: 1px solid var(--line); padding: 56px 0 44px; }
+    .eyebrow { display: inline-block; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--blue); background: var(--blue-soft); border-radius: 999px; padding: 4px 12px; margin-bottom: 14px; }
+    h1 { font-size: clamp(34px, 6vw, 48px); line-height: 1.1; margin: 0 0 12px; letter-spacing: -.01em; }
+    .updated { color: var(--gray); margin: 0; }
+
+    .summary { margin: 40px 0 8px; border: 2px solid var(--ink); border-radius: 22px; box-shadow: 6px 6px 0 var(--ink); background: var(--yellow-soft); padding: 24px 26px; }
+    .summary h2 { margin-top: 0; font-size: 22px; }
+    .summary ul { margin: 0; padding-left: 20px; }
+    .summary li + li { margin-top: 6px; }
+
+    main section { padding: 28px 0 4px; }
+    h2 { font-size: 26px; line-height: 1.2; margin: 0 0 12px; }
+    h3 { font-size: 19px; margin: 22px 0 8px; }
+    p { margin: 0 0 14px; }
+    ul { margin: 0 0 14px; padding-left: 22px; }
+    li + li { margin-top: 4px; }
+
+    .table-wrap { overflow-x: auto; margin: 8px 0 16px; border: 1px solid var(--line); border-radius: 14px; }
+    table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 560px; }
+    th, td { text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { background: var(--blue-soft); font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    code { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .9em; background: #f3f3f0; padding: 1px 6px; border-radius: 6px; }
+
+    .site-footer { margin-top: 56px; border-top: 1px solid var(--line); padding: 26px 0 36px; color: var(--gray); font-size: 15px; }
+    .site-footer .container { max-width: 1200px; display: flex; flex-wrap: wrap; gap: 10px 24px; justify-content: space-between; }
+    .site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+    .site-footer a { color: var(--ink); }
+
+    @media (max-width: 560px) {
+      body { font-size: 16px; }
+      .container { padding: 0 16px; }
+      .site-header img { width: 124px; }
+      .back { font-size: 14px; padding: 6px 12px; }
+      .hero { padding: 40px 0 32px; }
+      .summary { padding: 20px 18px; box-shadow: 4px 4px 0 var(--ink); }
+      h2 { font-size: 23px; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a href="/" aria-label="YoungMinds.app home"><img src="/startup-idea-session/images/logo.png" alt="YoungMinds.app" width="454" height="82" /></a>
+      <a class="back" href="/">Back to YoungMinds.app</a>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="container">
+      <span class="eyebrow">Legal</span>
+      <h1>Privacy Policy</h1>
+      <p class="updated">Last updated: 13 November 2026</p>
+    </div>
+  </div>
+
+  <main id="main" class="container">
+    <div class="summary">
+      <h2>The short version</h2>
+      <ul>
+        <li>We only use analytics on our <a href="/startup-idea-session/">Startup Idea Session</a> page, and only if you click <strong>Accept</strong>.</li>
+        <li>Analytics never collects your name, phone number, email or anything you type.</li>
+        <li>We do not use advertising tracking or ad personalisation.</li>
+        <li>You can change your choice at any time.</li>
+      </ul>
+    </div>
+
+    <section aria-labelledby="who">
+      <h2 id="who">Who we are</h2>
+      <p>YoungMinds.app is run by <strong>YM Innovations Pvt Ltd</strong> (“we”, “us”). This policy explains what information our website, www.youngminds.app, collects when you visit it and how we use it.</p>
+    </section>
+
+    <section aria-labelledby="analytics">
+      <h2 id="analytics">Analytics on the Startup Idea Session page</h2>
+      <h3>Only with your permission</h3>
+      <p>We use Google Analytics 4, loaded through Google Tag Manager, on our Startup Idea Session page (youngminds.app/startup-idea-session/) only. The rest of youngminds.app does not use analytics or advertising cookies.</p>
+      <p>The first time you visit that page, a banner asks whether you accept cookies. Nothing is loaded and no analytics cookie is set unless you click <strong>Accept</strong>. If you click <strong>Decline</strong>, or don't answer, the page works exactly the same and nothing is sent to Google Analytics.</p>
+
+      <h3>What we measure</h3>
+      <p>If you accept, we measure how the page is used, for example:</p>
+      <ul>
+        <li>which parts of the page were viewed and how far people scrolled</li>
+        <li>which FAQ questions were opened, and which “Read more” links on reviews were used</li>
+        <li>whether a student video was played, played halfway, or finished</li>
+        <li>clicks on the “Book” buttons and the WhatsApp link</li>
+      </ul>
+      <p>Google Analytics also receives the general information it collects from any website. This includes your device and browser type, approximate location (country or city), and how you found the page.</p>
+
+      <h3>What we do not collect</h3>
+      <p>Analytics never collects your name, phone number, email address or anything you type. A click on a “Book” button only tells us that someone clicked it, not who booked or paid.</p>
+
+      <h3>Settings we use</h3>
+      <ul>
+        <li>Google Analytics does not log or store IP addresses.</li>
+        <li>Google signals and ad personalisation are turned off, so this data is not used to build advertising profiles.</li>
+        <li>We do not use Meta (Facebook or Instagram) tracking on our website.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="cookies">
+      <h2 id="cookies">Cookies and browser storage</h2>
+      <p>These are only set on the Startup Idea Session page:</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">Name</th><th scope="col">Set by</th><th scope="col">Purpose</th><th scope="col">Kept for</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>_ga</code></td><td>Google Analytics</td><td>Tells apart visits from different browsers. Only set if you accept.</td><td>2 years</td></tr>
+            <tr><td><code>_ga_41KZ12WXRK</code></td><td>Google Analytics</td><td>Keeps track of your current visit. Only set if you accept.</td><td>2 years</td></tr>
+            <tr><td><code>ym_consent_v1</code> (browser storage, not a cookie)</td><td>YoungMinds.app</td><td>Remembers whether you clicked Accept or Decline, so we don't ask again.</td><td>Until you clear your browser data</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="services">
+      <h2 id="services">Services we use</h2>
+      <ul>
+        <li><strong>Google Analytics and Google Tag Manager</strong> (Google LLC): page analytics, as described above, only after you accept. Google may process this data outside India.</li>
+        <li><strong>Google Fonts</strong>: our pages load their font from Google, which receives your IP address to deliver it. No cookies are set.</li>
+        <li><strong>GitHub Pages</strong> (GitHub, Inc.): hosts this website. Like any web host, it may log technical information such as IP addresses for security.</li>
+        <li><strong>Wise.live</strong>: bookings and payments for our sessions happen on Wise.live, not on our website. Wise.live's own privacy policy applies there.</li>
+        <li><strong>WhatsApp</strong>: if you message us on WhatsApp, we receive your phone number and the messages you send, and use them to reply to you. WhatsApp's own privacy policy applies to that service.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="retention">
+      <h2 id="retention">How long we keep analytics data</h2>
+      <p>Google Analytics keeps detailed event data for 14 months, after which it is deleted automatically.</p>
+    </section>
+
+    <section aria-labelledby="students">
+      <h2 id="students">Students under 18</h2>
+      <p>Many visitors to our website are students aged 13 to 18. That is why analytics stays off unless someone clicks Accept, why we never collect names or contact details through analytics, and why we do not use advertising tracking or ad personalisation. If you are under 18, we encourage you to decide about cookies together with a parent or guardian.</p>
+    </section>
+
+    <section aria-labelledby="choices">
+      <h2 id="choices">Your choices and rights</h2>
+      <ul>
+        <li><strong>Change your cookie choice:</strong> click <strong>Cookie settings</strong> at the bottom of the <a href="/startup-idea-session/">Startup Idea Session</a> page.</li>
+        <li><strong>Remove cookies:</strong> clear the cookies and site data for youngminds.app in your browser settings.</li>
+        <li><strong>Ask about your data:</strong> you can contact us to ask what information we hold about you, or to have it corrected or deleted, or to raise a concern.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="contact">
+      <h2 id="contact">Contact us</h2>
+      <p>For questions or requests about your privacy, message us on WhatsApp at <a href="https://wa.me/919496040431" target="_blank" rel="noopener">+91 94960 40431</a>.</p>
+    </section>
+
+    <section aria-labelledby="changes">
+      <h2 id="changes">Changes to this policy</h2>
+      <p>If we change how we collect or use information, we will update this page and the “Last updated” date at the top.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© 2026 YM Innovations Pvt Ltd. All rights reserved.</p>
+      <nav aria-label="Footer">
+        <a href="/">YoungMinds.app</a>
+        <a href="/startup-idea-session/">Startup Idea Session</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
