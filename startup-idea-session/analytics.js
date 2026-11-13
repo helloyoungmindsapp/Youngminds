@@ -30,11 +30,16 @@
     ad_user_data: "denied", ad_personalization: "denied", // personalisation stays denied: audience includes minors
   });
 
+  // Events wait here until the visitor answers the banner: on Accept they are sent
+  // (after the consent update, so GTM may use them); on Decline they are discarded.
+  var consentState = null, queue = [];
   function track(event, params) {
     var data = { event: event, page_path: PAGE_PATH };
     for (var k in params) if (Object.prototype.hasOwnProperty.call(params, k)) data[k] = params[k];
+    if (DEBUG && window.console) console.info("[ym-analytics]", event, data, consentState || "waiting for consent");
+    if (!GTM_ID || consentState === "denied") return;          // nothing to send to / not allowed
+    if (consentState !== "granted") { if (queue.length < 100) queue.push(data); return; }
     window.dataLayer.push(data);
-    if (DEBUG && window.console) console.info("[ym-analytics]", event, data);
   }
   window.ymTrack = track; // for manual testing only
 
@@ -54,9 +59,13 @@
       analytics_storage: "granted", ad_storage: "granted",
       ad_user_data: "granted", ad_personalization: "denied",
     });
+    consentState = "granted";
     loadGTM();
+    var q = queue; queue = [];
+    q.forEach(function (d) { window.dataLayer.push(d); });
   }
   function deny() {
+    consentState = "denied"; queue = [];
     gtag("consent", "update", { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     if (typeof window.fbq === "function") window.fbq("consent", "revoke");
   }
