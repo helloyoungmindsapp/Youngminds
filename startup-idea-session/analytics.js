@@ -45,9 +45,38 @@
 
   /* ---------- Consent + GTM loader ---------- */
   var gtmLoaded = false;
+
+  // Keep personal details out of analytics: GA4 records the full page URL, so before any tag
+  // loads, drop every query parameter that is not a known campaign / debug parameter
+  // (e.g. a shared link like ?name=…&phone=… would otherwise be sent to Google).
+  // The page itself reads no query parameters, so nothing visible changes.
+  var KEEP_PARAMS = /^(utm_(source|medium|campaign|term|content|id)|gclid|gbraid|wbraid|fbclid|_gl|gtm_debug|ym_debug)$/;
+  function cleanUrl() {
+    if (!location.search || !window.history || !history.replaceState || !window.URLSearchParams) return;
+    try {
+      var p = new URLSearchParams(location.search), keep = new URLSearchParams(), dropped = false;
+      p.forEach(function (v, k) { if (KEEP_PARAMS.test(k)) keep.append(k, v); else dropped = true; });
+      if (!dropped) return;
+      var qs = keep.toString();
+      history.replaceState(history.state, "", location.pathname + (qs ? "?" + qs : "") + location.hash);
+    } catch (e) {}
+  }
+
+  // Remove Google Analytics cookies when a visitor declines or withdraws consent.
+  function clearAnalyticsCookies() {
+    var parts = location.hostname.split("."), domains = [""];
+    for (var i = 0; i < parts.length - 1; i++) domains.push("; domain=." + parts.slice(i).join("."));
+    document.cookie.split(";").forEach(function (c) {
+      var name = c.split("=")[0].trim();
+      if (!/^(_ga|_ga_.+|_gid|_gat.*)$/.test(name)) return;
+      domains.forEach(function (d) { document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/" + d; });
+    });
+  }
+
   function loadGTM() {
     if (gtmLoaded || !GTM_ID) return;
     gtmLoaded = true;
+    cleanUrl();
     window.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
     var s = document.createElement("script");
     s.async = true;
@@ -55,11 +84,15 @@
     document.head.appendChild(s);
   }
   function grant() {
+    // Analytics only. Advertising storage stays denied: no ad tags are active (Meta Pixel is
+    // paused) and the audience includes minors. If ad tags are ever enabled, revisit this AND
+    // the privacy policy + consent banner wording first.
     gtag("consent", "update", {
-      analytics_storage: "granted", ad_storage: "granted",
-      ad_user_data: "granted", ad_personalization: "denied",
+      analytics_storage: "granted", ad_storage: "denied",
+      ad_user_data: "denied", ad_personalization: "denied",
     });
     consentState = "granted";
+    setGaDisabled(false); // re-enable if the visitor withdrew and then accepted again
     loadGTM();
     var q = queue; queue = [];
     q.forEach(function (d) { window.dataLayer.push(d); });
@@ -68,6 +101,15 @@
     consentState = "denied"; queue = [];
     gtag("consent", "update", { analytics_storage: "denied", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
     if (typeof window.fbq === "function") window.fbq("consent", "revoke");
+    setGaDisabled(true);
+    clearAnalyticsCookies();
+  }
+  // Google's documented opt-out switch (window["ga-disable-G-…"]). Needed when consent is
+  // withdrawn after GTM has loaded: Consent Mode alone still lets GA4's automatic events
+  // (e.g. outbound clicks) send cookieless pings.
+  function setGaDisabled(off) {
+    var tm = window.google_tag_manager || {};
+    for (var id in tm) if (/^G-[A-Z0-9]+$/.test(id)) window["ga-disable-" + id] = off;
   }
   function getChoice() { try { return localStorage.getItem(CONSENT_KEY); } catch (e) { return null; } }
   function setChoice(v) { try { localStorage.setItem(CONSENT_KEY, v); } catch (e) {} }

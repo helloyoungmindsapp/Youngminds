@@ -7,7 +7,7 @@
   <meta name="description" content="How YoungMinds.app uses analytics and cookies, what we do not collect, and the choices you have." />
   <link rel="canonical" href="https://www.youngminds.app/privacy-policy/" />
   <meta name="theme-color" content="#3C52D6" />
-  <link rel="icon" type="image/png" href="/images/fav.png" />
+  <link rel="icon" type="image/png" href="../images/fav.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" />
@@ -85,8 +85,8 @@
 
   <header class="site-header">
     <div class="container">
-      <a href="/" aria-label="YoungMinds.app home"><img src="/startup-idea-session/images/logo.png" alt="YoungMinds.app" width="454" height="82" /></a>
-      <a class="back" href="/">Back to YoungMinds.app</a>
+      <a href="../" aria-label="YoungMinds.app home"><img src="../images/logo.png" alt="YoungMinds.app" width="454" height="82" /></a>
+      <a class="back" href="../">Back to YoungMinds.app</a>
     </div>
   </header>
 
@@ -102,9 +102,9 @@
     <div class="summary">
       <h2>The short version</h2>
       <ul>
-        <li>We only use analytics on our <a href="/startup-idea-session/">Startup Idea Session</a> page, and only if you click <strong>Accept</strong>.</li>
-        <li>Analytics never collects your name, phone number, email or anything you type.</li>
-        <li>We do not use advertising tracking or ad personalisation.</li>
+        <li>We only use analytics on our <a href="../startup-idea-session/">Startup Idea Session</a> page, and only if you click <strong>Accept</strong>.</li>
+        <li>Analytics is set up so that it does not receive your name, phone number, email or anything you type.</li>
+        <li>We do not use advertising cookies, advertising tracking or ad personalisation.</li>
         <li>You can change your choice at any time.</li>
       </ul>
     </div>
@@ -126,17 +126,19 @@
         <li>which parts of the page were viewed and how far people scrolled</li>
         <li>which FAQ questions were opened, and which “Read more” links on reviews were used</li>
         <li>whether a student video was played, played halfway, or finished</li>
-        <li>clicks on the “Book” buttons and the WhatsApp link</li>
+        <li>clicks on the “Book” buttons and the WhatsApp link, and the address of any link that takes you to another website</li>
       </ul>
-      <p>Google Analytics also receives the general information it collects from any website. This includes your device and browser type, approximate location (country or city), and how you found the page.</p>
+      <p>Google Analytics also receives the general information it collects from any website. This includes your device and browser type, screen size, language, approximate location (country or city), the page address, and how you found the page (for example, the website or campaign link you came from).</p>
+      <p>To recognise repeat visits from the same browser, Google Analytics stores a random identifier in a cookie (see the table below). This identifier does not contain your name or contact details, but some privacy laws treat it as personal data.</p>
 
-      <h3>What we do not collect</h3>
-      <p>Analytics never collects your name, phone number, email address or anything you type. A click on a “Book” button only tells us that someone clicked it, not who booked or paid.</p>
+      <h3>What we keep out of analytics</h3>
+      <p>Our analytics is set up so that it does not receive your name, phone number, email address or anything you type. Our events only describe what happened on the page, such as “FAQ question 2 opened”. A click on a “Book” button only tells us that someone clicked it, not who booked or paid.</p>
+      <p>As an extra safeguard, before analytics loads we remove any unexpected details from the page address (keeping only standard campaign tags such as <code>utm_source</code>). Google Analytics also automatically removes email addresses from page addresses.</p>
 
       <h3>Settings we use</h3>
       <ul>
-        <li>Google Analytics does not log or store IP addresses.</li>
-        <li>Google signals and ad personalisation are turned off, so this data is not used to build advertising profiles.</li>
+        <li>Google Analytics uses your IP address only to estimate your approximate location. It does not log or store the IP address.</li>
+        <li>Google signals and ad personalisation are turned off, and advertising cookies stay switched off even if you accept, so this data is not used to build advertising profiles.</li>
         <li>We do not use Meta (Facebook or Instagram) tracking on our website.</li>
       </ul>
     </section>
@@ -166,23 +168,32 @@
         <li><strong>GitHub Pages</strong> (GitHub, Inc.): hosts this website. Like any web host, it may log technical information such as IP addresses for security.</li>
         <li><strong>Wise.live</strong>: bookings and payments for our sessions happen on Wise.live, not on our website. Wise.live's own privacy policy applies there.</li>
         <li><strong>WhatsApp</strong>: if you message us on WhatsApp, we receive your phone number and the messages you send, and use them to reply to you. WhatsApp's own privacy policy applies to that service.</li>
+        <li><strong>Social media links</strong>: our homepage links to our Facebook, Instagram, LinkedIn and YouTube pages. Nothing is loaded from those sites unless you click a link; once you do, their own privacy policies apply.</li>
       </ul>
     </section>
 
     <section aria-labelledby="retention">
       <h2 id="retention">How long we keep analytics data</h2>
-      <p>Google Analytics keeps detailed event data for 14 months, after which it is deleted automatically.</p>
+      <p>Our Google Analytics data retention setting is 14 months. This applies to user-level and event-level data, meaning data linked to the cookie identifier and individual events. Google deletes this data automatically once it is older than 14 months.</p>
+      <p>The setting does not apply to aggregated reports (totals such as “page views per week” or “clicks per button”). Those reports contain no individual identifiers, and Google Analytics may keep them for longer.</p>
     </section>
 
     <section aria-labelledby="students">
       <h2 id="students">Students under 18</h2>
-      <p>Many visitors to our website are students aged 13 to 18. That is why analytics stays off unless someone clicks Accept, why we never collect names or contact details through analytics, and why we do not use advertising tracking or ad personalisation. If you are under 18, we encourage you to decide about cookies together with a parent or guardian.</p>
+      <!-- LEGAL REVIEW REQUIRED before publishing. Under India's DPDP Act 2023, everyone under 18 is a
+           "child". Section 9 requires verifiable parental consent before processing a child's personal
+           data (Rule 10 of the DPDP Rules 2025 sets out how) and prohibits tracking or behavioural
+           monitoring of children. Clicking "Accept" on a cookie banner is NOT verifiable parental consent.
+           A lawyer must decide whether page analytics on this page is permitted, and on what basis, before
+           the relevant provisions take effect, and whether this paragraph needs changing. Do not describe
+           the site as "DPDP compliant" without that sign-off. -->
+      <p>Many visitors to our website are students aged 13 to 18. Because of this, analytics stays off unless someone clicks Accept. We keep names and contact details out of analytics, and we do not use advertising cookies, advertising tracking or ad personalisation. If you are under 18, please decide about cookies together with a parent or guardian. A parent or guardian can also contact us to ask about, or have us delete, information about their child.</p>
     </section>
 
     <section aria-labelledby="choices">
       <h2 id="choices">Your choices and rights</h2>
       <ul>
-        <li><strong>Change your cookie choice:</strong> click <strong>Cookie settings</strong> at the bottom of the <a href="/startup-idea-session/">Startup Idea Session</a> page.</li>
+        <li><strong>Change your cookie choice or withdraw consent:</strong> click <strong>Cookie settings</strong> at the bottom of the <a href="../startup-idea-session/">Startup Idea Session</a> page. If you choose Decline, analytics stops straight away and its cookies are deleted from your browser. Information sent before you withdrew is not deleted automatically; contact us if you would like it removed.</li>
         <li><strong>Remove cookies:</strong> clear the cookies and site data for youngminds.app in your browser settings.</li>
         <li><strong>Ask about your data:</strong> you can contact us to ask what information we hold about you, or to have it corrected or deleted, or to raise a concern.</li>
       </ul>
@@ -203,8 +214,8 @@
     <div class="container">
       <p>© 2026 YM Innovations Pvt Ltd. All rights reserved.</p>
       <nav aria-label="Footer">
-        <a href="/">YoungMinds.app</a>
-        <a href="/startup-idea-session/">Startup Idea Session</a>
+        <a href="../">YoungMinds.app</a>
+        <a href="../startup-idea-session/">Startup Idea Session</a>
       </nav>
     </div>
   </footer>
