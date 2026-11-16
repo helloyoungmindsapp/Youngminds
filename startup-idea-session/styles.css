@@ -545,45 +545,75 @@ mark {
 }
 
 /* ---------- YoungPreneurAi info card (informational only, no links) ---------- */
-.ypai { padding: 0; }
+/* Follows the page's card language: white surface, 2px ink border, offset shadow (as .step-card).
+   YoungMinds green #275c43 is used only as an accent. */
+.ypai { padding: 0 0 56px; }
 .ypai-card {
-  display: grid; grid-template-columns: 132px minmax(0, 1.35fr) minmax(0, 1fr); grid-template-areas: "visual main builds" "foot foot foot";
-  gap: 28px 36px; align-items: center;
-  padding: 40px 44px; border-radius: 32px; background: #275c43; color: #fff;
-  border: 2px solid var(--ink); box-shadow: 10px 10px 0 0 var(--yellow);
+  --ypai-green: #275c43;
+  display: grid; grid-template-columns: 170px minmax(0, 1.45fr) minmax(0, 1fr);
+  grid-template-areas: "days main builds" "foot foot foot";
+  gap: 26px 40px; align-items: center;
+  padding: 36px 40px; background: var(--white); border: 2px solid var(--ink); border-radius: var(--radius-lg);
+  box-shadow: 6px 6px 0 0 var(--ink-2);
+  transition: transform .28s ease, box-shadow .28s ease;
 }
-.ypai-visual { grid-area: visual; width: 132px; }
-.ypai-visual svg { display: block; width: 100%; height: auto; }
+.ypai-days {
+  grid-area: days; align-self: stretch; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding-right: 34px; border-right: 1px dashed #d8dae2; line-height: 1;
+}
+.ypai-days-num {
+  position: relative; z-index: 0; font-size: clamp(3.4rem, 5vw, 4.4rem); font-weight: 800; letter-spacing: -.04em; color: var(--ypai-green);
+}
+.ypai-days-num::after {
+  content: ""; position: absolute; left: -4px; right: -4px; bottom: 6px; height: 12px; background: var(--yellow); z-index: -1; border-radius: 3px;
+}
+.ypai-days-label { margin-top: 10px; font-size: 14px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); }
 .ypai-main { grid-area: main; min-width: 0; }
-.ypai-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--yellow); }
-.ypai-card h2 { margin-top: 8px; font-size: clamp(1.9rem, 3.2vw, 2.5rem); font-weight: 800; line-height: 1.1; }
-.ypai-card h2 span { color: var(--yellow); }
-.ypai-tagline { margin-top: 8px; font-size: 1.15rem; font-weight: 700; }
-.ypai-desc { margin-top: 10px; color: rgba(255,255,255,.82); font-size: 1rem; }
-.ypai-builds { grid-area: builds; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 20px; padding: 20px 22px; }
-.ypai-label { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
-.ypai-builds li { position: relative; padding-left: 28px; font-weight: 600; }
-.ypai-builds li + li { margin-top: 8px; }
-.ypai-builds li::before {
-  content: ""; position: absolute; left: 0; top: .3em; width: 18px; height: 18px; border-radius: 50%;
-  background: #275c43; box-shadow: inset 0 0 0 5px var(--yellow);
+.ypai-card h2 { margin-top: 10px; font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 800; }
+.ypai-card h2 span { color: var(--ypai-green); }
+.ypai-tagline { margin-top: 8px; font-size: 1.15rem; font-weight: 700; color: var(--ink); }
+.ypai-desc { margin-top: 10px; color: var(--gray); font-size: 1rem; }
+.ypai-builds { grid-area: builds; min-width: 0; }
+.ypai-label { font-size: 13px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; }
+.ypai-builds ul { display: grid; gap: 12px; }
+.ypai-builds li { display: flex; align-items: center; gap: 12px; font-weight: 700; line-height: 1.3; }
+.ypai-builds li svg {
+  width: 28px; height: 28px; padding: 6px; border-radius: 50%; stroke-width: 2.6;
+  background: var(--green-soft); color: var(--ypai-green);
+  transition: background-color .28s ease, color .28s ease;
 }
 .ypai-foot {
-  grid-area: foot; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px;
-  padding-top: 22px; border-top: 1px solid rgba(255,255,255,.18);
+  grid-area: foot; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
+  padding-top: 20px; border-top: 1px dashed #d8dae2;
 }
 .ypai-facts { display: flex; flex-wrap: wrap; gap: 10px; }
-.ypai-facts li { padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); font-size: 15px; font-weight: 600; }
-.ypai-fund { margin: 0; padding: 8px 16px; border-radius: 999px; background: var(--yellow); color: var(--ink); font-weight: 700; font-size: 15px; }
-.ypai-fund strong { font-weight: 800; }
+.ypai-facts li {
+  padding: 6px 14px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--line);
+  font-size: 15px; font-weight: 600; color: var(--ink);
+}
+.ypai-fund { font-size: 15px; font-weight: 700; color: var(--ink); }
+
+/* Hover is a mouse-only nicety; touch devices get the same clean static card. */
+@media (hover: hover) {
+  .ypai-card:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 0 var(--ypai-green); }
+  .ypai-card:hover .ypai-builds li svg { background: var(--ypai-green); color: #fff; }
+}
 
 @media (max-width: 1080px) {
-  .ypai-card { grid-template-columns: 110px minmax(0, 1fr); grid-template-areas: "visual main" "builds builds" "foot foot"; padding: 36px; }
-  .ypai-visual { width: 110px; }
+  .ypai-card { grid-template-columns: 140px minmax(0, 1fr); grid-template-areas: "days main" "builds builds" "foot foot"; gap: 24px 32px; padding: 32px; }
+  .ypai-days { padding-right: 28px; }
+  .ypai-builds ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .ypai-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "visual" "main" "builds" "foot"; gap: 20px; padding: 28px 22px; border-radius: 24px; box-shadow: 6px 6px 0 0 var(--yellow); }
-  .ypai-visual { width: 88px; }
+  .ypai { padding-bottom: 40px; }
+  .ypai-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "days" "main" "builds" "foot"; gap: 20px; padding: 24px 20px; }
+  .ypai-days {
+    flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 10px;
+    padding: 0 0 16px; border-right: 0; border-bottom: 1px dashed #d8dae2;
+  }
+  .ypai-days-num { font-size: 3rem; }
+  .ypai-days-label { margin-top: 0; }
+  .ypai-builds ul { grid-template-columns: minmax(0, 1fr); }
   .ypai-foot { flex-direction: column; align-items: flex-start; }
   .ypai-facts li, .ypai-fund { font-size: 14px; }
 }
