@@ -636,3 +636,21 @@ mark {
   .ypai-facts li { align-items: flex-start; }
   .ypai-facts li svg { margin-top: 2px; }
 }
+
+/* Mobile polish — 16 Nov 2026 */
+@media (max-width: 760px) {
+  /* 1. YoungPreneurAi card: shorter on phones (description stays on desktop) */
+  .ypai-desc { display: none; }
+  .ypai-card { gap: 18px; }
+  .ypai-builds li { padding: 10px 12px; }
+  .ypai-ico { width: 34px; height: 34px; border-radius: 10px; }
+  .ypai-fund mark { white-space: nowrap; }
+
+  /* 2. Less blank space above the footer (footer bottom padding kept for the sticky bar) */
+  .booking { padding-bottom: 32px; }
+  .site-footer { margin-top: 32px; }
+
+  /* 3. Large booking buttons on one line ("Your" hidden visually; link text unchanged for analytics) */
+  .hide-sm { display: none; }
+  .btn-lg { padding: 16px 18px; white-space: nowrap; }
+}
