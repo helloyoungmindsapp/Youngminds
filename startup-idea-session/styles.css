@@ -544,76 +544,94 @@ mark {
   .js .reveal { opacity: 1; transform: none; }
 }
 
-/* ---------- YoungPreneurAi info card (informational only, no links) ---------- */
-/* Follows the page's card language: white surface, 2px ink border, offset shadow (as .step-card).
-   YoungMinds green #275c43 is used only as an accent. */
-.ypai { padding: 0 0 56px; }
+/* ---------- YoungPreneurAi programme card (informational only, no links) ---------- */
+/* Same card language as the rest of the page: 2px ink border, offset ink shadow (.step-card / .example),
+   soft tinted surface (.gain), outlined icon tiles (.icon). YoungMinds green #275c43 is the accent. */
+.ypai { padding: 0 0 24px; margin-top: -24px; }
 .ypai-card {
   --ypai-green: #275c43;
-  display: grid; grid-template-columns: 170px minmax(0, 1.45fr) minmax(0, 1fr);
-  grid-template-areas: "days main builds" "foot foot foot";
-  gap: 26px 40px; align-items: center;
-  padding: 36px 40px; background: var(--white); border: 2px solid var(--ink); border-radius: var(--radius-lg);
+  position: relative;
+  display: grid; grid-template-columns: minmax(0, 1fr) 280px;
+  grid-template-areas: "main days" "builds builds" "facts facts";
+  gap: 32px 48px; align-items: center;
+  padding: 44px 48px 40px; background: var(--bg-soft);
+  border: 2px solid var(--ink); border-radius: var(--radius-xl);
   box-shadow: 6px 6px 0 0 var(--ink-2);
   transition: transform .28s ease, box-shadow .28s ease;
 }
-.ypai-days {
-  grid-area: days; align-self: stretch; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding-right: 34px; border-right: 1px dashed #d8dae2; line-height: 1;
-}
-.ypai-days-num {
-  position: relative; z-index: 0; font-size: clamp(3.4rem, 5vw, 4.4rem); font-weight: 800; letter-spacing: -.04em; color: var(--ypai-green);
-}
-.ypai-days-num::after {
-  content: ""; position: absolute; left: -4px; right: -4px; bottom: 6px; height: 12px; background: var(--yellow); z-index: -1; border-radius: 3px;
-}
-.ypai-days-label { margin-top: 10px; font-size: 14px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--ink); }
+
+/* Left: programme name, headline, description */
 .ypai-main { grid-area: main; min-width: 0; }
-.ypai-card h2 { margin-top: 10px; font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 800; }
+.ypai-card h2 { margin-top: 14px; font-size: clamp(2rem, 3.4vw, 2.75rem); font-weight: 800; letter-spacing: -.02em; }
 .ypai-card h2 span { color: var(--ypai-green); }
-.ypai-tagline { margin-top: 8px; font-size: 1.15rem; font-weight: 700; color: var(--ink); }
-.ypai-desc { margin-top: 10px; color: var(--gray); font-size: 1rem; }
-.ypai-builds { grid-area: builds; min-width: 0; }
-.ypai-label { font-size: 13px; font-weight: 800; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; }
-.ypai-builds ul { display: grid; gap: 12px; }
-.ypai-builds li { display: flex; align-items: center; gap: 12px; font-weight: 700; line-height: 1.3; }
-.ypai-builds li svg {
-  width: 28px; height: 28px; padding: 6px; border-radius: 50%; stroke-width: 2.6;
-  background: var(--green-soft); color: var(--ypai-green);
+.ypai-tagline { margin-top: 10px; font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 700; color: var(--ink); }
+.ypai-desc { margin-top: 12px; max-width: 36em; color: var(--gray); }
+
+/* Right: the 100 DAYS block */
+.ypai-days {
+  grid-area: days; align-self: stretch;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;
+  padding: 28px 20px; border-radius: var(--radius-lg); border: 2px solid var(--ink);
+  background: var(--ypai-green); color: #fff; line-height: 1;
+  box-shadow: 5px 5px 0 0 var(--yellow);
+}
+.ypai-days-num { font-size: clamp(4.5rem, 7vw, 6rem); font-weight: 800; letter-spacing: -.05em; }
+.ypai-days-label { margin-top: 6px; font-size: 1.15rem; font-weight: 800; letter-spacing: 6px; text-transform: uppercase; color: var(--yellow); padding-left: 6px; }
+.ypai-days-age {
+  margin-top: 18px; padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,.14);
+  font-size: 14px; font-weight: 600; letter-spacing: .3px;
+}
+
+/* Outcomes: three equal tiles */
+.ypai-builds { grid-area: builds; min-width: 0; padding-top: 28px; border-top: 1px dashed #d3d8d4; }
+.ypai-label { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; }
+.ypai-builds ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.ypai-builds li {
+  display: flex; align-items: center; gap: 14px; min-width: 0;
+  padding: 16px 18px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-md);
+  font-size: 1.05rem; font-weight: 700; line-height: 1.3;
+}
+.ypai-ico {
+  flex: none; width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+  border: 1.5px solid var(--ink); background: var(--green-soft); color: var(--ypai-green);
   transition: background-color .28s ease, color .28s ease;
 }
-.ypai-foot {
-  grid-area: foot; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px;
-  padding-top: 20px; border-top: 1px dashed #d8dae2;
-}
-.ypai-facts { display: flex; flex-wrap: wrap; gap: 10px; }
-.ypai-facts li {
-  padding: 6px 14px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--line);
-  font-size: 15px; font-weight: 600; color: var(--ink);
-}
-.ypai-fund { font-size: 15px; font-weight: 700; color: var(--ink); }
+.ypai-ico svg { font-size: 23px; }
 
-/* Hover is a mouse-only nicety; touch devices get the same clean static card. */
+/* Supporting information */
+.ypai-facts { grid-area: facts; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 28px; margin-top: -8px; }
+.ypai-facts li { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 600; color: var(--ink); }
+.ypai-facts li svg { font-size: 19px; color: var(--ypai-green); }
+.ypai-facts .ypai-fund { margin-left: auto; font-weight: 700; }
+
+/* Hover is a mouse-only nicety; touch devices get the same static card. */
 @media (hover: hover) {
   .ypai-card:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 0 var(--ypai-green); }
-  .ypai-card:hover .ypai-builds li svg { background: var(--ypai-green); color: #fff; }
+  .ypai-card:hover .ypai-ico { background: var(--ypai-green); color: #fff; }
 }
 
 @media (max-width: 1080px) {
-  .ypai-card { grid-template-columns: 140px minmax(0, 1fr); grid-template-areas: "days main" "builds builds" "foot foot"; gap: 24px 32px; padding: 32px; }
-  .ypai-days { padding-right: 28px; }
-  .ypai-builds ul { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ypai-card { grid-template-columns: minmax(0, 1fr) 220px; gap: 28px 32px; padding: 36px; }
+  .ypai-builds li { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .ypai-facts .ypai-fund { margin-left: 0; }
 }
 @media (max-width: 760px) {
-  .ypai { padding-bottom: 40px; }
-  .ypai-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "days" "main" "builds" "foot"; gap: 20px; padding: 24px 20px; }
-  .ypai-days {
-    flex-direction: row; align-items: baseline; justify-content: flex-start; gap: 10px;
-    padding: 0 0 16px; border-right: 0; border-bottom: 1px dashed #d8dae2;
+  .ypai { margin-top: -16px; padding-bottom: 16px; }
+  .ypai-card {
+    grid-template-columns: minmax(0, 1fr); grid-template-areas: "days" "main" "builds" "facts";
+    gap: 24px; padding: 22px 20px 24px; border-radius: var(--radius-lg);
   }
-  .ypai-days-num { font-size: 3rem; }
-  .ypai-days-label { margin-top: 0; }
-  .ypai-builds ul { grid-template-columns: minmax(0, 1fr); }
-  .ypai-foot { flex-direction: column; align-items: flex-start; }
-  .ypai-facts li, .ypai-fund { font-size: 14px; }
+  .ypai-days { flex-direction: row; flex-wrap: wrap; align-items: baseline; justify-content: flex-start; gap: 4px 12px; padding: 18px 20px; text-align: left; }
+  .ypai-days-num { font-size: 3.4rem; }
+  .ypai-days-label { margin-top: 0; font-size: 1rem; letter-spacing: 4px; padding-left: 0; }
+  .ypai-days-age { margin: 0 0 0 auto; align-self: center; font-size: 13px; }
+  .ypai-card h2 { margin-top: 10px; }
+  .ypai-builds { padding-top: 22px; }
+  .ypai-builds ul { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .ypai-builds li { flex-direction: row; align-items: center; padding: 12px 14px; font-size: 1rem; }
+  .ypai-ico { width: 40px; height: 40px; border-radius: 12px; }
+  .ypai-ico svg { font-size: 20px; }
+  .ypai-facts { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: -4px; }
+  .ypai-facts li { align-items: flex-start; }
+  .ypai-facts li svg { margin-top: 2px; }
 }
