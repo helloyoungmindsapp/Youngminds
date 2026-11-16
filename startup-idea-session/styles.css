@@ -543,3 +543,47 @@ mark {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0ms !important; }
   .js .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- YoungPreneurAi info card (informational only, no links) ---------- */
+.ypai { padding: 0; }
+.ypai-card {
+  display: grid; grid-template-columns: 132px minmax(0, 1.35fr) minmax(0, 1fr); grid-template-areas: "visual main builds" "foot foot foot";
+  gap: 28px 36px; align-items: center;
+  padding: 40px 44px; border-radius: 32px; background: #275c43; color: #fff;
+  border: 2px solid var(--ink); box-shadow: 10px 10px 0 0 var(--yellow);
+}
+.ypai-visual { grid-area: visual; width: 132px; }
+.ypai-visual svg { display: block; width: 100%; height: auto; }
+.ypai-main { grid-area: main; min-width: 0; }
+.ypai-eyebrow { font-size: 13px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--yellow); }
+.ypai-card h2 { margin-top: 8px; font-size: clamp(1.9rem, 3.2vw, 2.5rem); font-weight: 800; line-height: 1.1; }
+.ypai-card h2 span { color: var(--yellow); }
+.ypai-tagline { margin-top: 8px; font-size: 1.15rem; font-weight: 700; }
+.ypai-desc { margin-top: 10px; color: rgba(255,255,255,.82); font-size: 1rem; }
+.ypai-builds { grid-area: builds; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.18); border-radius: 20px; padding: 20px 22px; }
+.ypai-label { font-size: 13px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--yellow); margin-bottom: 10px; }
+.ypai-builds li { position: relative; padding-left: 28px; font-weight: 600; }
+.ypai-builds li + li { margin-top: 8px; }
+.ypai-builds li::before {
+  content: ""; position: absolute; left: 0; top: .3em; width: 18px; height: 18px; border-radius: 50%;
+  background: #275c43; box-shadow: inset 0 0 0 5px var(--yellow);
+}
+.ypai-foot {
+  grid-area: foot; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px;
+  padding-top: 22px; border-top: 1px solid rgba(255,255,255,.18);
+}
+.ypai-facts { display: flex; flex-wrap: wrap; gap: 10px; }
+.ypai-facts li { padding: 7px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.35); font-size: 15px; font-weight: 600; }
+.ypai-fund { margin: 0; padding: 8px 16px; border-radius: 999px; background: var(--yellow); color: var(--ink); font-weight: 700; font-size: 15px; }
+.ypai-fund strong { font-weight: 800; }
+
+@media (max-width: 1080px) {
+  .ypai-card { grid-template-columns: 110px minmax(0, 1fr); grid-template-areas: "visual main" "builds builds" "foot foot"; padding: 36px; }
+  .ypai-visual { width: 110px; }
+}
+@media (max-width: 760px) {
+  .ypai-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "visual" "main" "builds" "foot"; gap: 20px; padding: 28px 22px; border-radius: 24px; box-shadow: 6px 6px 0 0 var(--yellow); }
+  .ypai-visual { width: 88px; }
+  .ypai-foot { flex-direction: column; align-items: flex-start; }
+  .ypai-facts li, .ypai-fund { font-size: 14px; }
+}
