@@ -11,18 +11,23 @@
    - A booking-button click is interest, NOT a booking or payment.
 
    Events (all carry page_name + page_path):
-     yp_page_view             on load
-     yp_hero_cta_click        any hero button  (cta_name, offer_type, destination)
-     yp_99_session_click      every ₹99 button (offer_type=99_session, cta_location, destination)
-     yp_999_trial_click       every ₹999 button (offer_type=999_seven_day_trial, cta_location,
-                              destination, booking_status)
-     yp_journey_phase_click   journey stop opened (phase_name, phase_index)
-     yp_review_interaction    video play / next / previous / first swipe (interaction, review_id)
-     yp_faq_open              FAQ opened, once per question (faq_id)
-     yp_scroll_depth          25 / 50 / 75 / 90 %
+     yp_page_view                   on load
+     yp_hero_cta_click              any hero button (cta_name, offer_type, destination)
+     yp_99_session_click            ₹99 button → Wise.live (offer_type=99_session, cta_location, destination)
+     yp_999_trial_click             ₹999 button → WhatsApp (offer_type=999_seven_day_experience, cta_location, destination)
+     yp_whatsapp_click              any WhatsApp link opened (cta_location, offer_type: 999_seven_day_experience | general)
+     yp_student_review_interaction  Student Voices next / previous / dot / swipe (interaction, review_id, slide_index, content_type)
+     yp_video_play                  first play of a Student Voices video (video_id, content_type)
+     yp_video_complete              video watched to the end (video_id, content_type)
+     yp_journey_phase_click         journey stop opened (phase_name, phase_index)
+     yp_faq_open                    FAQ opened, once per question (faq_id)
+     yp_scroll_depth                25 / 50 / 75 / 90 %
 
    A hero ₹99 click sends BOTH yp_hero_cta_click and yp_99_session_click.
+   A ₹999 click sends BOTH yp_999_trial_click and yp_whatsapp_click.
    Compare offers with yp_99_session_click vs yp_999_trial_click only.
+   Clicks are interest only: a Wise.live booking or a WhatsApp conversation is
+   NOT confirmed by these events.
    Debug: add ?ym_debug=1 to the URL to log every event in the console.
    ===================================================================== */
 (function () {
@@ -146,20 +151,22 @@
   // CTA clicks (capture phase, so the link still navigates normally)
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a"); if (!a) return;
-    var offer = a.getAttribute("data-offer") || a.getAttribute("data-offer-scroll");
+    var offer = a.getAttribute("data-offer");
     var loc = a.getAttribute("data-cta") || "other";
+    var isWa = /^https:\/\/wa\.me\//.test(a.href);
     if (a.closest(".hero")) {
-      track("yp_hero_cta_click", { cta_location: "hero", cta_name: a.getAttribute("data-offer") || a.getAttribute("data-hero") || "other", offer_type: offer || "none", destination: destOf(a) });
-      if (a.getAttribute("data-hero") === "see_7_day") {
-        track("yp_999_trial_click", { offer_type: "999_seven_day_trial", cta_location: "hero", destination: destOf(a), booking_status: "scroll_to_offers" });
-      }
+      track("yp_hero_cta_click", { cta_location: "hero", cta_name: offer || a.getAttribute("data-hero") || "other", offer_type: offer || "none", destination: destOf(a) });
     }
     if (offer === "99_session") {
       track("yp_99_session_click", { offer_type: "99_session", cta_location: loc, destination: destOf(a) });
-    } else if (offer === "999_seven_day_trial") {
-      track("yp_999_trial_click", {
-        offer_type: "999_seven_day_trial", cta_location: loc, destination: destOf(a),
-        booking_status: a.getAttribute("data-offer-scroll") ? "scroll_to_offers" : (a.getAttribute("data-trial-status") || "pending_whatsapp"),
+    } else if (offer === "999_seven_day_experience") {
+      track("yp_999_trial_click", { offer_type: "999_seven_day_experience", cta_location: loc, destination: destOf(a) });
+    }
+    if (isWa) {
+      track("yp_whatsapp_click", {
+        cta_location: offer ? loc : (a.getAttribute("data-wa") || "other"),
+        offer_type: offer === "999_seven_day_experience" ? "999_seven_day_experience" : "general",
+        destination: "https://wa.me/",
       });
     }
   }, true);
@@ -170,13 +177,19 @@
     track("yp_journey_phase_click", { phase_name: e.detail.phase, phase_index: e.detail.index });
   });
 
-  // Reviews (dispatched by app.js): video plays once per video; navigation once per direction
-  var track_ = $("#slider-track"), seen = {};
-  if (track_) track_.addEventListener("yp:review", function (e) {
-    var d = e.detail || {}, key = d.interaction + ":" + (d.review_id || "");
-    if (seen[key]) return; seen[key] = true;
-    track("yp_review_interaction", { interaction: d.interaction, review_id: d.review_id || "" });
-  });
+  // Student Voices (dispatched by app.js)
+  var voices = $("#voices"), videoSeen = {};
+  if (voices) {
+    voices.addEventListener("yp:voice", function (e) {
+      var d = e.detail || {};
+      track("yp_student_review_interaction", { interaction: d.interaction, review_id: d.review_id, slide_index: d.slide_index, content_type: d.content_type });
+    });
+    voices.addEventListener("yp:video", function (e) {
+      var d = e.detail || {}, key = d.kind + ":" + d.video_id;
+      if (videoSeen[key]) return; videoSeen[key] = true; // once per video per page view
+      track(d.kind === "complete" ? "yp_video_complete" : "yp_video_play", { video_id: d.video_id, content_type: d.content_type, video_location: "student_voices" });
+    });
+  }
 
   // FAQ opens — once per question per page view
   var faqSeen = {};

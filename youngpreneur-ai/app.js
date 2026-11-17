@@ -18,17 +18,17 @@
   }
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
-  /* ---------- Booking destinations ---------- */
+  /* ---------- Booking destinations ----------
+     ₹99  → Wise.live booking page (same tab).
+     ₹999 → WhatsApp chat with the official YoungMinds number, pre-filled
+            enquiry the visitor can edit before sending (new tab).        */
   var s99 = C.session99 && C.session99.bookingUrl;
-  if (s99) $$('a[data-offer="99_session"]').forEach(function (a) { a.href = s99; });
+  if (s99) $$('a[data-offer="99_session"]').forEach(function (a) { a.href = s99; a.removeAttribute("target"); });
 
   var t = C.trial999 || {};
-  var trialLive = /^https:\/\//.test(t.bookingUrl || "");
   $$("a[data-trial]").forEach(function (a) {
-    if (trialLive) { a.href = t.bookingUrl; a.removeAttribute("target"); a.removeAttribute("rel"); a.setAttribute("data-trial-status", "live"); }
-    else { a.href = waLink(t.whatsappMessage); a.setAttribute("data-trial-status", "pending_whatsapp"); }
+    a.href = waLink(t.whatsappMessage); a.target = "_blank"; a.rel = "noopener";
   });
-  var foot = $("[data-trial-foot]"); if (foot && trialLive) foot.textContent = "Book on our official booking page";
   var refund = $("[data-refund]"); if (refund && t.refundTerms) { refund.textContent = t.refundTerms; refund.hidden = false; }
   $$("a[data-wa]").forEach(function (a) { a.href = waLink(C.contact && C.contact.whatsappMessage); });
 
@@ -134,88 +134,117 @@
     }
   })();
 
-  /* ---------- Reviews slider ---------- */
-  (function reviews() {
-    var track = $("#slider-track"), slider = $("#slider"); if (!track || !slider) return;
-    var prog = (C.programmeReviews || []).filter(function (r) { return r && (r.text || r.src); });
-    var sess = (C.sessionReviews || []).filter(function (r) { return r && (r.text || r.src); });
-    var note = $("#reviews-note");
-    if (prog.length && note) note.textContent = "From YoungPreneurAi students and parents, and from students who started with our ₹99 Startup Idea Session.";
-
-    var items = prog.map(function (r) { return { r: r, label: "YoungPreneurAi", prog: true }; })
-      .concat(sess.map(function (r) { return { r: r, label: "₹99 Session", prog: false }; }));
-    if (dev && !prog.length) items.unshift({ placeholder: true }, { placeholder: true });
-
-    var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>';
-    items.forEach(function (it, i) {
-      var li = el("li", "r-card");
-      li.setAttribute("data-review-id", (it.prog ? "programme_" : "session_") + (i + 1));
-      if (it.placeholder) {
-        li.classList.add("is-placeholder");
-        li.appendChild(el("span", "r-tag prog", "Content needed"));
-        li.appendChild(el("p", "r-text", "Genuine YoungPreneurAi student or parent review — add to config.programmeReviews with permission."));
-        track.appendChild(li); return;
-      }
-      var r = it.r;
-      if (r.type === "video" && r.src) {
-        li.classList.add("r-video");
-        var btn = el("button", "r-media"); btn.type = "button";
-        btn.setAttribute("aria-label", "Play video: " + (r.alt || "student review"));
-        if (r.poster) { var p = new Image(); p.alt = ""; p.loading = "lazy"; p.decoding = "async"; p.src = r.poster; p.onerror = function () { this.remove(); }; btn.appendChild(p); }
-        btn.insertAdjacentHTML("beforeend", '<span class="play">' + PLAY + "</span>");
-        btn.addEventListener("click", function () {
-          var v = document.createElement("video");
-          v.src = r.src; v.controls = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto";
-          if (r.poster) v.poster = r.poster;
-          v.setAttribute("aria-label", r.alt || "Student review video");
-          btn.replaceWith(Object.assign(el("div", "r-media"), {}));
-          var holder = $(".r-media", li); holder.appendChild(v);
-          v.play().catch(function () {});
-          track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: "video_play", review_id: li.getAttribute("data-review-id") } }));
-        });
-        li.appendChild(btn);
-        li.appendChild(el("span", "r-tag" + (it.prog ? " prog" : ""), it.label + (r.name ? " · " + r.name : "")));
-      } else {
-        li.appendChild(el("span", "r-tag" + (it.prog ? " prog" : ""), it.label));
-        li.appendChild(el("p", "r-text", r.text));
-        var who = el("div", "r-who");
-        var av = el("span", "r-avatar", (r.name || "S").charAt(0).toUpperCase()); av.setAttribute("aria-hidden", "true");
-        var meta = el("div");
-        meta.appendChild(el("p", "r-name", (r.name || "Student") + (r.age ? " · Age " + r.age : "")));
-        meta.appendChild(el("p", "r-role", r.role || (it.prog ? "YoungPreneurAi" : "₹99 Startup Idea Session participant")));
-        who.appendChild(av); who.appendChild(meta); li.appendChild(who);
-      }
-      track.appendChild(li);
+  /* ---------- Student Voices: one student per slide (statement + their own video) ---------- */
+  (function voices() {
+    var section = $("#voices"), copy = $("#v-copy"), media = $("#v-media"), dotsBox = $("#v-dots");
+    if (!section || !copy || !media) return;
+    var preview = dev || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+    var slides = (C.studentVoices || []).filter(function (v) {
+      return v && v.name && v.quote && v.video && (v.consentConfirmed === true || preview);
     });
-    if (!items.length) { $("#reviews").hidden = true; return; }
 
-    // Only one video plays at a time
-    track.addEventListener("play", function (e) { $$("video", track).forEach(function (v) { if (v !== e.target) v.pause(); }); }, true);
-
-    // Prev / next buttons (desktop)
-    var ctrls = $$(".ctrl");
-    function step() { var c = $(".r-card", track); return c ? c.getBoundingClientRect().width + 22 : 340; }
-    function updateCtrls() {
-      var max = slider.scrollWidth - slider.clientWidth - 2;
-      ctrls.forEach(function (b) { b.disabled = Number(b.getAttribute("data-dir")) < 0 ? slider.scrollLeft <= 2 : slider.scrollLeft >= max; });
+    // Google rating (subtle, next to the heading)
+    var g = C.googleRating || {}, gEl = $("#g-rating");
+    if (gEl && g.show && g.rating && g.count) {
+      gEl.innerHTML = '<span class="g-stars" aria-hidden="true">★★★★★</span>';
+      var txt = el("span", "", g.rating + " · " + g.count + " Google reviews");
+      if (g.profileUrl) { var ga = el("a"); ga.href = g.profileUrl; ga.target = "_blank"; ga.rel = "noopener"; ga.appendChild(txt); gEl.appendChild(ga); }
+      else gEl.appendChild(txt);
+      gEl.setAttribute("aria-label", "Rated " + g.rating + " out of 5 from " + g.count + " Google reviews of YoungMinds.app");
+      gEl.hidden = false;
     }
-    var parent = $(".slider-ctrls"); if (parent) { parent.removeAttribute("aria-hidden"); }
-    ctrls.forEach(function (b) {
-      b.tabIndex = 0;
-      b.setAttribute("aria-label", Number(b.getAttribute("data-dir")) < 0 ? "Previous reviews" : "Next reviews");
-      b.addEventListener("click", function () {
-        var d = Number(b.getAttribute("data-dir"));
-        slider.scrollBy({ left: d * step(), behavior: reduceMotion ? "auto" : "smooth" });
-        track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: d < 0 ? "previous" : "next" } }));
-      });
+    if (!slides.length) return; // nothing publishable: section stays hidden
+    section.hidden = false;
+
+    var TYPE = {
+      programme_review: { label: "YoungPreneurAi student review", cls: "t-prog" },
+      idea_showcase: { label: "Student idea showcase", cls: "t-idea" },
+      session_review: { label: "₹99 Startup Idea Session review", cls: "t-session" },
+    };
+    var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>';
+    var idx = 0, current = null;
+    var single = slides.length < 2;
+    section.classList.toggle("is-single", single);
+
+    var dots = slides.map(function (v, i) {
+      var d = el("button", "v-dot"); d.type = "button";
+      d.setAttribute("aria-label", "Show " + v.name + " (" + (i + 1) + " of " + slides.length + ")");
+      d.addEventListener("click", function () { go(i, "dot"); });
+      dotsBox.appendChild(d); return d;
     });
-    var swiped = false;
-    slider.addEventListener("scroll", function () {
-      updateCtrls();
-      if (!swiped && slider.scrollLeft > 40) { swiped = true; track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: "scroll" } })); }
+
+    function emit(name, detail) { section.dispatchEvent(new CustomEvent(name, { detail: detail })); }
+    function slideId(v) { return (v.type || "review") + "_" + v.name.toLowerCase().replace(/[^a-z0-9]+/g, "_"); }
+
+    function render() {
+      var v = slides[idx], ty = TYPE[v.type] || TYPE.session_review;
+      if (current) { current.pause(); current = null; }
+
+      // Written side
+      copy.innerHTML = "";
+      copy.appendChild(el("p", "v-type " + ty.cls, ty.label));
+      copy.appendChild(el("span", "v-mark", "“")).setAttribute("aria-hidden", "true");
+      var q = el("blockquote", "v-quote"); q.appendChild(el("p", "", v.quote)); copy.appendChild(q);
+      if (v.support) copy.appendChild(el("p", "v-support", v.support));
+      var who = el("div", "v-who");
+      who.appendChild(el("span", "v-avatar", v.name.charAt(0).toUpperCase())).setAttribute("aria-hidden", "true");
+      var meta = el("div");
+      meta.appendChild(el("p", "v-name", v.name + (v.age ? " · Age " + v.age : "") + (v.grade ? " · Grade " + v.grade : "")));
+      if (v.project) meta.appendChild(el("p", "v-project", v.project));
+      who.appendChild(meta); copy.appendChild(who);
+      if (v.consentConfirmed !== true) copy.appendChild(el("p", "v-consent", "Preview only — confirm parent/guardian consent before publishing"));
+
+      // Video side: poster + play button; the <video> is created only on tap (nothing downloads before)
+      media.innerHTML = ""; media.classList.remove("v-error");
+      var btn = el("button", "v-play"); btn.type = "button";
+      btn.setAttribute("aria-label", "Play video: " + (v.videoLabel || v.name));
+      if (v.poster) { var img = new Image(); img.alt = ""; img.decoding = "async"; img.src = v.poster; img.onerror = function () { this.remove(); }; btn.appendChild(img); }
+      btn.insertAdjacentHTML("beforeend", '<span class="play">' + PLAY + "</span>");
+      media.appendChild(btn);
+      media.appendChild(el("p", "v-tag", v.name));
+      btn.addEventListener("click", function () {
+        var vid = document.createElement("video");
+        vid.src = v.video; vid.controls = true; vid.playsInline = true; vid.preload = "auto";
+        vid.setAttribute("playsinline", ""); if (v.poster) vid.poster = v.poster;
+        vid.setAttribute("aria-label", v.videoLabel || (v.name + " video"));
+        var started = false;
+        vid.addEventListener("play", function () { if (!started) { started = true; emit("yp:video", { kind: "play", video_id: slideId(v), content_type: v.type }); } });
+        vid.addEventListener("ended", function () { emit("yp:video", { kind: "complete", video_id: slideId(v), content_type: v.type }); });
+        vid.addEventListener("error", function () { media.classList.add("v-error"); });
+        btn.replaceWith(vid); current = vid;
+        var p = vid.play(); if (p && p.catch) p.catch(function () {});
+      });
+
+      dots.forEach(function (d, i) { d.classList.toggle("on", i === idx); d.setAttribute("aria-current", i === idx ? "true" : "false"); });
+      $("#voices-stage").setAttribute("aria-label", "Student voices, " + (idx + 1) + " of " + slides.length);
+    }
+
+    function go(i, how) {
+      var n = (i + slides.length) % slides.length;
+      if (n === idx && how !== "init") return;
+      idx = n; render();
+      if (how !== "init") emit("yp:voice", { interaction: how, slide_index: idx + 1, review_id: slideId(slides[idx]), content_type: slides[idx].type });
+    }
+    $$(".v-arrow", section).forEach(function (b) {
+      b.addEventListener("click", function () { var d = Number(b.getAttribute("data-dir")); go(idx + d, d < 0 ? "previous" : "next"); });
+    });
+    $("#voices-stage").addEventListener("keydown", function (e) {
+      if (single || e.target.tagName === "VIDEO") return;
+      if (e.key === "ArrowRight") { e.preventDefault(); go(idx + 1, "next"); }
+      if (e.key === "ArrowLeft") { e.preventDefault(); go(idx - 1, "previous"); }
+    });
+    // Swipe on the written side (the video keeps its own touch controls)
+    var sx = null, sy = null;
+    copy.addEventListener("touchstart", function (e) { var t0 = e.touches[0]; sx = t0.clientX; sy = t0.clientY; }, { passive: true });
+    copy.addEventListener("touchend", function (e) {
+      if (sx === null || single) return;
+      var t1 = e.changedTouches[0], dx = t1.clientX - sx, dy = t1.clientY - sy; sx = null;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) go(idx + (dx < 0 ? 1 : -1), "swipe");
     }, { passive: true });
-    window.addEventListener("resize", updateCtrls);
-    updateCtrls();
+    // Pause when scrolled out of view
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting && current) current.pause(); }); }).observe(section);
+
+    go(0, "init");
   })();
 
   /* ---------- Mobile sticky CTA (hidden over the hero, the offers and the final CTA) ---------- */

@@ -50,7 +50,7 @@
       </a>
       <nav class="header-nav" aria-label="Page sections">
         <a href="#journey">The journey</a>
-        <a href="#reviews">Reviews</a>
+        <a href="#voices">Student voices</a>
         <a href="#faq">FAQ</a>
       </nav>
       <a class="btn btn-primary btn-sm" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="header">Start with ₹99</a>
@@ -71,7 +71,7 @@
             <a class="btn btn-primary btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="hero">Start with ₹99 <span class="arrow" aria-hidden="true">→</span></a>
             <a class="btn btn-lg" href="#journey" data-hero="explore_journey">Explore the journey</a>
           </div>
-          <p class="hero-note">YoungPreneurAi by YoungMinds.app · <a href="#experiences" data-hero="see_7_day">or try 7 days live for ₹999</a></p>
+          <p class="hero-note">YoungPreneurAi by YoungMinds.app · <a href="#experiences" data-hero="see_7_day">or see the ₹999 7-day experience</a></p>
         </div>
 
         <div class="hero-visual">
@@ -194,7 +194,29 @@
       </div>
     </section>
 
-    <!-- ============ 05 MENTORSHIP & PARENT ACCESS ============ -->
+    <!-- ============ 05 STUDENT VOICES (written review + video, one student per slide; content in config.studentVoices) ============ -->
+    <section class="section voices" id="voices" aria-labelledby="voices-title" hidden>
+      <div class="container">
+        <header class="voices-head">
+          <h2 id="voices-title">Student voices</h2>
+          <!-- Google rating of the YoungMinds.app Business Profile (config.googleRating; verify before publishing) -->
+          <p class="g-rating" id="g-rating" hidden></p>
+        </header>
+        <div class="voices-stage" id="voices-stage" role="region" aria-roledescription="carousel" aria-label="Student voices">
+          <div class="v-copy" id="v-copy" aria-live="polite"></div>
+          <div class="v-side">
+          <div class="v-media-wrap">
+            <button type="button" class="v-arrow v-prev" data-dir="-1" aria-label="Previous student"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <div class="v-media" id="v-media"></div>
+            <button type="button" class="v-arrow v-next" data-dir="1" aria-label="Next student"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+          <div class="v-dots" id="v-dots" role="group" aria-label="Choose a student"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 MENTORSHIP & PARENT ACCESS ============ -->
     <section class="section guide" aria-labelledby="guide-title">
       <div class="container guide-grid">
         <figure class="guide-photo">
@@ -205,32 +227,12 @@
           <p class="eyebrow">Mentorship &amp; parent access</p>
           <h2 id="guide-title">Personalised guidance. <span class="hl-green">Visible progress.</span></h2>
           <ul class="guide-list">
-            <li><b>A dedicated mentor</b> for every student</li>
-            <li><b>1:1 online sessions</b> every week, built around your own work</li>
+            <li><b>A personalised mentor for every student.</b></li>
+            <li><b>1:1 personalised mentorship</b>, online every week, built around your own work</li>
             <li><b>A separate parent LMS account</b>, apart from the student’s</li>
             <li><b>Progress you can see</b> across all 100 days</li>
           </ul>
         </div>
-      </div>
-    </section>
-
-    <!-- ============ 06 REVIEWS ============ -->
-    <section class="section reviews" id="reviews" aria-labelledby="reviews-title">
-      <div class="container">
-        <header class="section-head reviews-head">
-          <div>
-            <p class="eyebrow">Student reviews</p>
-            <h2 id="reviews-title">Hear it from the students.</h2>
-            <p class="reviews-note" id="reviews-note">From students who joined our ₹99 Startup Idea Session — the first step into YoungPreneurAi.</p>
-          </div>
-          <div class="slider-ctrls" aria-hidden="true">
-            <button type="button" class="ctrl" data-dir="-1" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
-            <button type="button" class="ctrl" data-dir="1" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
-          </div>
-        </header>
-      </div>
-      <div class="slider" id="slider" tabindex="0" role="region" aria-label="Student reviews, scroll sideways">
-        <ul class="slider-track" id="slider-track"></ul>
       </div>
     </section>
 
@@ -253,9 +255,8 @@
             <p class="offer-tag">7 days · live programme</p>
             <h3 id="o999"><span class="offer-price">₹999</span>Seven-Day Live Experience</h3>
             <p class="offer-desc">Experience YoungPreneurAi before committing: seven days inside the live programme, so you can see how it works before choosing the full 100 days.</p>
-            <a class="btn btn-yellow btn-lg btn-block" href="https://wa.me/919496040431" target="_blank" rel="noopener" data-offer="999_seven_day_trial" data-cta="offers" data-trial>Start your 7-day experience <span class="arrow" aria-hidden="true">→</span></a>
-            <!-- INTEGRATION PLACEHOLDER: set config.trial999.bookingUrl when the ₹999 booking page exists -->
-            <p class="offer-foot" data-trial-foot>Opens WhatsApp · we confirm your start date</p>
+            <a class="btn btn-yellow btn-lg btn-block" href="https://wa.me/919496040431" target="_blank" rel="noopener" data-offer="999_seven_day_experience" data-cta="offers" data-trial>Start your 7-day experience <span class="arrow" aria-hidden="true">→</span></a>
+            <p class="offer-foot"><svg class="wa-ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z"/><path d="M9 8.6c.2 2.6 3.2 5.6 5.8 5.8l1.1-1.3-1.9-1-1 .9c-1-.4-2.1-1.5-2.5-2.5l.9-1-1-1.9z"/></svg>Opens WhatsApp with a short message you can edit</p>
             <p class="offer-refund" data-refund hidden></p>
           </article>
         </div>
@@ -276,7 +277,7 @@
           <details class="faq-item" data-faq="school_studies"><summary>Will this affect school studies?</summary>
             <div class="faq-body"><p>It runs alongside school: one online 1:1 session a week plus tasks in between. Ask us how to plan around exam periods.</p></div></details>
           <details class="faq-item" data-faq="how_mentoring_works"><summary>How does 1:1 mentoring work?</summary>
-            <div class="faq-body"><p>Every student has a dedicated mentor. Each week they meet online, review what the student tried, and set the next challenge.</p></div></details>
+            <div class="faq-body"><p>A personalised mentor for every student. Each week they meet online, review what the student tried, and set the next challenge.</p></div></details>
           <details class="faq-item" data-faq="parent_tracking"><summary>How can parents track progress?</summary>
             <div class="faq-body"><p>Through a separate parent account on the YoungMinds LMS that shows your child’s progress.</p></div></details>
           <details class="faq-item" data-faq="what_will_they_build"><summary>What will my child build in 100 days?</summary>
@@ -300,7 +301,7 @@
           <p class="final-sub">100 days. One mentor. A chance to build something real.</p>
           <div class="final-cta">
             <a class="btn btn-yellow btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="final">Book a ₹99 session <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-ghost btn-lg" href="#experiences" data-offer-scroll="999_seven_day_trial" data-cta="final">Explore the 7-day experience</a>
+            <a class="btn btn-ghost btn-lg" href="https://wa.me/919496040431" target="_blank" rel="noopener" data-offer="999_seven_day_experience" data-cta="final" data-trial>Explore the 7-day experience</a>
           </div>
           <p class="final-motto" aria-label="Experience it. Build it. Sell it. Pitch it."><span>Experience it.</span> <span>Build it.</span> <span>Sell it.</span> <span>Pitch it.</span></p>
           <p class="final-brand">YoungPreneurAi by YoungMinds.app</p>
@@ -319,7 +320,7 @@
         <a href="https://www.youngminds.app/">Visit YoungMinds.app</a>
         <a href="/startup-idea-session/">₹99 Startup Idea Session</a>
         <a href="/privacy-policy/">Privacy Policy</a>
-        <a href="https://wa.me/919496040431" data-wa target="_blank" rel="noopener">WhatsApp us</a>
+        <a href="https://wa.me/919496040431" data-wa="footer" target="_blank" rel="noopener">WhatsApp us</a>
       </nav>
     </div>
     <div class="container footer-bottom">

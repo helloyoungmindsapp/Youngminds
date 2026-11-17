@@ -20,17 +20,22 @@ window.YP_CONFIG = {
     bookingUrl: "https://youngminds-app.wise.live/book/strartup-seed-session",
   },
 
-  /* ---------------- OFFER B: ₹999 7-Day Live Experience ----------------
-     bookingUrl  — INTEGRATION PENDING. No booking page exists yet. While
-                   empty, the ₹999 buttons open a WhatsApp enquiry and say so.
-     refundTerms — PENDING. The refund is NOT mentioned on the page until
-                   the confirmed conditions are pasted here, e.g.
-                   "Refundable in full if you ask before Day 7 ends."
-                   (EXAMPLE ONLY — DO NOT USE UNLESS CONFIRMED)            */
+  /* ---------------- OFFER B: ₹999 Seven-Day Live Experience ----------------
+     Journey: WhatsApp chat with the official YoungMinds number (contact
+     below — the same number used on youngminds.app, the ₹99 page and the
+     Wise.live booking page). No form; the visitor edits and sends this
+     pre-filled message.
+     refundTerms — PENDING. The refund is NOT mentioned on the page until the
+     confirmed conditions are pasted here, e.g. "Fully refundable if you
+     cancel before Day 7." (EXAMPLE ONLY — DO NOT USE UNLESS CONFIRMED)     */
   trial999: {
-    bookingUrl: "",
+    whatsappMessage:
+      "Hi! I'm interested in the ₹999 YoungPreneurAi 7-Day Live Experience.\n\n" +
+      "Student Name:\n" +
+      "Student Age:\n" +
+      "Parent/Guardian Name:\n\n" +
+      "I'd like to know more about the experience and how to get started.",
     refundTerms: "",
-    whatsappMessage: "Hi YoungMinds! I'd like to start the ₹999 7-day YoungPreneurAi live experience. When does the next one start?",
   },
 
   contact: {
@@ -50,26 +55,46 @@ window.YP_CONFIG = {
     focus: "45% 60%",
   },
 
-  /* ---------------- REVIEWS ----------------
-     programmeReviews: genuine YoungPreneurAi STUDENT or PARENT reviews
-     (permission required; parent's permission for under-18s). Shown first,
-     labelled "YoungPreneurAi". EMPTY = none collected yet.
-       { type: "text", name: "", age: 15, role: "YoungPreneurAi student" | "Parent of a YoungPreneurAi student", text: "" }
-       { type: "video", src: "...mp4", poster: "...webp", name: "", role: "...", alt: "..." }
+  /* ---------------- GOOGLE RATING ----------------
+     YoungMinds.app Google Business Profile, from a screenshot taken
+     17 Nov 2026: 5.0 stars, 6 Google reviews. Re-check on Google and
+     update `checked` before every publish; set show: false if it drops
+     or cannot be checked. profileUrl: optional public Maps/Search link.  */
+  googleRating: { show: true, rating: "5.0", count: 6, checked: "2026-11-17", profileUrl: "" },
 
-     sessionReviews: genuine reviews from the ₹99 Startup Idea Session
-     (copied unedited from /startup-idea-session/config.js). Always labelled
-     as ₹99 session experiences — never as programme outcomes.            */
-  programmeReviews: [],
-
-  sessionReviews: [
-    { type: "video", src: "/startup-idea-session/videos/testimonial-2.mp4", poster: "/startup-idea-session/images/testimonial-2.webp", alt: "Student talking about their Startup Idea Session" },
-    { type: "text", name: "Roshan", age: 17, text: "I struggled for a week with my startup idea, but this one-hour session gave me clarity. It was really useful, and I'm excited for the next session!" },
-    { type: "text", name: "Labeeb", age: 16, text: "I never thought a simple problem I see every day could become a startup idea. It was something I had never really paid attention to before. This session helped me look at ordinary problems differently and discover an idea I could actually work on." },
-    { type: "video", src: "/startup-idea-session/videos/testimonial-1.mp4", poster: "/startup-idea-session/images/testimonial-1.webp", alt: "Student's voice-note feedback about the Startup Idea Session" },
-    { type: "text", name: "Sahal", age: 16, text: "It was a great experience! I learned how to turn small problems into solutions and think like a founder. Really insightful and inspiring." },
-    { type: "text", name: "Harikrishnan", age: 16, text: "I had a few ideas, but I was stuck. After attending this session, I got more clarity and confidence to move forward!" },
-    { type: "video", src: "/startup-idea-session/videos/testimonial-3.mp4", poster: "/startup-idea-session/images/testimonial-3.webp", alt: "Student's voice-note feedback about the Startup Idea Session" },
+  /* ---------------- STUDENT VOICES ----------------
+     One slide = ONE student: their own written statement + their own video.
+     Never mix students. Copy statements word for word.
+       type: "programme_review" — reviewing their YoungPreneurAi experience
+             "idea_showcase"    — explaining their own idea (NOT a programme review)
+             "session_review"   — reviewing the ₹99 Startup Idea Session
+       quote / support: the student's statement split into headline + rest
+       project: idea or project name (only if the student gave one)
+       consentConfirmed: true ONLY after written parent/guardian consent to
+       publish this identifiable video with the student's name and age.
+       Slides with false are hidden on the live site and shown on local
+       previews with a "consent to confirm" badge.                          */
+  studentVoices: [
+    {
+      type: "session_review",
+      name: "Harikrishnan", age: 16, project: "",
+      quote: "I had a few ideas, but I was stuck.",
+      support: "After attending this session, I got more clarity and confidence to move forward!",
+      video: "/startup-idea-session/videos/testimonial-2.mp4",
+      poster: "/startup-idea-session/images/testimonial-2.webp",
+      videoLabel: "Harikrishnan talking about his ₹99 Startup Idea Session",
+      consentConfirmed: false,
+    },
+    {
+      type: "session_review",
+      name: "Roshan", age: 17, project: "",
+      quote: "I struggled for a week with my startup idea, but this one-hour session gave me clarity.",
+      support: "It was really useful, and I'm excited for the next session!",
+      video: "/startup-idea-session/videos/testimonial-3.mp4",
+      poster: "/startup-idea-session/images/testimonial-3.webp",
+      videoLabel: "Roshan's voice-note feedback on his ₹99 Startup Idea Session",
+      consentConfirmed: false,
+    },
   ],
 
   /* Real student work for "What students build" (photos of prototypes, MVPs,
