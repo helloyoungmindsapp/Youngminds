@@ -131,6 +131,13 @@ window.YP_CONFIG = {
     { type: "text", name: "Sahal", age: 16, text: "It was a great experience! I learned how to turn small problems into solutions and think like a founder. Really insightful and inspiring." },
     { type: "text", name: "Harikrishnan", age: 16, text: "I had a few ideas, but I was stuck. After attending this session, I got more clarity and confidence to move forward!" },
     { type: "video", src: "/startup-idea-session/videos/testimonial-3.mp4", poster: "/startup-idea-session/images/testimonial-3.webp", alt: "Student's voice-note feedback about the Startup Idea Session" },
+    // LinkedIn review, copied unedited from /startup-idea-session/config.js
+    { type: "text", name: "Muhammed Kareem", age: 17, role: "LinkedIn Review", source: "linkedin",
+      text:
+        "An Inspiring Learning Experience with YOUNG MINDS APP!\n\n" +
+          "The YOUNG MINDS APP session was a valuable experience that taught me how to transform unconventional (even illogical) ideas into creative innovations and meaningful initiatives.\n\n" +
+          "It encouraged me to think beyond boundaries, develop an entrepreneurial mindset, and discover opportunities in unexpected places.\n\n" +
+          "Excited to keep learning, innovating, and growing as a future entrepreneur!" },
   ],
 
   /* Real student work for "What students build" (photos of prototypes, MVPs,

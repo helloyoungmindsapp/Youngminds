@@ -138,6 +138,10 @@ mark {
 .hero-cta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
 .hero-note { margin-top: 22px; font-size: 15px; color: var(--gray); }
 .hero-note a { color: var(--blue); font-weight: 700; text-underline-offset: 3px; }
+.trial-link { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 6px; text-decoration: none; }
+.trial-link:hover { text-decoration: underline; }
+.tl-days { padding: 1px 8px; border: 1.5px solid currentColor; border-radius: 999px; font-size: 13px; font-weight: 700; letter-spacing: .3px; line-height: 1.5; }
+.tl-price { margin-left: 2px; padding: 1px 8px; border-radius: 6px; background: var(--yellow); color: var(--ink); font-weight: 800; line-height: 1.5; }
 
 .hero-visual { position: relative; padding: 0 0 28px 28px; }
 .photo-frame {
@@ -420,6 +424,12 @@ mark {
 .r-media .play svg { font-size: 26px; fill: var(--ink); stroke: none; margin-left: 4px; }
 .r-video .r-tag { margin: 2px 4px; }
 .r-card.is-placeholder { border: 2px dashed #c9cce0; box-shadow: none; background: linear-gradient(160deg, #fff, #f7f8fd); color: #6a6f93; }
+
+.r-text { white-space: pre-line; }
+.r-text.is-clamped { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 7; line-clamp: 7; overflow: hidden; flex: 0 1 auto; }
+.r-more { align-self: flex-start; margin-top: auto; padding: 4px 0; border: 0; background: none; cursor: pointer; font: inherit; font-weight: 700; font-size: 15px; color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+.r-more:hover { color: var(--ink); }
+.r-linkedin { color: #0a66c2; font-weight: 600; }
 
 /* ============ 07 EXPERIENCES ============ */
 .experiences { background: var(--cream); }

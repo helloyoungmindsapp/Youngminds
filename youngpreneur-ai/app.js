@@ -299,12 +299,22 @@
         li.appendChild(el("span", "r-tag" + (it.prog ? " prog" : ""), it.label + (r.name ? " · " + r.name : "")));
       } else {
         li.appendChild(el("span", "r-tag" + (it.prog ? " prog" : ""), it.label));
-        li.appendChild(el("p", "r-text", r.text));
+        var rt = el("p", "r-text", r.text); li.appendChild(rt);
+        if (r.text.length > 260) { // long reviews: preview + Read more (as on the ₹99 page)
+          rt.classList.add("is-clamped");
+          var more = el("button", "r-more", "Read more"); more.type = "button"; more.setAttribute("aria-expanded", "false");
+          more.addEventListener("click", function () {
+            var open = !rt.classList.toggle("is-clamped");
+            more.textContent = open ? "Show less" : "Read more"; more.setAttribute("aria-expanded", String(open));
+            track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: open ? "read_more" : "read_less", review_id: li.getAttribute("data-review-id") } }));
+          });
+          li.appendChild(more);
+        }
         var who = el("div", "r-who");
         var av = el("span", "r-avatar", (r.name || "S").charAt(0).toUpperCase()); av.setAttribute("aria-hidden", "true");
         var meta = el("div");
         meta.appendChild(el("p", "r-name", (r.name || "Student") + (r.age ? " · Age " + r.age : "")));
-        meta.appendChild(el("p", "r-role", r.role || (it.prog ? "YoungPreneurAi" : "₹99 Startup Idea Session participant")));
+        meta.appendChild(el("p", "r-role" + (r.source === "linkedin" ? " r-linkedin" : ""), r.role || (it.prog ? "YoungPreneurAi" : "₹99 Startup Idea Session participant")));
         who.appendChild(av); who.appendChild(meta); li.appendChild(who);
       }
       track.appendChild(li);
@@ -314,30 +324,60 @@
     // Only one video plays at a time
     track.addEventListener("play", function (e) { $$("video", track).forEach(function (v) { if (v !== e.target) v.pause(); }); }, true);
 
-    // Prev / next buttons (desktop)
-    var ctrls = $$(".ctrl");
-    function step() { var c = $(".r-card", track); return c ? c.getBoundingClientRect().width + 22 : 340; }
-    function updateCtrls() {
-      var max = slider.scrollWidth - slider.clientWidth - 2;
-      ctrls.forEach(function (b) { b.disabled = Number(b.getAttribute("data-dir")) < 0 ? slider.scrollLeft <= 2 : slider.scrollLeft >= max; });
+    // Infinite loop: one set of inert clones on each side; after every scroll the
+    // position is silently moved back into the real set, so Next/Previous never end.
+    var originals = $$(".r-card", track);
+    var loop = originals.length > 1;
+    if (loop) {
+      var mk = function (c) { var k = c.cloneNode(true); k.classList.add("is-clone"); k.setAttribute("aria-hidden", "true"); k.setAttribute("inert", ""); k.removeAttribute("data-review-id"); return k; };
+      var before = document.createDocumentFragment(), after = document.createDocumentFragment();
+      originals.forEach(function (c) { before.appendChild(mk(c)); after.appendChild(mk(c)); });
+      track.insertBefore(before, track.firstChild); track.appendChild(after);
     }
+    var cards = $$(".r-card", track); // clones + originals, in visual order
+    var n = originals.length, offset = loop ? n : 0; // index of the first real card
+    function posOf(i) { return cards[i].offsetLeft - cards[0].offsetLeft; }
+    function currentIndex() { // card whose left edge is nearest the slider's start
+      var x = slider.scrollLeft, best = 0, bd = Infinity;
+      for (var i = 0; i < cards.length; i++) { var d = Math.abs(posOf(i) - x); if (d < bd) { bd = d; best = i; } }
+      return best;
+    }
+    function jump(left) {
+      slider.style.scrollSnapType = "none"; slider.style.scrollBehavior = "auto";
+      slider.scrollLeft = left;
+      void slider.offsetWidth; // apply before snapping is restored
+      slider.style.scrollSnapType = ""; slider.style.scrollBehavior = "";
+    }
+    function normalise() { // keep the visible card inside the real set
+      if (!loop) return;
+      var i = currentIndex();
+      if (i < offset) jump(posOf(i + n) + (slider.scrollLeft - posOf(i)));
+      else if (i >= offset + n) jump(posOf(i - n) + (slider.scrollLeft - posOf(i)));
+    }
+    if (loop) jump(posOf(offset)); // start on the first real review
+
+    // Prev / next buttons (desktop): always active, wrap around
+    var ctrls = $$(".ctrl");
     var parent = $(".slider-ctrls"); if (parent) { parent.removeAttribute("aria-hidden"); }
     ctrls.forEach(function (b) {
       b.tabIndex = 0;
       b.setAttribute("aria-label", Number(b.getAttribute("data-dir")) < 0 ? "Previous reviews" : "Next reviews");
       b.addEventListener("click", function () {
         var d = Number(b.getAttribute("data-dir"));
-        slider.scrollBy({ left: d * step(), behavior: reduceMotion ? "auto" : "smooth" });
+        normalise();
+        var target = Math.max(0, Math.min(cards.length - 1, currentIndex() + d));
+        slider.scrollTo({ left: posOf(target), behavior: reduceMotion ? "auto" : "smooth" });
         track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: d < 0 ? "previous" : "next" } }));
       });
     });
-    var swiped = false;
+    var swiped = false, startLeft = null, idle;
     slider.addEventListener("scroll", function () {
-      updateCtrls();
-      if (!swiped && slider.scrollLeft > 40) { swiped = true; track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: "scroll" } })); }
+      if (startLeft === null) startLeft = slider.scrollLeft;
+      if (!swiped && Math.abs(slider.scrollLeft - startLeft) > 40) { swiped = true; track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: "scroll" } })); }
+      clearTimeout(idle); idle = setTimeout(normalise, 180); // fallback where "scrollend" is not supported
     }, { passive: true });
-    window.addEventListener("resize", updateCtrls);
-    updateCtrls();
+    if ("onscrollend" in window) slider.addEventListener("scrollend", normalise);
+    window.addEventListener("resize", function () { if (loop) { var i = currentIndex(); jump(posOf(i)); normalise(); } });
   })();
 
   /* ---------- Mobile sticky CTA (hidden over the hero, the offers and the final CTA) ---------- */
