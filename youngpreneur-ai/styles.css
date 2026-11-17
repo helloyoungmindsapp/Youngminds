@@ -334,9 +334,10 @@ mark {
 .v-support { margin-top: 16px; max-width: 34em; font-size: 1.1rem; color: var(--gray); }
 .v-who { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
 .v-avatar { width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--blue-soft); color: var(--blue); border: 1.5px solid var(--ink); font-weight: 800; font-size: 1.1rem; }
+.v-avatar.has-photo { width: 64px; height: 64px; border: 0; overflow: hidden; background: var(--bg-soft); }
+.v-avatar.has-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .v-name { font-weight: 700; font-size: 1.1rem; }
 .v-project { font-size: 14px; color: var(--gray); }
-.v-consent { margin-top: 18px; align-self: flex-start; padding: 6px 12px; border: 2px dashed #c9cce0; border-radius: 10px; font-size: 13px; font-weight: 600; color: #6a6f93; }
 
 .v-media-wrap { position: relative; display: flex; align-items: center; gap: 16px; }
 .v-media {

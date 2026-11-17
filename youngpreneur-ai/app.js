@@ -138,6 +138,7 @@
   (function voices() {
     var section = $("#voices"), copy = $("#v-copy"), media = $("#v-media"), dotsBox = $("#v-dots");
     if (!section || !copy || !media) return;
+    // Consent is an internal publishing check (config.consentConfirmed), never shown on the page.
     var preview = dev || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
     var slides = (C.studentVoices || []).filter(function (v) {
       return v && v.name && v.quote && v.video && (v.consentConfirmed === true || preview);
@@ -192,13 +193,15 @@
       }
       if (v.support) copy.appendChild(el("p", "v-support", v.support));
       var who = el("div", "v-who");
-      who.appendChild(el("span", "v-avatar", v.name.charAt(0).toUpperCase())).setAttribute("aria-hidden", "true");
+      var av = el("span", "v-avatar" + (v.photo ? " has-photo" : ""));
+      if (v.photo) { var ph = new Image(); ph.src = v.photo; ph.alt = "Photo of " + v.name; ph.width = 64; ph.height = 64; ph.decoding = "async"; av.appendChild(ph); }
+      else { av.textContent = v.name.charAt(0).toUpperCase(); av.setAttribute("aria-hidden", "true"); }
+      who.appendChild(av);
       var meta = el("div");
       meta.appendChild(el("p", "v-name", v.name + (v.age ? " · Age " + v.age : "") + (v.grade ? " · Grade " + v.grade : "")));
       if (v.project) meta.appendChild(el("p", "v-project", v.project));
       if (v.translated && v.verbatim !== false) meta.appendChild(el("p", "v-note", "Translated from " + v.translated));
       who.appendChild(meta); copy.appendChild(who);
-      if (v.consentConfirmed !== true) copy.appendChild(el("p", "v-consent", "Preview only — confirm parent/guardian consent before publishing"));
 
       // Video side: poster + play button; the <video> is created only on tap (nothing downloads before)
       media.innerHTML = ""; media.classList.remove("v-error");

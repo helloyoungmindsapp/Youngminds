@@ -74,7 +74,7 @@ window.YP_CONFIG = {
        status: shown as a small label, e.g. "Work in progress"
        consentConfirmed: true ONLY after written parent/guardian consent to publish
        this identifiable video with the student's name. Slides with false are
-       hidden on the live site and shown on local previews with a badge.     */
+       hidden on the live site and shown on local previews (no notice on the page).     */
   studentVoices: [
     {
       type: "idea_showcase",
@@ -85,6 +85,7 @@ window.YP_CONFIG = {
       // From the video's own subtitles (00:01–00:20), translated from Malayalam.
       quote: "The idea came from my grandparents. Older people don't know how to use technology.",
       support: "His goal: an app like Duolingo that helps them learn it. Fitting the work around school, he built it over a few days. It's now a small app that runs on a phone, and he says there are still many improvements to make.",
+      photo: "assets/voices/nehan-photo.webp", // from nehan_photo.jpeg (matched to his video)
       video: "assets/voices/nehan-idea.mp4",
       poster: "assets/voices/nehan-idea.webp",
       videoLabel: "Nehan explaining his idea for a Duolingo-style technology app for older people (Malayalam with subtitles)",
@@ -102,6 +103,7 @@ window.YP_CONFIG = {
       // marks) by decision on 17 Nov 2026.
       quote: "She interviewed five people and found the real problem behind choosing clothes: decision fatigue.",
       support: "Feva is working through YoungPreneurAi: identifying a real-world problem, interviewing people and exploring solutions. In this video she presents her early AI styling assistant MVP to a real user for feedback.",
+      photo: "assets/voices/feva-photo.webp", // from feva_photo.JPG (same room and outfit as her video)
       video: "assets/voices/feva-idea.mp4",
       poster: "assets/voices/feva-idea.webp",
       videoLabel: "Feva presenting her early AI styling assistant MVP to a user",

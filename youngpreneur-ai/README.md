@@ -50,9 +50,9 @@ optional status label, so an idea showcase is never presented as a programme tes
 | Nehan · idea showcase | `assets/voices/nehan-idea.mp4` (from `Nehans_ idea .mp4`, re-encoded 540×960, 3.2 MB) | Quote and summary taken from the video's own Malayalam subtitles (translated, labelled "Translated from Malayalam"). Idea: a Duolingo-style app to help older people use technology; "early app, improvements in progress" (his words). | **To confirm** |
 | Feva · idea showcase | `assets/voices/feva-idea.mp4` (from `Feva_idea.mp4`, re-encoded 540×960, 5.0 MB) | The video has no speech subtitles, so there is **no quote**: the headline is written by YoungMinds (no quote marks) from the programme background supplied (5 interviews, decision fatigue) and the video caption "Feva presenting her MVP to a real user". Labelled "work in progress". Kept as written by decision on 17 Nov 2026. | **To confirm** |
 
-Grade/age is not shown for either student (not verified). Videos load only when tapped.
+Grade/age is not shown for either student (not verified). Profile photos: `assets/voices/nehan-photo.webp` (from `nehan_photo.jpeg`) and `assets/voices/feva-photo.webp` (from `feva_photo.JPG`), square crops, no other edits. Videos load only when tapped.
 
-**Consent gate:** slides with `consentConfirmed: false` show only on local previews (with a badge). If no slide is
+**Consent gate:** slides with `consentConfirmed: false` show only on local previews (no notice is shown on the page). If no slide is
 publishable, Student Voices is hidden on the live site and the Google rating moves to the reviews heading below.
 
 **Google rating:** star rating only, "5.0 ★ Google Rating" (no review count), from the YoungMinds.app Business Profile
