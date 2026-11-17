@@ -98,8 +98,8 @@ window.YP_CONFIG = {
       verbatim: false,
       // Not a quote: the video has no speech subtitles. Based on the programme
       // background supplied by YoungMinds and the video's caption
-      // "Feva presenting her MVP to a real user." Replace with her own words
-      // once a transcript is available.
+      // "Feva presenting her MVP to a real user." Kept as written (no quote
+      // marks) by decision on 17 Nov 2026.
       quote: "She interviewed five people and found the real problem behind choosing clothes: decision fatigue.",
       support: "Feva is working through YoungPreneurAi: identifying a real-world problem, interviewing people and exploring solutions. In this video she presents her early AI styling assistant MVP to a real user for feedback.",
       video: "assets/voices/feva-idea.mp4",
