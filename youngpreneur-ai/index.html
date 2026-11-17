@@ -6,14 +6,13 @@
   <title>YoungPreneurAi | Build Your First Startup in 100 Days</title>
   <meta name="description" content="A 100-day innovation and entrepreneurship programme for students aged 11–18. Experience real sales, build your own startup and pitch your idea with personalised 1:1 mentoring." />
   <link rel="canonical" href="https://www.youngminds.app/youngpreneur-ai/" />
-  <meta name="theme-color" content="#064B38" />
+  <meta name="theme-color" content="#3C52D6" />
 
-  <!-- Open Graph / social -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="YoungMinds.app" />
   <meta property="og:url" content="https://www.youngminds.app/youngpreneur-ai/" />
   <meta property="og:title" content="YoungPreneurAi | Build Your First Startup Before You Finish School" />
-  <meta property="og:description" content="A 100-day programme for students aged 11–18: try mini-ventures, build your own startup, find real customers and pitch it — with a personal 1:1 mentor." />
+  <meta property="og:description" content="100 days, ages 11–18, 1:1 mentoring: try mini-ventures, build your own startup, sell it and pitch it." />
   <meta property="og:image" content="https://www.youngminds.app/youngpreneur-ai/assets/og-youngpreneur-ai.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -23,22 +22,20 @@
   <link rel="icon" type="image/png" href="assets/fav.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800&display=swap" />
   <link rel="stylesheet" href="styles.css" />
   <script>document.documentElement.classList.add('js');</script>
 
-  <!-- Structured data: describes only confirmed programme facts (no fee is published) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Course",
     "name": "YoungPreneurAi",
-    "description": "A 100-day online innovation and entrepreneurship programme with personalised 1:1 mentoring, in which students aged 11–18 try mini-ventures, build their own startup and MVP, attempt real sales and pitch at Investor Pitch Day.",
+    "description": "A 100-day online innovation and entrepreneurship programme with personalised 1:1 mentoring for students aged 11–18: mini-ventures, their own startup and MVP, real selling and an investor pitch.",
     "url": "https://www.youngminds.app/youngpreneur-ai/",
-    "inLanguage": "en-IN",
     "audience": { "@type": "PeopleAudience", "suggestedMinAge": 11, "suggestedMaxAge": 18 },
     "provider": { "@type": "Organization", "name": "YoungMinds.app", "legalName": "YM Innovations Pvt Ltd", "url": "https://www.youngminds.app/", "logo": "https://www.youngminds.app/images/logo.png" },
-    "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "online", "courseWorkload": "P100D" }
+    "hasCourseInstance": { "@type": "CourseInstance", "courseMode": "online" }
   }
   </script>
 </head>
@@ -46,494 +43,300 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">
-    <div class="wrap header-inner">
-      <a href="#top" class="brand" aria-label="YoungPreneurAi by YoungMinds.app — back to top">
-        <img src="assets/youngpreneurai-logo.svg" alt="YoungPreneurAi by YoungMinds.app" width="155" height="31" />
+    <div class="container header-inner">
+      <a href="https://www.youngminds.app/" class="header-logo" aria-label="YoungMinds.app home">
+        <img src="assets/youngminds-logo.png" alt="YoungMinds.app" width="454" height="82" />
       </a>
-
-      <nav class="main-nav" id="main-nav" aria-label="Page sections">
-        <ul>
-          <li><a href="#journey">The Journey</a></li>
-          <li><a href="#outcomes">What You’ll Build</a></li>
-          <li><a href="#mentorship">Mentorship</a></li>
-          <li><a href="#parents">For Parents</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
+      <nav class="header-nav" aria-label="Page sections">
+        <a href="#journey">The journey</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#faq">FAQ</a>
       </nav>
-
-      <a class="btn btn-yellow btn-sm header-cta" href="https://youngminds-app.wise.live/book/strartup-seed-session"
-         data-offer="99_session" data-cta="header">Book a session</a>
-
-      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="main-nav">
-        <span class="sr-only">Menu</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path class="l1" d="M4 7h16"/><path class="l2" d="M4 12h16"/><path class="l3" d="M4 17h16"/></svg>
-      </button>
+      <a class="btn btn-primary btn-sm" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="header">Start with ₹99</a>
     </div>
   </header>
 
   <main id="main">
 
-    <!-- ============ 01. HERO ============ -->
-    <section class="hero" id="hero" aria-labelledby="hero-title" data-section="hero">
-      <div class="wrap hero-grid">
+    <!-- ============ 01 HERO ============ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="chip"><b>Ages 11–18</b><span>100 days</span><span>Real startup</span></p>
-          <h1 id="hero-title">Build your first startup <em>before you finish school.</em></h1>
-          <p class="hero-lede">YoungPreneurAi takes students from experimenting with mini-ventures to building their own startup, finding customers and pitching something they created.</p>
-
-          <div class="hero-ctas">
-            <a class="btn btn-yellow btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session"
-               data-offer="99_session" data-cta="hero">Start with a ₹99 session <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-ghost btn-lg" href="#journey" data-hero-cta="explore_journey">Explore the 100-day journey</a>
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Ages 11–18 <i>·</i> 100 days <i>·</i> 1:1 mentoring</p>
+          <h1 id="hero-title">Build your first startup <mark>before you finish school.</mark></h1>
+          <p class="hero-sub">100 days to go from experimenting with mini-ventures to building and selling your own startup.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="hero">Start with ₹99 <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-lg" href="#journey" data-hero="explore_journey">Explore the journey</a>
           </div>
-          <p class="hero-alt">Want to see the programme from the inside? <a href="#experiences" data-hero-cta="see_7_day">Try 7 days live for ₹999</a></p>
-
-          <ul class="stats" aria-label="Programme at a glance">
-            <li><strong>100</strong><span>Days</span></li>
-            <li><strong>1:1</strong><span>Personal mentor</span></li>
-            <li><strong>₹1L<sup>*</sup></strong><span>Up to, seed funding</span></li>
-          </ul>
-          <p class="fine"><sup>*</sup>Seed funding of up to ₹1,00,000 is an opportunity awarded on evaluation at Investor Pitch Day. It is not guaranteed for every participant.</p>
+          <p class="hero-note">YoungPreneurAi by YoungMinds.app · <a href="#experiences" data-hero="see_7_day">or try 7 days live for ₹999</a></p>
         </div>
 
-        <!-- Hero visual: a "founder's board" showing the real programme structure (no stock photos).
-             Swap for a genuine student photo when one is available (see README). -->
-        <div class="hero-visual" aria-hidden="true">
-          <div class="board">
-            <div class="board-top">
-              <span class="board-label">Founder</span>
-              <span class="board-you">You</span>
-              <span class="board-day">Day <b data-daycount>01</b> / 100</span>
-            </div>
-            <div class="board-bar"><i class="s1"></i><i class="s2"></i><i class="s3"></i></div>
-            <ol class="board-steps">
-              <li class="b1"><span class="dot"></span><div><b>Tinkering</b><small>3 mini-ventures · first real sales</small></div><em>25d</em></li>
-              <li class="b2"><span class="dot"></span><div><b>Innovation</b><small>Your own idea · your MVP</small></div><em>50d</em></li>
-              <li class="b3"><span class="dot"></span><div><b>Entrepreneurship</b><small>Sell it · pitch it</small></div><em>25d</em></li>
-            </ol>
-            <div class="board-pitch"><span>Day 100</span>Investor Pitch Day</div>
-          </div>
-          <div class="sticky-note">“What if my idea is silly?”<small>Then you’ll test it and find out. That’s the job.</small></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 02. THE PROBLEM ============ -->
-    <section class="section problem" id="problem" aria-labelledby="problem-title" data-section="problem">
-      <div class="wrap problem-grid">
-        <div>
-          <p class="kicker">The missing piece</p>
-          <h2 id="problem-title">School teaches you to find the right answer. <span class="accent">But who teaches you to find the right problem?</span></h2>
-        </div>
-        <div class="problem-body">
-          <p>School gives students a strong foundation. What most students rarely get is a chance to use it on something of their own — to:</p>
-          <ul class="ticks">
-            <li>explore their own ideas</li>
-            <li>notice everyday problems</li>
-            <li>experiment with solutions</li>
-            <li>understand real customers</li>
-            <li>try selling something</li>
-            <li>experience building a business</li>
-          </ul>
-          <p class="problem-close">YoungPreneurAi is that chance. It runs alongside school, not instead of it — and it turns what students already know into something they can <strong>try, test and build.</strong></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 03. THE PROMISE ============ -->
-    <section class="section promise" id="promise" aria-labelledby="promise-title" data-section="promise">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="kicker">Learn it vs. live it</p>
-          <h2 id="promise-title">Not another course. <span class="accent">A chance to build something real.</span></h2>
-        </header>
-
-        <div class="swap" role="table" aria-label="Instead of learning about, students actually do">
-          <div class="swap-head" role="row">
-            <span role="columnheader">Instead of learning about…</span>
-            <span role="columnheader">…students actually</span>
-          </div>
-          <div class="swap-row reveal" role="row"><s role="cell">Entrepreneurship</s><b role="cell">explore opportunities and build mini-ventures</b></div>
-          <div class="swap-row reveal" role="row"><s role="cell">Marketing</s><b role="cell">find customers and attempt real sales</b></div>
-          <div class="swap-row reveal" role="row"><s role="cell">Products</s><b role="cell">build an MVP and test it with real users</b></div>
-          <div class="swap-row reveal" role="row"><s role="cell">Business models</s><b role="cell">develop their own startup and prepare to pitch it</b></div>
-        </div>
-
-        <ul class="reassure" aria-label="Before you start">
-          <li><b>No idea yet?</b> You don’t need one to start.</li>
-          <li><b>Never done business?</b> Nobody expects you to have.</li>
-          <li><b>Experiment flopped?</b> Good — that’s data. Iterate.</li>
-        </ul>
-      </div>
-    </section>
-
-    <!-- ============ 04. THE 100-DAY CURRICULUM MAP ============ -->
-    <section class="section journey" id="journey" aria-labelledby="journey-title" data-section="curriculum">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="kicker kicker-yellow">The 100-day map</p>
-          <h2 id="journey-title">100 days. Three phases. <span class="accent-y">One real startup journey.</span></h2>
-          <p>From experimenting with mini-ventures to building and selling their own startup.</p>
-        </header>
-
-        <!-- Proportional overview: 25 + 50 + 25 = 100 days -->
-        <div class="phasebar" role="list" aria-label="Phase lengths">
-          <a role="listitem" href="#phase-1" class="pb pb1" data-phase="tinkering" style="--w:25"><b>Tinkering</b><span>25 days</span></a>
-          <a role="listitem" href="#phase-2" class="pb pb2" data-phase="innovation" style="--w:50"><b>Innovation</b><span>50 days</span></a>
-          <a role="listitem" href="#phase-3" class="pb pb3" data-phase="entrepreneurship" style="--w:25"><b>Entre&shy;pre&shy;neur&shy;ship</b><span>25 days</span></a>
-        </div>
-        <div class="phasebar-scale" aria-hidden="true"><span>Day 1</span><span>25</span><span>75</span><span>100</span></div>
-
-        <ol class="timeline">
-          <!-- PHASE 01 -->
-          <li class="phase reveal" id="phase-1" data-phase="tinkering">
-            <div class="phase-meta">
-              <span class="phase-no">Phase 01</span>
-              <h3>Tinkering</h3>
-              <span class="phase-days">Days 01–25 · 25 days</span>
-            </div>
-            <div class="phase-body">
-              <p class="phase-head">Start by experiencing business.</p>
-              <p>Students work through <strong>three different mini-venture scenarios</strong> — so they experience entrepreneurship before deciding what they want to build.</p>
-              <ul class="steps">
-                <li>Create an offer</li><li>Understand customer needs</li><li>Find potential customers</li>
-                <li>Attempt real sales</li><li>Learn from responses</li><li>Try a different approach</li>
-              </ul>
-              <p class="outcome"><span>Core outcome</span>Real sales experience</p>
-            </div>
-          </li>
-          <li class="milestone" data-milestone><span>Day 25</span>Phase review with student, parent and mentor</li>
-
-          <!-- PHASE 02 -->
-          <li class="phase phase-wide reveal" id="phase-2" data-phase="innovation">
-            <div class="phase-meta">
-              <span class="phase-no">Phase 02</span>
-              <h3>Innovation</h3>
-              <span class="phase-days">Days 26–75 · 50 days</span>
-            </div>
-            <div class="phase-body">
-              <p class="phase-head">Now build something of your own.</p>
-              <p>Students move from experiments to <strong>their own startup</strong> — and keep testing, changing and improving it based on what real people say.</p>
-              <ol class="loop" aria-label="The build–test–improve loop">
-                <li><b>Find</b> a real problem and explore the opportunity</li>
-                <li><b>Shape</b> your own startup idea and define its selling point</li>
-                <li><b>Build</b> a first product or MVP</li>
-                <li><b>Test</b> your value proposition and different offerings</li>
-                <li><b>Explore</b> how to reach customers and how to deliver</li>
-                <li><b>Iterate</b> based on feedback — then test again</li>
-              </ol>
-              <p class="outcome"><span>Core outcome</span>Your own startup with a clear selling point</p>
-            </div>
-          </li>
-          <li class="milestone" data-milestone><span>Day 75</span>Phase review with student, parent and mentor</li>
-
-          <!-- PHASE 03 -->
-          <li class="phase reveal" id="phase-3" data-phase="entrepreneurship">
-            <div class="phase-meta">
-              <span class="phase-no">Phase 03</span>
-              <h3>Entrepreneurship</h3>
-              <span class="phase-days">Days 76–100 · 25 days</span>
-            </div>
-            <div class="phase-body">
-              <p class="phase-head">Take it to the market.</p>
-              <ul class="steps">
-                <li>Refine the offering</li><li>Sell the product</li><li>Talk with customers</li>
-                <li>Prepare the business presentation</li><li>Develop the investor pitch</li><li>Present the startup</li>
-              </ul>
-              <p class="outcome"><span>Core outcome</span>Selling experience + investor pitch</p>
-            </div>
-          </li>
-          <li class="milestone milestone-final"><span>Day 100</span>Investor Pitch Day<em data-milestone> · final review</em></li>
-        </ol>
-
-        <p class="journey-close">100 days. <span>One continuous journey.</span></p>
-      </div>
-    </section>
-
-    <!-- ============ 05. OUTCOMES ============ -->
-    <section class="section outcomes" id="outcomes" aria-labelledby="outcomes-title" data-section="outcomes">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="kicker">What your child walks away with</p>
-          <h2 id="outcomes-title">Not just certificates. <span class="accent">Something they actually built.</span></h2>
-        </header>
-        <ol class="outcome-list">
-          <li class="reveal"><span class="n">01</span><h3>A validated idea</h3><p>An opportunity identified through real-world observation and customer conversations.</p></li>
-          <li class="reveal"><span class="n">02</span><h3>A working MVP</h3><p>An early version of a product, developed and tested with real users.</p></li>
-          <li class="reveal"><span class="n">03</span><h3>Real sales experience</h3><p>A chance to understand customers, communicate value and attempt real selling.</p></li>
-          <li class="reveal"><span class="n">04</span><h3>Entrepreneurial skills</h3><p>Problem-solving, communication, experimentation, decision-making and presentation.</p></li>
-          <li class="reveal"><span class="n">05</span><h3>A startup portfolio</h3><p>A record of their work, experiments, product development and startup-building progress.</p></li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- ============ 06. INVESTOR PITCH DAY ============ -->
-    <section class="section pitch" id="pitch-day" aria-labelledby="pitch-title" data-section="pitch_day">
-      <div class="wrap pitch-grid">
-        <div>
-          <p class="kicker kicker-dark">Day 100 · Investor Pitch Day</p>
-          <h2 id="pitch-title">Your idea deserves a stage.</h2>
-          <p class="pitch-lede">Students present their startups to an evaluation panel and get the chance to show:</p>
-          <ul class="pitch-list">
-            <li>the problem they identified</li>
-            <li>the product they built</li>
-            <li>what they learned about their customers</li>
-            <li>their business model</li>
-            <li>their vision for the startup</li>
-          </ul>
-        </div>
-        <div class="fund">
-          <p class="fund-label">Seed funding opportunity</p>
-          <p class="fund-amount"><small>up to</small> ₹1,00,000</p>
-          <p class="fund-note"><strong>Funding is awarded based on evaluation.</strong> Seed funding is an opportunity, not a guaranteed amount for every participant.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 07. MENTORSHIP ============ -->
-    <section class="section mentor" id="mentorship" aria-labelledby="mentor-title" data-section="mentorship">
-      <div class="wrap mentor-grid">
-        <figure class="mentor-photo">
-          <img src="assets/mentor-live-session.webp" width="720" height="1280" loading="lazy" decoding="async"
-               alt="A YoungMinds mentor speaking with a student during a live 1:1 online session, laptop open on the desk" />
-          <figcaption><span class="live-dot" aria-hidden="true"></span>A YoungMinds mentor in a live 1:1 online session</figcaption>
-        </figure>
-        <div>
-          <p class="kicker">Personal mentorship</p>
-          <h2 id="mentor-title">Your journey. Your mentor. <span class="accent">Your progress.</span></h2>
-          <p class="mentor-lede">Not a tuition class. Think of it as having someone in your corner while you build your first startup — someone who responds to what <em>you</em> actually did this week.</p>
-          <ul class="mentor-points">
-            <li><b>A dedicated mentor</b> for every student, for the whole 100 days.</li>
-            <li><b>A weekly 1:1 online session</b> of about an hour, booked through the student LMS (subject to mentor availability).</li>
-            <li><b>Guidance based on real progress</b> — your experiments, your customers, your product.</li>
-            <li><b>Challenges and feedback</b> on your own work, not a fixed script.</li>
-          </ul>
-          <ol class="week" aria-label="How a typical week works">
-            <li><span>1</span>1:1 session with your mentor</li>
-            <li><span>2</span>Work on your tasks and experiments</li>
-            <li><span>3</span>Bring back what happened — and go again</li>
+        <div class="hero-visual">
+          <figure class="photo-frame" id="hero-media">
+            <img class="hero-poster" src="assets/hero-session.webp" width="720" height="1280" alt="A YoungMinds mentor's laptop during a live 1:1 online session with a student" fetchpriority="high" />
+            <figcaption class="call-bar"><span class="live"><i aria-hidden="true"></i>Live 1:1 mentoring</span></figcaption>
+          </figure>
+          <ol class="route-card" aria-label="The 100-day route">
+            <li><b class="c-blue">01</b>Mini-ventures</li>
+            <li><b class="c-coral">02</b>Your startup</li>
+            <li><b class="c-green">03</b>Sell it</li>
+            <li><b class="c-yellow">★</b>Pitch Day</li>
           </ol>
         </div>
       </div>
     </section>
 
-    <!-- ============ 08. PARENT TRANSPARENCY ============ -->
-    <section class="section parents" id="parents" aria-labelledby="parents-title" data-section="parents">
-      <div class="wrap">
-        <header class="section-head">
-          <p class="kicker">For parents</p>
-          <h2 id="parents-title">You stay connected. <span class="accent">They keep building.</span></h2>
-          <p>For 100 days your child is the founder, you’re on the board, and YoungMinds is the consultant. You see the progress without having to supervise every task.</p>
-        </header>
-        <div class="parent-grid">
-          <article class="reveal"><span class="pn">01</span><h3>Your own parent account</h3><p>A separate parent login on the YoungMinds LMS, apart from your child’s student account.</p></article>
-          <article class="reveal"><span class="pn">02</span><h3>Progress visibility</h3><p>See what your child is working on and how the journey is progressing, phase by phase.</p></article>
-          <article class="reveal"><span class="pn">03</span><h3>Mentor updates</h3><p>Progress and programme updates are shared through your parent account and the official programme channel set up at onboarding.</p></article>
-          <article class="reveal" data-milestone><span class="pn">04</span><h3>Milestone reviews</h3><p>Short reviews with your child and their mentor at the end of each phase: <b>Day 25</b>, <b>Day 75</b> and <b>Day 100</b>.</p></article>
+    <!-- ============ 02 POSITIONING ============ -->
+    <section class="section position" aria-labelledby="position-title">
+      <div class="container position-grid">
+        <h2 id="position-title">Have ideas?<br /><span>Now do something with them.</span></h2>
+        <div class="position-copy">
+          <p>YoungPreneurAi is learning by doing: real selling, your own startup, a real pitch.</p>
+          <dl class="versus">
+            <div><dt>Most courses</dt><dd>Watch. Read. Quiz.</dd></div>
+            <div class="win"><dt>YoungPreneurAi</dt><dd>Sell. Build. Pitch.</dd></div>
+          </dl>
+          <p class="small">No idea yet, no business or coding experience? That’s where everyone starts.</p>
         </div>
       </div>
     </section>
 
-    <!-- ============ 09. REAL STUDENT JOURNEYS ============ -->
-    <section class="section journeys" id="journeys" aria-labelledby="journeys-title" data-section="student_journeys">
-      <div class="wrap">
+    <!-- ============ 03 INTERACTIVE 100-DAY JOURNEY ============ -->
+    <section class="section journey" id="journey" aria-labelledby="journey-title">
+      <div class="container">
         <header class="section-head">
-          <p class="kicker">Student journeys</p>
-          <h2 id="journeys-title">Real students. Real experiments. <span class="accent">Real progress.</span></h2>
-          <p>Every YoungPreneurAi journey moves through the same five stages. This is what students produce at each one.</p>
+          <p class="eyebrow eyebrow-light">The 100-day journey</p>
+          <h2 id="journey-title">One road. <span>Three stops. One stage.</span></h2>
+          <p>Tap a stop to see what happens there.</p>
         </header>
-        <ol class="stages">
-          <li data-stage="idea"><b>Idea</b><span>Problems spotted, interviews noted</span></li>
-          <li data-stage="experiment"><b>Experiment</b><span>Mini-venture offers and first attempts to sell</span></li>
-          <li data-stage="product"><b>Product</b><span>Prototypes and the first MVP</span></li>
-          <li data-stage="customer"><b>Customer</b><span>Real users, feedback, changes made</span></li>
-          <li data-stage="pitch"><b>Pitch</b><span>The deck and the story, on Pitch Day</span></li>
+
+        <div class="jmap" id="jmap">
+          <!-- Desktop road (decorative; the stops below carry all content) -->
+          <svg class="road" viewBox="0 0 1000 300" aria-hidden="true" focusable="false" preserveAspectRatio="none">
+            <path class="road-base" d="M20 220 C90 220 110 90 170 90 C240 90 270 225 335 225 C405 225 425 90 495 90 C570 90 595 225 665 225 C735 225 760 100 825 100 C885 100 905 205 945 205" />
+            <path class="road-fill" d="M20 220 C90 220 110 90 170 90 C240 90 270 225 335 225 C405 225 425 90 495 90 C570 90 595 225 665 225 C735 225 760 100 825 100 C885 100 905 205 945 205" pathLength="1000" />
+            <path class="road-lane" d="M20 220 C90 220 110 90 170 90 C240 90 270 225 335 225 C405 225 425 90 495 90 C570 90 595 225 665 225 C735 225 760 100 825 100 C885 100 905 205 945 205" />
+          </svg>
+          <p class="road-start" aria-hidden="true">Day 1</p>
+
+          <ol class="stops">
+            <li class="stop" data-phase="tinkering" style="--vx:170;--vy:90;--c:var(--blue)">
+              <button type="button" class="stop-btn" aria-expanded="true" aria-controls="stop-1">
+                <span class="node" aria-hidden="true">01</span>
+                <span class="stop-label"><b>Tinkering</b><small>Days 1–25</small></span>
+              </button>
+              <div class="stop-panel" id="stop-1" role="region" aria-label="Phase 1: Tinkering">
+                <p class="sp-meta">Phase 01 · Days 1–25 · 25 days</p>
+                <h3>Experience real selling.</h3>
+                <p>Explore three mini-venture scenarios, create offers, find customers and experience real sales.</p>
+                <p class="sp-outcome"><span>Outcome</span>Real sales experience</p>
+              </div>
+            </li>
+            <li class="stop" data-phase="innovation" style="--vx:495;--vy:90;--c:var(--coral)">
+              <button type="button" class="stop-btn" aria-expanded="false" aria-controls="stop-2">
+                <span class="node" aria-hidden="true">02</span>
+                <span class="stop-label"><b>Innovation</b><small>Days 26–75</small></span>
+              </button>
+              <div class="stop-panel" id="stop-2" role="region" aria-label="Phase 2: Innovation">
+                <p class="sp-meta">Phase 02 · Days 26–75 · 50 days</p>
+                <h3>Build your own startup.</h3>
+                <p>Identify a problem, develop your product, discover its selling point and experiment with different offerings and ways to reach customers.</p>
+                <p class="sp-outcome"><span>Outcome</span>Your own startup</p>
+              </div>
+            </li>
+            <li class="stop" data-phase="entrepreneurship" style="--vx:825;--vy:100;--c:var(--green)">
+              <button type="button" class="stop-btn" aria-expanded="false" aria-controls="stop-3">
+                <span class="node" aria-hidden="true">03</span>
+                <span class="stop-label"><b>Entrepreneurship</b><small>Days 76–100</small></span>
+              </button>
+              <div class="stop-panel" id="stop-3" role="region" aria-label="Phase 3: Entrepreneurship">
+                <p class="sp-meta">Phase 03 · Days 76–100 · 25 days</p>
+                <h3>Take it to the market.</h3>
+                <p>Experience selling, refine your business and prepare your investor pitch.</p>
+                <p class="sp-outcome"><span>Outcome</span>Selling experience + investor pitch</p>
+              </div>
+            </li>
+            <li class="stop stop-final" data-phase="investor_pitch_day" style="--vx:945;--vy:205;--c:var(--yellow)">
+              <button type="button" class="stop-btn" aria-expanded="false" aria-controls="stop-4">
+                <span class="node" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></span>
+                <span class="stop-label"><b>Investor Pitch Day</b><small>Day 100</small></span>
+              </button>
+              <div class="stop-panel" id="stop-4" role="region" aria-label="Final destination: Investor Pitch Day">
+                <p class="sp-meta">Final destination · Day 100</p>
+                <h3>Pitch your startup.</h3>
+                <p>Present the problem, your product, your customers and your plan to an evaluation panel.</p>
+                <p class="sp-outcome sp-fund"><span>Up to ₹1 lakh</span>Seed funding opportunity</p>
+                <p class="sp-fine">Funding is awarded based on evaluation. It is not guaranteed.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 WHAT STUDENTS BUILD ============ -->
+    <section class="section build" aria-labelledby="build-title">
+      <div class="container">
+        <header class="section-head">
+          <p class="eyebrow">What students build</p>
+          <h2 id="build-title">Not just learning. <span class="hl-blue">Actually building.</span></h2>
+        </header>
+        <ol class="builds">
+          <li><span class="b-num">01</span><h3>A validated startup idea</h3><p>Tested in real conversations, not just imagined.</p></li>
+          <li><span class="b-num">02</span><h3>A working product</h3><p>An MVP, tested with real users.</p></li>
+          <li><span class="b-num">03</span><h3>A startup portfolio</h3><p>With real selling and pitching experience behind it.</p></li>
         </ol>
-        <!-- Filled from config.journeys (genuine, permitted student work only) -->
-        <div class="gallery" id="gallery" hidden></div>
-        <p class="journeys-note" id="journeys-note">We share student work here only with the student’s and parent’s permission. Want to see examples before you decide? <a href="https://wa.me/919496040431" data-wa="journeys" target="_blank" rel="noopener">Ask us on WhatsApp</a>.</p>
+        <!-- Real student work from config.studentWork (with permission) -->
+        <div class="work" id="work" hidden></div>
       </div>
     </section>
 
-    <!-- ============ 10. TRUST ============ -->
-    <section class="section trust" id="trust" aria-labelledby="trust-title" data-section="trust">
-      <div class="wrap">
+    <!-- ============ 05 MENTORSHIP & PARENT ACCESS ============ -->
+    <section class="section guide" aria-labelledby="guide-title">
+      <div class="container guide-grid">
+        <figure class="guide-photo">
+          <img src="assets/mentor-live-session.webp" width="720" height="1280" loading="lazy" decoding="async"
+               alt="A YoungMinds mentor guiding a student in a live 1:1 online session" />
+        </figure>
+        <div>
+          <p class="eyebrow">Mentorship &amp; parent access</p>
+          <h2 id="guide-title">Personalised guidance. <span class="hl-green">Visible progress.</span></h2>
+          <ul class="guide-list">
+            <li><b>A dedicated mentor</b> for every student</li>
+            <li><b>1:1 online sessions</b> every week, built around your own work</li>
+            <li><b>A separate parent LMS account</b>, apart from the student’s</li>
+            <li><b>Progress you can see</b> across all 100 days</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 REVIEWS ============ -->
+    <section class="section reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <header class="section-head reviews-head">
+          <div>
+            <p class="eyebrow">Student reviews</p>
+            <h2 id="reviews-title">Hear it from the students.</h2>
+            <p class="reviews-note" id="reviews-note">From students who joined our ₹99 Startup Idea Session — the first step into YoungPreneurAi.</p>
+          </div>
+          <div class="slider-ctrls" aria-hidden="true">
+            <button type="button" class="ctrl" data-dir="-1" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="ctrl" data-dir="1" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </header>
+      </div>
+      <div class="slider" id="slider" tabindex="0" role="region" aria-label="Student reviews, scroll sideways">
+        <ul class="slider-track" id="slider-track"></ul>
+      </div>
+    </section>
+
+    <!-- ============ 07 EXPERIENCE OPTIONS ============ -->
+    <section class="section experiences" id="experiences" aria-labelledby="exp-title">
+      <div class="container">
         <header class="section-head">
-          <p class="kicker kicker-yellow">How it’s built</p>
-          <h2 id="trust-title">Built with a real mentoring framework.</h2>
+          <p class="eyebrow">Two ways to start</p>
+          <h2 id="exp-title">Not sure yet? <mark>Start with an experience.</mark></h2>
         </header>
-        <ul class="proof">
-          <li><a href="#journey"><b>A 100-day curriculum map</b><span>Three phases, with a clear outcome for each.</span></a></li>
-          <li><a href="#mentorship"><b>Personal 1:1 mentorship</b><span>A dedicated mentor and a weekly session.</span></a></li>
-          <li><div><b>A dedicated LMS</b><span>Weekly activities, resources, task submission and session booking.</span></div></li>
-          <li><a href="#parents"><b>Parent access</b><span>A separate parent account to follow progress.</span></a></li>
-          <li data-milestone><a href="#parents"><b>Phase reviews</b><span>Day 25, Day 75 and Day 100 check-ins.</span></a></li>
-          <li><a href="#pitch-day"><b>A real finish line</b><span>Investor Pitch Day with an evaluation panel.</span></a></li>
-        </ul>
-        <!-- Shown only when config.mentorCredential.verified is true -->
-        <p class="credential" id="credential" hidden></p>
-      </div>
-    </section>
-
-    <!-- ============ 11. TWO WAYS TO EXPERIENCE ============ -->
-    <section class="section experiences" id="experiences" aria-labelledby="exp-title" data-section="experiences">
-      <div class="wrap">
-        <header class="section-head center">
-          <p class="kicker">Two ways to start</p>
-          <h2 id="exp-title">Curious about the journey? <span class="accent">Start with an experience.</span></h2>
-        </header>
-
         <div class="offers">
-          <!-- OFFER A -->
-          <article class="offer offer-99" aria-labelledby="offer99-title">
-            <p class="offer-tag">One session · 60 minutes</p>
-            <h3 id="offer99-title"><span class="price">₹99</span> Startup Idea Session</h3>
-            <p class="offer-desc">A 1:1 online session to explore your interests, discover opportunities and work towards your first startup idea.</p>
-            <ul class="offer-list">
-              <li>Individual time with a mentor</li>
-              <li>Idea exploration</li>
-              <li>Problem discovery</li>
-              <li>An initial startup direction</li>
-            </ul>
-            <a class="btn btn-green btn-block btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session"
-               data-offer="99_session" data-cta="experiences">Book your ₹99 session <span class="arrow" aria-hidden="true">→</span></a>
-            <p class="offer-foot">Booked and paid on our Wise.live booking page.</p>
+          <article class="offer offer-99" aria-labelledby="o99">
+            <p class="offer-tag">60 minutes · one session</p>
+            <h3 id="o99"><span class="offer-price">₹99</span>Startup Idea Session</h3>
+            <p class="offer-desc">A 1:1 online session to explore interests, identify opportunities and work towards a startup idea with a mentor.</p>
+            <a class="btn btn-primary btn-lg btn-block" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="offers">Book your ₹99 session <span class="arrow" aria-hidden="true">→</span></a>
+            <p class="offer-foot">Instant booking on Wise.live</p>
           </article>
-
-          <!-- OFFER B -->
-          <article class="offer offer-999" aria-labelledby="offer999-title">
-            <p class="offer-tag">Seven days · live programme experience</p>
-            <h3 id="offer999-title"><span class="price">₹999</span> 7-Day Live Experience</h3>
-            <p class="offer-desc">Experience YoungPreneurAi for a week before deciding whether to continue.</p>
-            <ul class="offer-list">
-              <li>How the programme works</li>
-              <li>How the mentoring works</li>
-              <li>What students actually do</li>
-              <li>How the startup-building journey begins</li>
-            </ul>
-            <a class="btn btn-yellow btn-block btn-lg" href="https://wa.me/919496040431" target="_blank" rel="noopener"
-               data-offer="999_seven_day_trial" data-cta="experiences" data-trial-link>Start your 7-day experience <span class="arrow" aria-hidden="true">→</span></a>
-            <p class="offer-foot" data-trial-note>Opens WhatsApp — our team confirms the next start date with you.</p>
-            <p class="refund" id="refund"><b>Refundable trial fee.</b> <span data-refund-text>Please confirm the refund conditions with our team before you pay.</span></p>
+          <article class="offer offer-999" aria-labelledby="o999">
+            <p class="offer-tag">7 days · live programme</p>
+            <h3 id="o999"><span class="offer-price">₹999</span>Seven-Day Live Experience</h3>
+            <p class="offer-desc">Experience YoungPreneurAi before committing: seven days inside the live programme, so you can see how it works before choosing the full 100 days.</p>
+            <a class="btn btn-yellow btn-lg btn-block" href="https://wa.me/919496040431" target="_blank" rel="noopener" data-offer="999_seven_day_trial" data-cta="offers" data-trial>Start your 7-day experience <span class="arrow" aria-hidden="true">→</span></a>
+            <!-- INTEGRATION PLACEHOLDER: set config.trial999.bookingUrl when the ₹999 booking page exists -->
+            <p class="offer-foot" data-trial-foot>Opens WhatsApp · we confirm your start date</p>
+            <p class="offer-refund" data-refund hidden></p>
           </article>
-        </div>
-
-        <p class="which"><b>Not sure which?</b> ₹99 is one conversation to find a direction. ₹999 is a week inside the programme.</p>
-      </div>
-    </section>
-
-    <!-- ============ 12. FAQ ============ -->
-    <section class="section faq" id="faq" aria-labelledby="faq-title" data-section="faq">
-      <div class="wrap faq-grid">
-        <header class="section-head">
-          <p class="kicker">Parent questions</p>
-          <h2 id="faq-title">Questions, answered honestly.</h2>
-          <p>Something we haven’t covered? <a href="https://wa.me/919496040431" data-wa="faq" target="_blank" rel="noopener">Message us on WhatsApp</a>.</p>
-        </header>
-
-        <div class="faq-list">
-          <details data-faq="what_is_youngpreneurai"><summary>What is YoungPreneurAi?</summary>
-            <div><p>A 100-day online innovation and entrepreneurship programme by YoungMinds.app for students aged 11–18. With a personal 1:1 mentor, students try mini-ventures, build their own startup and an MVP, attempt real sales and pitch their startup at Investor Pitch Day.</p></div></details>
-
-          <details data-faq="age_group"><summary>What age group can join?</summary>
-            <div><p>Students aged 11 to 18.</p></div></details>
-
-          <details data-faq="need_existing_idea"><summary>Does my child need an existing startup idea?</summary>
-            <div><p>No. The first phase exists for exactly this: students try three mini-venture scenarios before deciding what they want to build. Ideas come from doing, not from waiting for inspiration.</p></div></details>
-
-          <details data-faq="need_coding"><summary>Does my child need coding knowledge?</summary>
-            <div><p>No. An MVP is simply the first version of a product that real people can try. Depending on the idea, it may or may not involve any code. The mentor helps the student choose a sensible first version.</p></div></details>
-
-          <details data-faq="suitable_for_age"><summary>Is entrepreneurship suitable for students aged 11–18?</summary>
-            <div><p>Yes. The programme is built for this age group, and because mentoring is 1:1, challenges are set around each student’s age, interests and progress. The work is practical and small-scale: talking to people, making an offer, trying to sell, improving a product.</p></div></details>
-
-          <details data-faq="school_studies"><summary>Will this affect school studies?</summary>
-            <div><p>It’s designed to run alongside school: one weekly 1:1 session online, plus tasks between sessions. Students book session slots through the LMS (subject to mentor availability), so they can plan around school. If you expect a heavy exam period, ask us how scheduling works before joining.</p></div></details>
-
-          <details data-faq="weekly_time"><summary>How much time does my child need to spend each week?</summary>
-            <div><p>One 1:1 mentor session of about an hour each week, plus independent work on assigned tasks and experiments between sessions. The time for that work varies by student and phase, so ask us for a typical week when you talk to us.</p></div></details>
-
-          <details data-faq="how_mentoring_works"><summary>How does personalised mentoring work?</summary>
-            <div><p>Each week the student meets their mentor online, 1:1. The mentor looks at what the student actually tried, gives feedback and sets the next challenge based on that work. Between sessions the student works on tasks, submits work in the LMS and books the next slot.</p></div></details>
-
-          <details data-faq="dedicated_mentor"><summary>Will my child have a dedicated mentor?</summary>
-            <div><p>Yes. Every student has a dedicated mentor for the 100-day journey.</p></div></details>
-
-          <details data-faq="what_will_they_build"><summary>What exactly will my child build?</summary>
-            <div><p>A validated idea, a working MVP tested with real users, real sales experience and a startup portfolio that records their experiments and progress. What the product looks like depends on the problem your child chooses to solve.</p></div></details>
-
-          <details data-faq="curriculum"><summary>How does the 100-day curriculum work?</summary>
-            <div><p>Three connected phases: <b>Tinkering</b> (Days 1–25) — three mini-ventures and real sales attempts; <b>Innovation</b> (Days 26–75) — the student’s own startup, MVP and repeated testing; <b>Entrepreneurship</b> (Days 76–100) — selling, customer conversations and preparing the pitch, ending at Investor Pitch Day.</p></div></details>
-
-          <details data-faq="99_vs_999"><summary>What is the difference between the ₹99 and ₹999 experiences?</summary>
-            <div><p><b>₹99</b> is a single 60-minute 1:1 Startup Idea Session to explore interests and find a first startup direction. <b>₹999</b> is a seven-day live experience of the YoungPreneurAi programme itself, so you can see how it works before deciding to continue. The ₹999 fee is refundable; <span data-refund-text>please confirm the refund conditions with our team before you pay.</span></p></div></details>
-
-          <details data-faq="pitch_day"><summary>What happens during the Investor Pitch Day?</summary>
-            <div><p>Students present their startup to an evaluation panel: the problem, the product they built, what they learned from customers, their business model and their vision. Seed funding of up to ₹1,00,000 may be awarded based on the evaluation.</p></div></details>
-
-          <details data-faq="seed_fund_guaranteed"><summary>Is the ₹1 lakh seed fund guaranteed?</summary>
-            <div><p>No. Seed funding is an opportunity, awarded based on evaluation at Investor Pitch Day. It is not a guaranteed amount for every participant, and ₹1,00,000 is the maximum, not a standard award.</p></div></details>
-
-          <details data-faq="track_progress"><summary>How can parents track progress?</summary>
-            <div><p>Through a separate parent account on the YoungMinds LMS, updates through the official programme channel<span data-milestone>, and phase reviews with your child and their mentor on Day 25, Day 75 and Day 100</span>.</p></div></details>
-
-          <details data-faq="after_100_days"><summary>What happens after the 100 days?</summary>
-            <div><p>Your child keeps what they built: the startup, the MVP and their portfolio. What comes next depends on the student and their startup, and it is discussed with you at the final review. Ask us about options for continuing.</p></div></details>
         </div>
       </div>
     </section>
 
-    <!-- ============ 13. FINAL CTA ============ -->
-    <section class="final" id="final" aria-labelledby="final-title" data-section="final_cta">
-      <div class="wrap final-inner">
-        <h2 id="final-title">Your child doesn’t need to wait until college to <em>build something real.</em></h2>
-        <p class="final-steps"><span>Start with an idea.</span><span>Explore possibilities.</span><span>Build something of your own.</span></p>
-        <div class="final-ctas">
-          <a class="btn btn-yellow btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session"
-             data-offer="99_session" data-cta="final">Book a ₹99 session <span class="arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn-ghost btn-lg" href="https://wa.me/919496040431" target="_blank" rel="noopener"
-             data-offer="999_seven_day_trial" data-cta="final" data-trial-link>Experience 7 days of YoungPreneurAi</a>
+    <!-- ============ 08 FAQ (same component as /startup-idea-session/) ============ -->
+    <section class="section faq-section" id="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="faq">
+          <h2 id="faq-title" class="faq-title">Quick questions</h2>
+          <details class="faq-item" data-faq="need_startup_idea"><summary>Does my child need a startup idea to join?</summary>
+            <div class="faq-body"><p>No. The first 25 days are three mini-venture experiments, so ideas come from doing.</p></div></details>
+          <details class="faq-item" data-faq="experience_required"><summary>Is previous business or coding experience required?</summary>
+            <div class="faq-body"><p>No. Students start from scratch, and the mentor helps choose a first product that fits their skills.</p></div></details>
+          <details class="faq-item" data-faq="suitable_age"><summary>Is this suitable for students aged 11–18?</summary>
+            <div class="faq-body"><p>Yes. It’s built for this age group, and because mentoring is 1:1, each student’s challenges match their age and progress.</p></div></details>
+          <details class="faq-item" data-faq="school_studies"><summary>Will this affect school studies?</summary>
+            <div class="faq-body"><p>It runs alongside school: one online 1:1 session a week plus tasks in between. Ask us how to plan around exam periods.</p></div></details>
+          <details class="faq-item" data-faq="how_mentoring_works"><summary>How does 1:1 mentoring work?</summary>
+            <div class="faq-body"><p>Every student has a dedicated mentor. Each week they meet online, review what the student tried, and set the next challenge.</p></div></details>
+          <details class="faq-item" data-faq="parent_tracking"><summary>How can parents track progress?</summary>
+            <div class="faq-body"><p>Through a separate parent account on the YoungMinds LMS that shows your child’s progress.</p></div></details>
+          <details class="faq-item" data-faq="what_will_they_build"><summary>What will my child build in 100 days?</summary>
+            <div class="faq-body"><p>A validated startup idea, a working MVP tested with real users, and a startup portfolio with real selling and pitching experience.</p></div></details>
+          <details class="faq-item" data-faq="pitch_day"><summary>What happens during Investor Pitch Day?</summary>
+            <div class="faq-body"><p>On Day 100, students present their startup to an evaluation panel: the problem, the product, their customers and their plan.</p></div></details>
+          <details class="faq-item" data-faq="seed_fund_guaranteed"><summary>Is seed funding guaranteed?</summary>
+            <div class="faq-body"><p>No. Up to ₹1 lakh is available as an opportunity, awarded based on the panel’s evaluation. ₹1 lakh is the maximum, not a standard amount.</p></div></details>
+          <details class="faq-item" data-faq="99_vs_999"><summary>What is the difference between the ₹99 and ₹999 experiences?</summary>
+            <div class="faq-body"><p><strong>₹99</strong> is a single 60-minute 1:1 session to find a startup direction. <strong>₹999</strong> is seven days inside the actual programme before you decide on the full 100 days.</p></div></details>
         </div>
-        <p class="final-brand">Don’t just learn entrepreneurship. <b>Experience it. Build it. Sell it.</b></p>
+      </div>
+    </section>
+
+    <!-- ============ 09 FINAL CTA ============ -->
+    <section class="section final" aria-labelledby="final-title">
+      <div class="container">
+        <div class="final-panel">
+          <div class="final-glow" aria-hidden="true"></div>
+          <h2 id="final-title">Your first startup <span>could start here.</span></h2>
+          <p class="final-sub">100 days. One mentor. A chance to build something real.</p>
+          <div class="final-cta">
+            <a class="btn btn-yellow btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="final">Book a ₹99 session <span class="arrow" aria-hidden="true">→</span></a>
+            <a class="btn btn-ghost btn-lg" href="#experiences" data-offer-scroll="999_seven_day_trial" data-cta="final">Explore the 7-day experience</a>
+          </div>
+          <p class="final-motto" aria-label="Experience it. Build it. Sell it. Pitch it."><span>Experience it.</span> <span>Build it.</span> <span>Sell it.</span> <span>Pitch it.</span></p>
+          <p class="final-brand">YoungPreneurAi by YoungMinds.app</p>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
-    <div class="wrap footer-inner">
+    <div class="container footer-inner">
       <div class="footer-brand">
-        <img src="assets/youngpreneurai-logo.svg" alt="YoungPreneurAi by YoungMinds.app" width="180" height="36" loading="lazy" />
-        <p>YoungPreneurAi is a programme by YoungMinds.app.</p>
+        <a href="https://www.youngminds.app/" aria-label="YoungMinds.app home"><img src="assets/youngminds-logo.png" alt="YoungMinds.app" width="454" height="82" loading="lazy" /></a>
+        <p>YoungPreneurAi by YoungMinds.app</p>
       </div>
       <nav class="footer-links" aria-label="Footer">
-        <a href="https://www.youngminds.app/">YoungMinds.app</a>
+        <a href="https://www.youngminds.app/">Visit YoungMinds.app</a>
         <a href="/startup-idea-session/">₹99 Startup Idea Session</a>
         <a href="/privacy-policy/">Privacy Policy</a>
-        <a href="https://wa.me/919496040431" data-wa="footer" target="_blank" rel="noopener">WhatsApp us</a>
+        <a href="https://wa.me/919496040431" data-wa target="_blank" rel="noopener">WhatsApp us</a>
       </nav>
     </div>
-    <div class="wrap footer-bottom">
+    <div class="container footer-bottom">
       <p>© <span id="year">2026</span> YM Innovations Pvt Ltd. All rights reserved.</p>
       <button type="button" class="link-btn" id="cookie-settings" hidden>Cookie settings</button>
     </div>
   </footer>
 
-  <!-- ============ MOBILE STICKY CTA (hidden near the hero, the offers and the final CTA) ============ -->
   <div class="sticky-cta" id="sticky-cta" aria-hidden="true">
-    <a class="btn btn-yellow" href="https://youngminds-app.wise.live/book/strartup-seed-session"
-       data-offer="99_session" data-cta="mobile_sticky" tabindex="-1">Book ₹99 session</a>
-    <a class="btn btn-ghost-dark" href="#experiences" data-sticky-alt tabindex="-1">₹999 · 7 days</a>
+    <a class="btn btn-primary btn-block" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="mobile_sticky" tabindex="-1">Start with ₹99 <span class="arrow" aria-hidden="true">→</span></a>
   </div>
 
-  <!-- ============ CONSENT BANNER (same choice as /startup-idea-session/; shown only if GTM is configured) ============ -->
   <div class="consent" id="consent" role="region" aria-label="Cookie consent" hidden>
     <p>We use cookies to understand how this page is used. We never collect names or phone numbers this way. You can say no — the page works the same. <a href="/privacy-policy/">Privacy Policy</a></p>
     <div class="consent-actions">
-      <button type="button" class="btn btn-outline btn-sm" data-consent="deny">Decline</button>
-      <button type="button" class="btn btn-dark btn-sm" data-consent="grant">Accept</button>
+      <button type="button" class="btn btn-sm" data-consent="deny">Decline</button>
+      <button type="button" class="btn btn-ink btn-sm" data-consent="grant">Accept</button>
     </div>
   </div>
 

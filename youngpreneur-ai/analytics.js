@@ -10,24 +10,19 @@
    - No names, phone numbers, emails or form data are ever sent.
    - A booking-button click is interest, NOT a booking or payment.
 
-   Events (all prefixed yp_, all carry page_name + page_path):
-     yp_page_view            on load
-     yp_hero_cta_click       any hero button (cta_location=hero, offer_type, destination)
-     yp_99_session_click     every ₹99 button   (offer_type=99_session)
-     yp_999_trial_click      every ₹999 button  (offer_type=999_seven_day_trial, booking_status)
-     yp_curriculum_view      100-day map ≥50% visible for 1 s (once)
-     yp_phase_interaction    phase bar click / each phase card seen (phase_name, interaction)
-     yp_outcome_view         outcomes section seen (once)
-     yp_mentor_section_view  mentorship section seen (once)
-     yp_section_view         every other section seen (section_name)
-     yp_faq_open             FAQ opened (faq_id; once per question)
-     yp_scroll_depth         25 / 50 / 75 / 90 %
-     yp_whatsapp_click       general WhatsApp links (cta_location)
+   Events (all carry page_name + page_path):
+     yp_page_view             on load
+     yp_hero_cta_click        any hero button  (cta_name, offer_type, destination)
+     yp_99_session_click      every ₹99 button (offer_type=99_session, cta_location, destination)
+     yp_999_trial_click       every ₹999 button (offer_type=999_seven_day_trial, cta_location,
+                              destination, booking_status)
+     yp_journey_phase_click   journey stop opened (phase_name, phase_index)
+     yp_review_interaction    video play / next / previous / first swipe (interaction, review_id)
+     yp_faq_open              FAQ opened, once per question (faq_id)
+     yp_scroll_depth          25 / 50 / 75 / 90 %
 
-   NOTE: a ₹99 click in the hero sends BOTH yp_hero_cta_click and
-   yp_99_session_click. For offer comparison use only yp_99_session_click
-   vs yp_999_trial_click (offer_type).
-
+   A hero ₹99 click sends BOTH yp_hero_cta_click and yp_99_session_click.
+   Compare offers with yp_99_session_click vs yp_999_trial_click only.
    Debug: add ?ym_debug=1 to the URL to log every event in the console.
    ===================================================================== */
 (function () {
@@ -148,71 +143,48 @@
     } catch (e) { return ""; }
   }
 
-  // Clicks: offers, hero buttons, WhatsApp
+  // CTA clicks (capture phase, so the link still navigates normally)
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest("a"); if (!a) return;
-    var offer = a.getAttribute("data-offer");
-    var loc = a.getAttribute("data-cta");
-    var inHero = !!a.closest(".hero");
-
-    if (inHero) {
-      track("yp_hero_cta_click", {
-        cta_location: "hero",
-        cta_name: offer || a.getAttribute("data-hero-cta") || "other",
-        offer_type: offer || "none",
-        destination: destOf(a),
-      });
+    var offer = a.getAttribute("data-offer") || a.getAttribute("data-offer-scroll");
+    var loc = a.getAttribute("data-cta") || "other";
+    if (a.closest(".hero")) {
+      track("yp_hero_cta_click", { cta_location: "hero", cta_name: a.getAttribute("data-offer") || a.getAttribute("data-hero") || "other", offer_type: offer || "none", destination: destOf(a) });
+      if (a.getAttribute("data-hero") === "see_7_day") {
+        track("yp_999_trial_click", { offer_type: "999_seven_day_trial", cta_location: "hero", destination: destOf(a), booking_status: "scroll_to_offers" });
+      }
     }
     if (offer === "99_session") {
-      track("yp_99_session_click", { offer_type: "99_session", cta_location: loc || "other", destination: destOf(a) });
-      return;
-    }
-    if (offer === "999_seven_day_trial") {
+      track("yp_99_session_click", { offer_type: "99_session", cta_location: loc, destination: destOf(a) });
+    } else if (offer === "999_seven_day_trial") {
       track("yp_999_trial_click", {
-        offer_type: "999_seven_day_trial", cta_location: loc || "other", destination: destOf(a),
-        booking_status: a.getAttribute("data-trial-status") || "pending_whatsapp",
+        offer_type: "999_seven_day_trial", cta_location: loc, destination: destOf(a),
+        booking_status: a.getAttribute("data-offer-scroll") ? "scroll_to_offers" : (a.getAttribute("data-trial-status") || "pending_whatsapp"),
       });
-      return;
-    }
-    if (a.hasAttribute("data-sticky-alt")) {
-      track("yp_999_trial_click", { offer_type: "999_seven_day_trial", cta_location: "mobile_sticky", destination: destOf(a), booking_status: "scroll_to_offers" });
-      return;
-    }
-    if (a.hasAttribute("data-wa")) {
-      track("yp_whatsapp_click", { cta_location: a.getAttribute("data-wa") || "other", destination: "https://wa.me/" });
-      return;
-    }
-    if (a.classList.contains("pb")) {
-      track("yp_phase_interaction", { phase_name: a.getAttribute("data-phase"), interaction: "phase_bar_click" });
     }
   }, true);
 
-  // Section visibility: ≥50% of the section (or of the screen, for tall sections) for 1 s, once each
-  var SPECIAL = { curriculum: "yp_curriculum_view", outcomes: "yp_outcome_view", mentorship: "yp_mentor_section_view" };
-  function observeOnce(els, onSeen, ratio) {
-    if (!("IntersectionObserver" in window)) return;
-    var thresholds = []; for (var t = 0; t <= 20; t++) thresholds.push(t / 20);
-    var timers = new Map();
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var el = e.target; if (el._ypDone) return;
-        var vh = window.innerHeight || document.documentElement.clientHeight;
-        var base = Math.min(e.boundingClientRect.height, vh) || 1;
-        var vis = e.isIntersecting && e.intersectionRect.height / base >= ratio;
-        if (vis && !timers.has(el)) {
-          timers.set(el, setTimeout(function () { timers.delete(el); if (el._ypDone) return; el._ypDone = true; io.unobserve(el); onSeen(el); }, 1000));
-        } else if (!vis && timers.has(el)) { clearTimeout(timers.get(el)); timers.delete(el); }
-      });
-    }, { threshold: thresholds });
-    els.forEach(function (el) { io.observe(el); });
-  }
-  observeOnce($$("[data-section]"), function (el) {
-    var name = el.getAttribute("data-section");
-    track(SPECIAL[name] || "yp_section_view", { section_name: name });
-  }, 0.5);
-  observeOnce($$(".phase[data-phase]"), function (el) {
-    track("yp_phase_interaction", { phase_name: el.getAttribute("data-phase"), interaction: "phase_view" });
-  }, 0.6);
+  // Journey stops (dispatched by app.js)
+  var map = $("#jmap");
+  if (map) map.addEventListener("yp:phase", function (e) {
+    track("yp_journey_phase_click", { phase_name: e.detail.phase, phase_index: e.detail.index });
+  });
+
+  // Reviews (dispatched by app.js): video plays once per video; navigation once per direction
+  var track_ = $("#slider-track"), seen = {};
+  if (track_) track_.addEventListener("yp:review", function (e) {
+    var d = e.detail || {}, key = d.interaction + ":" + (d.review_id || "");
+    if (seen[key]) return; seen[key] = true;
+    track("yp_review_interaction", { interaction: d.interaction, review_id: d.review_id || "" });
+  });
+
+  // FAQ opens — once per question per page view
+  var faqSeen = {};
+  document.addEventListener("toggle", function (e) {
+    var d = e.target; if (!d || d.tagName !== "DETAILS" || !d.open || !d.hasAttribute("data-faq")) return;
+    var id = d.getAttribute("data-faq"); if (faqSeen[id]) return; faqSeen[id] = true;
+    track("yp_faq_open", { faq_id: id });
+  }, true);
 
   // Scroll depth
   (function () {
@@ -228,12 +200,4 @@
     function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(check); } }
     window.addEventListener("scroll", onScroll, { passive: true });
   })();
-
-  // FAQ opens — once per question per page view
-  var faqSeen = {};
-  document.addEventListener("toggle", function (e) {
-    var d = e.target; if (!d || d.tagName !== "DETAILS" || !d.open || !d.hasAttribute("data-faq")) return;
-    var id = d.getAttribute("data-faq"); if (faqSeen[id]) return; faqSeen[id] = true;
-    track("yp_faq_open", { faq_id: id, section_name: "faq" });
-  }, true);
 })();
