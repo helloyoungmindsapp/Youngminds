@@ -200,7 +200,6 @@
       var meta = el("div");
       meta.appendChild(el("p", "v-name", v.name + (v.age ? " · Age " + v.age : "") + (v.grade ? " · Grade " + v.grade : "")));
       if (v.project) meta.appendChild(el("p", "v-project", v.project));
-      if (v.translated && v.verbatim !== false) meta.appendChild(el("p", "v-note", "Translated from " + v.translated));
       who.appendChild(meta); copy.appendChild(who);
 
       // Video side: poster + play button; the <video> is created only on tap (nothing downloads before)

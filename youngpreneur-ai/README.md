@@ -49,7 +49,7 @@ optional status label, so an idea showcase is never presented as a programme tes
 
 | Slide | Video (source file) | Written content | Consent |
 |---|---|---|---|
-| Nehan · idea showcase | `assets/voices/nehan-idea.mp4` (from `Nehans_ idea .mp4`, re-encoded 540×960, 3.2 MB) | Quote and summary taken from the video's own Malayalam subtitles (translated, labelled "Translated from Malayalam"). Idea: a Duolingo-style app to help older people use technology; "early app, improvements in progress" (his words). | Confirmed 17 Nov 2026 |
+| Nehan · idea showcase | `assets/voices/nehan-idea.mp4` (from `Nehans_ idea .mp4`, re-encoded 540×960, 3.2 MB) | Quote and summary taken from the video's own Malayalam subtitles (translated from Malayalam; no translation label is shown on the page). Idea: a Duolingo-style app to help older people use technology; "early app, improvements in progress" (his words). | Confirmed 17 Nov 2026 |
 | Feva · idea showcase | `assets/voices/feva-idea.mp4` (from `Feva_idea.mp4`, re-encoded 540×960, 5.0 MB) | The video has no speech subtitles, so there is **no quote**: the headline is written by YoungMinds (no quote marks) from the programme background supplied (5 interviews, decision fatigue) and the video caption "Feva presenting her MVP to a real user". Labelled "work in progress". Kept as written by decision on 17 Nov 2026. | Confirmed 17 Nov 2026 |
 
 Grade/age is not shown for either student (not verified). Profile photos: `assets/voices/nehan-photo.webp` (from `nehan_photo.jpeg`) and `assets/voices/feva-photo.webp` (from `feva_photo.JPG`), square crops, no other edits. Videos load only when tapped.
