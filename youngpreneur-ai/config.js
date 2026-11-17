@@ -89,7 +89,7 @@ window.YP_CONFIG = {
       video: "assets/voices/nehan-idea.mp4",
       poster: "assets/voices/nehan-idea.webp",
       videoLabel: "Nehan explaining his idea for a Duolingo-style technology app for older people (Malayalam with subtitles)",
-      consentConfirmed: false,
+      consentConfirmed: true, // parent/guardian consent confirmed by YoungMinds, 17 Nov 2026
     },
     {
       type: "idea_showcase",
@@ -107,7 +107,7 @@ window.YP_CONFIG = {
       video: "assets/voices/feva-idea.mp4",
       poster: "assets/voices/feva-idea.webp",
       videoLabel: "Feva presenting her early AI styling assistant MVP to a user",
-      consentConfirmed: false,
+      consentConfirmed: true, // parent/guardian consent confirmed by YoungMinds, 17 Nov 2026
     },
   ],
 
