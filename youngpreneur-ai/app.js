@@ -58,11 +58,17 @@
     } else play();
   })();
 
-  /* ---------- Interactive journey map ---------- */
+  /* ---------- Interactive journey map ----------
+     Desktop: the map pins while the visitor scrolls through the section; the road
+     fills with scroll progress and each stop opens when the road reaches it.
+     Clicking a stop scrolls to that point. Mobile: all stops stay open on a vertical
+     road that fills as you scroll; the stop you have reached is highlighted.
+     Reduced motion (or a very short window): click-only, as before.            */
   (function journey() {
-    var map = $("#jmap"); if (!map) return;
-    var stops = $$(".stop", map), fill = $(".road-fill", map), stopsList = $(".stops", map);
+    var section = $("#journey"), map = $("#jmap"); if (!map || !section) return;
+    var stops = $$(".stop", map), fill = $(".road-fill", map), stopsList = $(".stops", map), runway = $(".jmap-runway", section);
     var desktop = window.matchMedia("(min-width: 861px)");
+    var current = -1, scrub = false;
 
     // Where each stop sits along the road (0–1000), found from its x position.
     var marks = stops.map(function (s) {
@@ -71,49 +77,91 @@
       for (var i = 0; i < 24; i++) { var mid = (lo + hi) / 2; if (fill.getPointAtLength(mid).x < vx) lo = mid; else hi = mid; }
       return Math.round((lo / total) * 1000);
     });
+    var first = marks[0] || 0;
 
-    function select(i, opts) {
-      opts = opts || {};
+    function setActive(i) {
+      if (i === current) return;
+      current = i;
       stops.forEach(function (s, j) {
-        var on = j === i;
-        if (!desktop.matches && opts.toggle && on && s.classList.contains("active")) on = false; // mobile: tap again to close
-        s.classList.toggle("active", on);
-        $(".stop-btn", s).setAttribute("aria-expanded", String(on));
+        s.classList.toggle("active", j === i);
+        $(".stop-btn", s).setAttribute("aria-expanded", String(desktop.matches ? j === i : true));
       });
-      var active = stops.findIndex ? stops.findIndex(function (s) { return s.classList.contains("active"); }) : i;
-      var reach = active < 0 ? 0 : active;
-      if (fill) fill.style.setProperty("--fill", String(1000 - (marks[reach] || 0)));
-      if (stopsList) stopsList.style.setProperty("--vfill", ((reach + 1) / stops.length * 100) + "%");
+    }
+    function setRoad(len) { if (fill) fill.style.setProperty("--fill", String(1000 - len)); }
+
+    /* ----- Desktop scrubbing ----- */
+    function stickyTop() { return (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 68) + 16; }
+    function progress() { // 0 → 1 while the runway scrolls past under the pinned map
+      var r = runway.getBoundingClientRect(), h = r.height || 1;
+      var start = stickyTop() + map.offsetHeight;
+      return Math.min(1, Math.max(0, (start - r.top) / h));
+    }
+    // Each stop gets a fair share of the scroll: stop k is reached at KNOTS[k];
+    // the road fills smoothly between stops and the last stretch holds Pitch Day.
+    var KNOTS = [0, 0.33, 0.66, 0.9];
+    function fromProgress(p) {
+      var k = 0;
+      for (var i = 0; i < KNOTS.length && i < marks.length; i++) if (p >= KNOTS[i]) k = i;
+      var nextK = Math.min(k + 1, marks.length - 1);
+      var span = (KNOTS[nextK] !== undefined && nextK !== k) ? (KNOTS[nextK] - KNOTS[k]) : 1;
+      var t = nextK === k ? 0 : Math.min(1, (p - KNOTS[k]) / span);
+      setRoad(marks[k] + t * (marks[nextK] - marks[k])); setActive(k);
+    }
+    function scrollToStop(i) {
+      var p = Math.min(1, (KNOTS[i] || 0) + 0.02);
+      var r = runway.getBoundingClientRect(), target = stickyTop() + map.offsetHeight - p * r.height;
+      window.scrollBy({ top: r.top - target, behavior: reduceMotion ? "auto" : "smooth" });
+    }
+
+    /* ----- Mobile auto-highlight ----- */
+    function mobileUpdate() {
+      var line = window.innerHeight * 0.55, k = 0;
+      stops.forEach(function (s, i) { if (s.getBoundingClientRect().top < line) k = i; });
+      setActive(k);
+      if (stopsList) {
+        var r = stopsList.getBoundingClientRect();
+        stopsList.style.setProperty("--vfill", Math.min(100, Math.max(0, (line - r.top) / (r.height || 1) * 100)) + "%");
+      }
+    }
+
+    function update() {
+      if (scrub) fromProgress(progress());
+      else if (!desktop.matches) mobileUpdate();
+    }
+    var onScroll = update; // scroll events already arrive at most once per frame; the work is a few rect reads
+
+    function configure() {
+      // Pin only on desktop, without reduced motion, and when the map fits on screen
+      var fits = map.offsetHeight + stickyTop() + 24 <= window.innerHeight;
+      scrub = desktop.matches && !reduceMotion && !!runway && fits;
+      section.classList.toggle("is-scrub", scrub);
+      section.classList.toggle("is-flow", !desktop.matches);
+      current = -1;
+      if (scrub || !desktop.matches) update();
+      else { setActive(Math.max(0, current)); setRoad(marks[Math.max(0, current)] || first); }
     }
 
     stops.forEach(function (s, i) {
       $(".stop-btn", s).addEventListener("click", function () {
-        select(i, { toggle: true });
         map.dispatchEvent(new CustomEvent("yp:phase", { detail: { phase: s.getAttribute("data-phase"), index: i + 1 } }));
-        if (!desktop.matches) {
-          var top = s.getBoundingClientRect().top;
-          if (top < 70 || top > window.innerHeight * 0.6) s.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
-        }
+        if (scrub) { scrollToStop(i); return; }
+        if (!desktop.matches) { s.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); return; }
+        setActive(i); setRoad(marks[i] || first); // click-only mode
       });
     });
     // Arrow keys move between stops on desktop
     map.addEventListener("keydown", function (e) {
       if (!desktop.matches || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
-      var cur = stops.findIndex(function (s) { return s.classList.contains("active"); });
-      var next = Math.max(0, Math.min(stops.length - 1, cur + (e.key === "ArrowRight" ? 1 : -1)));
-      if (next !== cur) { e.preventDefault(); $(".stop-btn", stops[next]).click(); $(".stop-btn", stops[next]).focus(); }
+      var next = Math.max(0, Math.min(stops.length - 1, Math.max(0, current) + (e.key === "ArrowRight" ? 1 : -1)));
+      if (next !== current) { e.preventDefault(); $(".stop-btn", stops[next]).click(); $(".stop-btn", stops[next]).focus(); }
     });
 
-    // Start with nothing travelled; "drive" to stop 1 when the map comes into view.
-    stops.forEach(function (s, j) { s.classList.toggle("active", j === 0); $(".stop-btn", s).setAttribute("aria-expanded", String(j === 0)); });
-    if (reduceMotion || !("IntersectionObserver" in window)) select(0);
-    else {
-      var io = new IntersectionObserver(function (es) {
-        if (es.some(function (e) { return e.isIntersecting; })) { select(stops.findIndex(function (s) { return s.classList.contains("active"); })); io.disconnect(); }
-      }, { threshold: 0.35 });
-      io.observe(map);
-      setTimeout(function () { if (fill && !fill.style.getPropertyValue("--fill")) select(0); }, 4000); // safety net
-    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", configure);
+    if (desktop.addEventListener) desktop.addEventListener("change", configure);
+    setActive(0); setRoad(first);
+    configure();
+    window.addEventListener("load", configure); // fonts/images can change the map's height
   })();
 
   /* ---------- Student work (genuine, permitted) ---------- */

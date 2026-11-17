@@ -17,9 +17,12 @@ update the paths in `config.js`.
 
 ## Journey map
 
-Desktop: an SVG road with four clickable stops (Tinkering 1–25, Innovation 26–75, Entrepreneurship 76–100,
-Investor Pitch Day). The road fills up to the selected stop; one detail card shows below. Arrow keys move between stops.
-Below 861 px it becomes a vertical road where each stop expands in place. Without JavaScript every stop's details are shown.
+Scroll-driven. Desktop: the road map pins below the header while the visitor scrolls through the section; the road
+fills with scroll progress and each phase card opens as the road reaches its stop (Tinkering → Innovation →
+Entrepreneurship → Investor Pitch Day, at roughly 0 / 33 / 66 / 90 % of the pinned scroll). Clicking a stop scrolls to
+that point. Mobile: a vertical road; all four cards stay open, the road fills as you scroll and the reached stop is
+highlighted. Reduced-motion visitors and very short windows get click-only behaviour. Without JavaScript every stop's
+details are shown. `yp_journey_phase_click` fires on clicks only, not on scrolling.
 
 ## Booking
 

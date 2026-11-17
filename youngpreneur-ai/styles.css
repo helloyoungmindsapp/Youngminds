@@ -237,6 +237,15 @@ mark {
 .stop-final .stop-btn { flex-direction: column; margin-top: 26px; }
 
 .stops { position: static; margin-top: 64px; } /* buttons position against .jmap (the road) */
+
+/* Scroll-driven journey (desktop): the map pins while the runway scrolls past */
+.jmap-runway { display: none; }
+.journey.is-scrub { overflow: clip; }
+.journey.is-scrub .jmap { position: sticky; top: calc(var(--header-h) + 16px); z-index: 1; }
+.journey.is-scrub .jmap-runway { display: block; height: 170vh; }
+.journey.is-scrub .road-fill { transition: stroke-dashoffset .12s linear; }
+.journey.is-scrub .stop.active .stop-panel { animation: none; }
+.journey.is-scrub .stop-panel { transition: opacity .25s ease; }
 .stop-panel {
   position: relative; display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 8px 48px; align-items: start;
   padding: 32px 36px; background: var(--white); color: var(--ink); border: 2px solid var(--ink); border-radius: var(--radius-lg);
@@ -244,7 +253,7 @@ mark {
 }
 .stop + .stop .stop-panel { margin-top: 24px; } /* no-JS fallback: all panels stacked */
 .js .stop + .stop .stop-panel { margin-top: 0; }
-.js .stop:not(.active) .stop-panel { display: none; }
+@media (min-width: 861px) { .js .stop:not(.active) .stop-panel { display: none; } }
 .js .stop.active .stop-panel { animation: pop .35s ease; }
 .stop-panel > * { grid-column: 2; }
 .stop-panel .sp-meta, .stop-panel h3 { grid-column: 1; }
@@ -288,6 +297,10 @@ mark {
     transition: transform .25s ease;
   }
   html:not(.js) .stop-btn::after { display: none; }
+  .journey.is-flow .stop-btn::after { display: none; }
+  .journey.is-flow .stop .stop-panel { opacity: .55; transition: opacity .3s ease; }
+  .journey.is-flow .stop.active .stop-panel { opacity: 1; }
+  .journey.is-flow .stops::before { transition: background-size .2s linear; }
   .stop.active .stop-btn::after { transform: rotate(180deg); background-size: 10px 2px, 2px 0; background-color: var(--yellow); background-image: linear-gradient(var(--ink), var(--ink)), none; }
   .stop-label b { font-size: 19px; white-space: normal; }
   .stop-panel, .stop + .stop .stop-panel { grid-template-columns: 1fr; padding: 20px 18px; margin-top: 8px; gap: 6px; box-shadow: 5px 5px 0 0 var(--c); }
