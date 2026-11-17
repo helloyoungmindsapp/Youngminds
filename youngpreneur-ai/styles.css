@@ -186,6 +186,12 @@ mark {
 .versus .win dt { color: var(--ink); }
 .versus .win dd { color: var(--ink); text-decoration: none; background: var(--yellow); padding: 0 .25em; border-radius: .2em; }
 .small { font-size: 15px; color: var(--gray); }
+.proof-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 26px; border-top: 2px solid var(--ink); }
+.proof-row li { padding: 14px 12px 4px 0; }
+.proof-row li + li { padding-left: 14px; border-left: 1px solid var(--line); }
+.proof-row b { display: block; font-size: 1.9rem; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.proof-row span { display: block; margin-top: 6px; font-size: 13.5px; font-weight: 600; color: var(--gray); line-height: 1.3; }
+.proof-src { margin-top: 10px; font-size: 12.5px; color: var(--gray); }
 
 /* ============ 03 JOURNEY MAP ============ */
 .journey { background: var(--navy); color: #fff; position: relative; overflow: hidden; }

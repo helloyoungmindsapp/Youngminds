@@ -37,7 +37,9 @@ into `config.trial999.refundTerms` and they appear under the ₹999 button.
 - Seed funding is always "up to ₹1 lakh", an opportunity, awarded on evaluation, not guaranteed.
 - Mentorship wording: "A personalised mentor for every student." ("dedicated mentor" is not used).
 - Trust numbers live inside existing sections, not a stats banner: 100 days (hero), 1:1 personalised mentorship
-  (mentorship section), Google rating (next to the Student Voices heading). No other statistics are shown.
+  (mentorship section), Google rating (next to the Student Voices heading), and "1000+ Families enrolled · 100+ Student built
+  products · 4.9 Parent rating" as a compact row in the positioning section, labelled "Across YoungMinds.app programmes"
+  (confirmed as verified by YoungMinds on 17 Nov 2026; same figures as the homepage). No other statistics are shown.
 
 ## Student Voices (carousel)
 
