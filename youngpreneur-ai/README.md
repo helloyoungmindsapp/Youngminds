@@ -5,7 +5,7 @@ Nothing outside this folder is changed except one new entry in `/sitemap.xml`.
 
 | File | What it is |
 |---|---|
-| `index.html` | 9 sections: hero, positioning, interactive 100-day journey, what students build, Student Voices, mentorship & parent access, two offers, FAQ, final CTA |
+| `index.html` | 10 sections: hero, positioning, interactive 100-day journey, what students build, Student Voices, reviews, mentorship & parent access, two offers, FAQ, final CTA |
 | `styles.css` | Same design system as `/startup-idea-session/` (Gabarito; blue `#3C52D6`, yellow `#FED700`, ink `#1a1a2e`, cream; ink borders + offset shadows). Buttons, header, FAQ, footer, consent and sticky CTA are copied from that page. |
 | `config.js` | **Everything to configure**: booking links, refund wording, hero media, reviews, student work, GTM ID |
 | `app.js` | Journey map, Student Voices carousel, hero video, booking links, sticky mobile CTA |
@@ -39,31 +39,36 @@ into `config.trial999.refundTerms` and they appear under the ₹999 button.
 - Trust numbers live inside existing sections, not a stats banner: 100 days (hero), 1:1 personalised mentorship
   (mentorship section), Google rating (next to the Student Voices heading). No other statistics are shown.
 
-## Student Voices
+## Student Voices (carousel)
 
-One slide = one student: their own statement on the left, their own video on the right. Content: `config.studentVoices`.
-Each slide has a `type` label shown on the page (₹99 session review / YoungPreneurAi student review / student idea showcase),
-so an idea showcase or a ₹99 session review is never presented as a programme testimonial.
+One slide = one student: their statement on the left, their own 9:16 video on the right. Content: `config.studentVoices`.
+Each slide carries a visible type label (student idea showcase / YoungPreneurAi review / ₹99 session review) and an
+optional status label, so an idea showcase is never presented as a programme testimonial.
 
-| Slide | Statement (verbatim from the ₹99 page) | Video | Type | Consent |
-|---|---|---|---|---|
-| Harikrishnan, 16 | "I had a few ideas, but I was stuck. …" | `/startup-idea-session/videos/testimonial-2.mp4` (student on camera; matched by face to his photo) | ₹99 session review | **To confirm** |
-| Roshan, 17 | "I struggled for a week with my startup idea, …" | `/startup-idea-session/videos/testimonial-3.mp4` (his WhatsApp voice note, "Thank you Roshan…" on screen) | ₹99 session review | **To confirm** |
+| Slide | Video (source file) | Written content | Consent |
+|---|---|---|---|
+| Nehan · idea showcase | `assets/voices/nehan-idea.mp4` (from `Nehans_ idea .mp4`, re-encoded 540×960, 3.2 MB) | Quote and summary taken from the video's own Malayalam subtitles (translated, labelled "Translated from Malayalam"). Idea: a Duolingo-style app to help older people use technology; "early app, improvements in progress" (his words). | **To confirm** |
+| Feva · idea showcase | `assets/voices/feva-idea.mp4` (from `Feva_idea.mp4`, re-encoded 540×960, 5.0 MB) | The video has no speech subtitles, so there is **no quote**: the headline is written by YoungMinds (no quote marks) from the programme background supplied (5 interviews, decision fatigue) and the video caption "Feva presenting her MVP to a real user". Labelled "work in progress". Replace with her own words once a transcript exists. | **To confirm** |
 
-`testimonial-1.mp4` is not used: it has no name, so it can't be matched to a written statement.
+Grade/age is not shown for either student (not verified). Videos load only when tapped.
 
-**Consent gate:** slides with `consentConfirmed: false` are shown only on local previews (with a "consent to confirm" badge).
-On the live site they are hidden, and the whole section (including the Google rating) stays hidden until at least one slide is
-switched on after written parent/guardian consent to pair the student's name and age with their video.
+**Consent gate:** slides with `consentConfirmed: false` show only on local previews (with a badge). If no slide is
+publishable, Student Voices is hidden on the live site and the Google rating moves to the reviews heading below.
 
-**Google rating:** 5.0 ★ from 6 Google reviews of the YoungMinds.app Business Profile, from a screenshot dated 17 Nov 2026
-(`config.googleRating`). Re-check before every publish. Add `profileUrl` if you want it to link to the profile.
+**Google rating:** star rating only, "5.0 ★ Google Rating" (no review count), from the YoungMinds.app Business Profile
+screenshot dated 17 Nov 2026 (`config.googleRating`). Re-check before every publish.
+
+## Reviews ("Hear it from the students")
+
+Restored unchanged from commit 225ac9a (markup, styles, script and the 7 genuine ₹99 session reviews in
+`config.sessionReviews`): 3 videos + written reviews from Roshan, Labeeb, Sahal and Harikrishnan, all labelled "₹99 Session".
+It sits directly below Student Voices.
 
 ## Outstanding content
 
-1. Parent/guardian consent for the two Student Voices slides (then set `consentConfirmed: true`).
-2. YoungPreneurAi programme reviews and student idea videos, each with a matching statement, name and age.
-3. A genuine YoungPreneurAi student photo/clip for the hero (`config.heroVideo`) and student work (`config.studentWork`).
+1. Parent/guardian consent for Nehan's and Feva's slides (then set `consentConfirmed: true`).
+2. A transcript (or approved quote) of Feva's video, and Nehan's and Feva's grade/age if they should be shown.
+3. YoungPreneurAi programme reviews (`config.programmeReviews`), a genuine hero photo/clip and student work.
 4. Confirmed ₹999 refund conditions (`config.trial999.refundTerms`). The refund is not mentioned until then.
 
 ## Analytics
@@ -81,8 +86,8 @@ Every event carries `page_name: "youngpreneur_ai"` and `page_path`.
 | `yp_99_session_click` | every ₹99 button (→ Wise.live) | `offer_type=99_session`, `cta_location` (header / hero / offers / final / mobile_sticky), `destination` |
 | `yp_999_trial_click` | every ₹999 button (→ WhatsApp) | `offer_type=999_seven_day_experience`, `cta_location` (offers / final), `destination` |
 | `yp_whatsapp_click` | any WhatsApp link | `cta_location`, `offer_type` (999_seven_day_experience / general) |
-| `yp_student_review_interaction` | Student Voices next / previous / dot / swipe | `interaction`, `review_id`, `slide_index`, `content_type` |
-| `yp_video_play` / `yp_video_complete` | Student Voices video started / finished (once per video) | `video_id`, `content_type`, `video_location` |
+| `yp_student_review_interaction` | Student Voices next / previous / dot / swipe; reviews slider next / previous / first scroll | `interaction`, `review_id`, `slide_index`, `content_type`, `section` |
+| `yp_video_play` / `yp_video_complete` | Student Voices or reviews-slider video started / Student Voices video finished (once per video) | `video_id`, `content_type`, `video_location` |
 | `yp_journey_phase_click` | journey stop opened | `phase_name`, `phase_index` |
 | `yp_faq_open` | FAQ opened (once per question) | `faq_id` |
 | `yp_scroll_depth` | 25 / 50 / 75 / 90 % | `scroll_percentage` |

@@ -143,15 +143,13 @@
       return v && v.name && v.quote && v.video && (v.consentConfirmed === true || preview);
     });
 
-    // Google rating (subtle, next to the heading)
+    // Google rating: star rating only (no review count), subtle, next to the heading
     var g = C.googleRating || {}, gEl = $("#g-rating");
-    if (gEl && g.show && g.rating && g.count) {
-      gEl.innerHTML = '<span class="g-stars" aria-hidden="true">★★★★★</span>';
-      var txt = el("span", "", g.rating + " · " + g.count + " Google reviews");
-      if (g.profileUrl) { var ga = el("a"); ga.href = g.profileUrl; ga.target = "_blank"; ga.rel = "noopener"; ga.appendChild(txt); gEl.appendChild(ga); }
-      else gEl.appendChild(txt);
-      gEl.setAttribute("aria-label", "Rated " + g.rating + " out of 5 from " + g.count + " Google reviews of YoungMinds.app");
+    if (gEl && g.show && g.rating) {
+      gEl.innerHTML = '<span class="g-score">' + g.rating + '</span><span class="g-stars" aria-hidden="true">★★★★★</span><span class="g-label">Google Rating</span>';
+      gEl.setAttribute("aria-label", "Google rating " + g.rating + " out of 5");
       gEl.hidden = false;
+      if (!slides.length) { var rh = $("#reviews .reviews-head > div"); if (rh) rh.appendChild(gEl); }
     }
     if (!slides.length) return; // nothing publishable: section stays hidden
     section.hidden = false;
@@ -182,15 +180,23 @@
 
       // Written side
       copy.innerHTML = "";
-      copy.appendChild(el("p", "v-type " + ty.cls, ty.label));
-      copy.appendChild(el("span", "v-mark", "“")).setAttribute("aria-hidden", "true");
-      var q = el("blockquote", "v-quote"); q.appendChild(el("p", "", v.quote)); copy.appendChild(q);
+      var tags = el("div", "v-tags");
+      tags.appendChild(el("span", "v-type " + ty.cls, ty.label));
+      if (v.status) tags.appendChild(el("span", "v-status", v.status));
+      copy.appendChild(tags);
+      if (v.verbatim !== false) {
+        copy.appendChild(el("span", "v-mark", "“")).setAttribute("aria-hidden", "true");
+        var q = el("blockquote", "v-quote"); q.appendChild(el("p", "", v.quote)); copy.appendChild(q);
+      } else {
+        copy.appendChild(el("p", "v-quote v-headline", v.quote));
+      }
       if (v.support) copy.appendChild(el("p", "v-support", v.support));
       var who = el("div", "v-who");
       who.appendChild(el("span", "v-avatar", v.name.charAt(0).toUpperCase())).setAttribute("aria-hidden", "true");
       var meta = el("div");
       meta.appendChild(el("p", "v-name", v.name + (v.age ? " · Age " + v.age : "") + (v.grade ? " · Grade " + v.grade : "")));
       if (v.project) meta.appendChild(el("p", "v-project", v.project));
+      if (v.translated && v.verbatim !== false) meta.appendChild(el("p", "v-note", "Translated from " + v.translated));
       who.appendChild(meta); copy.appendChild(who);
       if (v.consentConfirmed !== true) copy.appendChild(el("p", "v-consent", "Preview only — confirm parent/guardian consent before publishing"));
 
@@ -245,6 +251,90 @@
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es.forEach(function (e) { if (!e.isIntersecting && current) current.pause(); }); }).observe(section);
 
     go(0, "init");
+  })();
+
+  /* ---------- Reviews slider ---------- */
+  (function reviews() {
+    var track = $("#slider-track"), slider = $("#slider"); if (!track || !slider) return;
+    var prog = (C.programmeReviews || []).filter(function (r) { return r && (r.text || r.src); });
+    var sess = (C.sessionReviews || []).filter(function (r) { return r && (r.text || r.src); });
+    var note = $("#reviews-note");
+    if (prog.length && note) note.textContent = "From YoungPreneurAi students and parents, and from students who started with our ₹99 Startup Idea Session.";
+
+    var items = prog.map(function (r) { return { r: r, label: "YoungPreneurAi", prog: true }; })
+      .concat(sess.map(function (r) { return { r: r, label: "₹99 Session", prog: false }; }));
+    if (dev && !prog.length) items.unshift({ placeholder: true }, { placeholder: true });
+
+    var PLAY = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg>';
+    items.forEach(function (it, i) {
+      var li = el("li", "r-card");
+      li.setAttribute("data-review-id", (it.prog ? "programme_" : "session_") + (i + 1));
+      if (it.placeholder) {
+        li.classList.add("is-placeholder");
+        li.appendChild(el("span", "r-tag prog", "Content needed"));
+        li.appendChild(el("p", "r-text", "Genuine YoungPreneurAi student or parent review — add to config.programmeReviews with permission."));
+        track.appendChild(li); return;
+      }
+      var r = it.r;
+      if (r.type === "video" && r.src) {
+        li.classList.add("r-video");
+        var btn = el("button", "r-media"); btn.type = "button";
+        btn.setAttribute("aria-label", "Play video: " + (r.alt || "student review"));
+        if (r.poster) { var p = new Image(); p.alt = ""; p.loading = "lazy"; p.decoding = "async"; p.src = r.poster; p.onerror = function () { this.remove(); }; btn.appendChild(p); }
+        btn.insertAdjacentHTML("beforeend", '<span class="play">' + PLAY + "</span>");
+        btn.addEventListener("click", function () {
+          var v = document.createElement("video");
+          v.src = r.src; v.controls = true; v.playsInline = true; v.setAttribute("playsinline", ""); v.preload = "auto";
+          if (r.poster) v.poster = r.poster;
+          v.setAttribute("aria-label", r.alt || "Student review video");
+          btn.replaceWith(Object.assign(el("div", "r-media"), {}));
+          var holder = $(".r-media", li); holder.appendChild(v);
+          v.play().catch(function () {});
+          track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: "video_play", review_id: li.getAttribute("data-review-id") } }));
+        });
+        li.appendChild(btn);
+        li.appendChild(el("span", "r-tag" + (it.prog ? " prog" : ""), it.label + (r.name ? " · " + r.name : "")));
+      } else {
+        li.appendChild(el("span", "r-tag" + (it.prog ? " prog" : ""), it.label));
+        li.appendChild(el("p", "r-text", r.text));
+        var who = el("div", "r-who");
+        var av = el("span", "r-avatar", (r.name || "S").charAt(0).toUpperCase()); av.setAttribute("aria-hidden", "true");
+        var meta = el("div");
+        meta.appendChild(el("p", "r-name", (r.name || "Student") + (r.age ? " · Age " + r.age : "")));
+        meta.appendChild(el("p", "r-role", r.role || (it.prog ? "YoungPreneurAi" : "₹99 Startup Idea Session participant")));
+        who.appendChild(av); who.appendChild(meta); li.appendChild(who);
+      }
+      track.appendChild(li);
+    });
+    if (!items.length) { $("#reviews").hidden = true; return; }
+
+    // Only one video plays at a time
+    track.addEventListener("play", function (e) { $$("video", track).forEach(function (v) { if (v !== e.target) v.pause(); }); }, true);
+
+    // Prev / next buttons (desktop)
+    var ctrls = $$(".ctrl");
+    function step() { var c = $(".r-card", track); return c ? c.getBoundingClientRect().width + 22 : 340; }
+    function updateCtrls() {
+      var max = slider.scrollWidth - slider.clientWidth - 2;
+      ctrls.forEach(function (b) { b.disabled = Number(b.getAttribute("data-dir")) < 0 ? slider.scrollLeft <= 2 : slider.scrollLeft >= max; });
+    }
+    var parent = $(".slider-ctrls"); if (parent) { parent.removeAttribute("aria-hidden"); }
+    ctrls.forEach(function (b) {
+      b.tabIndex = 0;
+      b.setAttribute("aria-label", Number(b.getAttribute("data-dir")) < 0 ? "Previous reviews" : "Next reviews");
+      b.addEventListener("click", function () {
+        var d = Number(b.getAttribute("data-dir"));
+        slider.scrollBy({ left: d * step(), behavior: reduceMotion ? "auto" : "smooth" });
+        track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: d < 0 ? "previous" : "next" } }));
+      });
+    });
+    var swiped = false;
+    slider.addEventListener("scroll", function () {
+      updateCtrls();
+      if (!swiped && slider.scrollLeft > 40) { swiped = true; track.dispatchEvent(new CustomEvent("yp:review", { detail: { interaction: "scroll" } })); }
+    }, { passive: true });
+    window.addEventListener("resize", updateCtrls);
+    updateCtrls();
   })();
 
   /* ---------- Mobile sticky CTA (hidden over the hero, the offers and the final CTA) ---------- */

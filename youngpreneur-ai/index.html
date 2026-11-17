@@ -198,8 +198,11 @@
     <section class="section voices" id="voices" aria-labelledby="voices-title" hidden>
       <div class="container">
         <header class="voices-head">
-          <h2 id="voices-title">Student voices</h2>
-          <!-- Google rating of the YoungMinds.app Business Profile (config.googleRating; verify before publishing) -->
+          <div>
+            <h2 id="voices-title">Student voices</h2>
+            <p class="voices-sub">Every big idea starts somewhere.</p>
+          </div>
+          <!-- Google star rating of the YoungMinds.app Business Profile (config.googleRating; verify before publishing). Moves to the reviews heading if Student Voices is hidden. -->
           <p class="g-rating" id="g-rating" hidden></p>
         </header>
         <div class="voices-stage" id="voices-stage" role="region" aria-roledescription="carousel" aria-label="Student voices">
@@ -213,6 +216,26 @@
           <div class="v-dots" id="v-dots" role="group" aria-label="Choose a student"></div>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ 05b REVIEWS (restored from 225ac9a, unchanged) ============ -->
+    <section class="section reviews" id="reviews" aria-labelledby="reviews-title">
+      <div class="container">
+        <header class="section-head reviews-head">
+          <div>
+            <p class="eyebrow">Student reviews</p>
+            <h2 id="reviews-title">Hear it from the students.</h2>
+            <p class="reviews-note" id="reviews-note">From students who joined our ₹99 Startup Idea Session — the first step into YoungPreneurAi.</p>
+          </div>
+          <div class="slider-ctrls" aria-hidden="true">
+            <button type="button" class="ctrl" data-dir="-1" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button type="button" class="ctrl" data-dir="1" tabindex="-1"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </header>
+      </div>
+      <div class="slider" id="slider" tabindex="0" role="region" aria-label="Student reviews, scroll sideways">
+        <ul class="slider-track" id="slider-track"></ul>
       </div>
     </section>
 

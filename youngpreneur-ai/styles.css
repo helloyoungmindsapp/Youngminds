@@ -369,6 +369,57 @@ mark {
 .v-dot.on { width: 28px; background: var(--ink); }
 .voices.is-single .v-arrow, .voices.is-single .v-dots { display: none; }
 
+.voices-sub { margin-top: 10px; font-size: 1.15rem; color: var(--gray); }
+.v-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.v-status { font-size: 12px; font-weight: 700; letter-spacing: .4px; padding: 5px 11px; border-radius: 999px; border: 1.5px dashed #c9cce0; color: var(--gray); }
+.v-headline { margin-top: 22px; }
+.v-note { font-size: 12.5px; color: var(--gray); font-style: italic; }
+.g-rating { gap: 6px; padding: 7px 12px; border: 1.5px solid var(--line); border-radius: 999px; background: var(--white); }
+.g-score { font-weight: 800; color: var(--ink); }
+.g-label { font-weight: 600; }
+.reviews-head .g-rating { margin-top: 14px; }
+
+/* ============ 05b REVIEWS (restored from 225ac9a, unchanged) ============ */
+.reviews-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; max-width: none; }
+.reviews-note { max-width: 34em; }
+.slider-ctrls { display: flex; gap: 12px; flex: none; }
+.ctrl { width: 48px; height: 48px; border-radius: 50%; border: 2px solid var(--ink); background: var(--white); display: grid; place-items: center; cursor: pointer; box-shadow: 3px 3px 0 0 var(--ink-2); font-size: 22px; transition: transform .15s ease, box-shadow .15s ease, opacity .15s; }
+.ctrl:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0 0 var(--ink-2); }
+.ctrl:disabled { opacity: .35; cursor: default; transform: none; box-shadow: 3px 3px 0 0 var(--ink-2); }
+.slider { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; overscroll-behavior-x: contain; outline: none; }
+.slider::-webkit-scrollbar { display: none; }
+.slider:focus-visible { outline: 3px solid var(--blue); outline-offset: -3px; }
+.slider-track {
+  display: flex; gap: 22px; width: max-content; align-items: stretch;
+  padding: 6px max(32px, calc((100vw - 1200px) / 2 + 32px)) 22px;
+}
+.r-card {
+  scroll-snap-align: start; scroll-margin-left: max(32px, calc((100vw - 1200px) / 2 + 32px));
+  flex: none; width: 320px; min-height: 400px; display: flex; flex-direction: column; gap: 16px; position: relative;
+  padding: 26px 24px 22px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
+}
+.r-card::before { content: "\201C"; position: absolute; top: 8px; right: 20px; font-size: 64px; line-height: 1; font-weight: 800; color: var(--yellow); }
+.r-text { flex: 1; font-size: 17px; line-height: 1.55; }
+.r-who { display: flex; align-items: center; gap: 12px; padding-top: 14px; border-top: 1px dashed #d8dae2; }
+.r-avatar { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--blue-soft); color: var(--blue); border: 1.5px solid var(--ink); font-weight: 800; flex: none; }
+.r-name { font-weight: 700; line-height: 1.2; }
+.r-role { font-size: 13.5px; color: var(--gray); line-height: 1.3; }
+.r-tag { align-self: flex-start; font-size: 11.5px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; background: var(--blue-soft); color: var(--blue); }
+.r-tag.prog { background: var(--green-soft); color: var(--green-cta); }
+.r-video { padding: 10px; gap: 10px; }
+.r-video::before { content: none; }
+.r-media { position: relative; flex: 1; display: block; width: 100%; min-height: 300px; padding: 0; border: 0; border-radius: 14px; overflow: hidden; background: #0c0d19; cursor: pointer; }
+.r-media img, .r-media video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.r-media video { object-fit: contain; }
+.r-media .play {
+  position: absolute; inset: 0; margin: auto; width: 68px; height: 68px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--yellow); border: 2px solid var(--ink); box-shadow: 4px 4px 0 0 var(--ink-2); transition: transform .2s ease;
+}
+.r-media:hover .play { transform: scale(1.06); }
+.r-media .play svg { font-size: 26px; fill: var(--ink); stroke: none; margin-left: 4px; }
+.r-video .r-tag { margin: 2px 4px; }
+.r-card.is-placeholder { border: 2px dashed #c9cce0; box-shadow: none; background: linear-gradient(160deg, #fff, #f7f8fd); color: #6a6f93; }
+
 /* ============ 07 EXPERIENCES ============ */
 .experiences { background: var(--cream); }
 .offers { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
@@ -491,6 +542,10 @@ mark {
   .guide-list li::before { top: 16px; width: 16px; height: 16px; }
 
   .voices-head { margin-bottom: 24px; }
+  .reviews-head { display: block; }
+  .slider-ctrls { display: none; }
+  .slider-track { gap: 14px; padding: 6px 20px 20px; }
+  .r-card { width: min(82vw, 320px); min-height: 360px; scroll-margin-left: 20px; }
   .voices-stage { grid-template-columns: 1fr; gap: 24px; }
   .v-side { order: -1; }
   .v-media-wrap { justify-content: center; gap: 10px; }

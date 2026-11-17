@@ -16,8 +16,9 @@
      yp_99_session_click            ₹99 button → Wise.live (offer_type=99_session, cta_location, destination)
      yp_999_trial_click             ₹999 button → WhatsApp (offer_type=999_seven_day_experience, cta_location, destination)
      yp_whatsapp_click              any WhatsApp link opened (cta_location, offer_type: 999_seven_day_experience | general)
-     yp_student_review_interaction  Student Voices next / previous / dot / swipe (interaction, review_id, slide_index, content_type)
-     yp_video_play                  first play of a Student Voices video (video_id, content_type)
+     yp_student_review_interaction  Student Voices next / previous / dot / swipe, or reviews-slider next / previous / scroll
+                                    (interaction, review_id, slide_index, content_type, section)
+     yp_video_play                  first play of a Student Voices or reviews-slider video (video_id, content_type, video_location)
      yp_video_complete              video watched to the end (video_id, content_type)
      yp_journey_phase_click         journey stop opened (phase_name, phase_index)
      yp_faq_open                    FAQ opened, once per question (faq_id)
@@ -190,6 +191,15 @@
       track(d.kind === "complete" ? "yp_video_complete" : "yp_video_play", { video_id: d.video_id, content_type: d.content_type, video_location: "student_voices" });
     });
   }
+
+  // Restored "Hear it from the students" slider (dispatched by app.js)
+  var slider = $("#slider-track"), sliderSeen = {};
+  if (slider) slider.addEventListener("yp:review", function (e) {
+    var d = e.detail || {}, key = d.interaction + ":" + (d.review_id || "");
+    if (sliderSeen[key]) return; sliderSeen[key] = true;
+    if (d.interaction === "video_play") track("yp_video_play", { video_id: d.review_id || "", content_type: "session_review", video_location: "reviews_slider" });
+    else track("yp_student_review_interaction", { interaction: d.interaction, review_id: d.review_id || "", content_type: "session_review", section: "reviews_slider" });
+  });
 
   // FAQ opens — once per question per page view
   var faqSeen = {};

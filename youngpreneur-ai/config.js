@@ -56,45 +56,79 @@ window.YP_CONFIG = {
   },
 
   /* ---------------- GOOGLE RATING ----------------
-     YoungMinds.app Google Business Profile, from a screenshot taken
-     17 Nov 2026: 5.0 stars, 6 Google reviews. Re-check on Google and
-     update `checked` before every publish; set show: false if it drops
-     or cannot be checked. profileUrl: optional public Maps/Search link.  */
-  googleRating: { show: true, rating: "5.0", count: 6, checked: "2026-11-17", profileUrl: "" },
+     YoungMinds.app Google Business Profile: 5.0 stars (screenshot dated
+     17 Nov 2026). Only the star rating is shown — no review count.
+     Re-check on Google before every publish; set show: false if it changes
+     or cannot be checked.                                                 */
+  googleRating: { show: true, rating: "5.0", checked: "2026-11-17" },
 
-  /* ---------------- STUDENT VOICES ----------------
-     One slide = ONE student: their own written statement + their own video.
-     Never mix students. Copy statements word for word.
-       type: "programme_review" — reviewing their YoungPreneurAi experience
-             "idea_showcase"    — explaining their own idea (NOT a programme review)
-             "session_review"   — reviewing the ₹99 Startup Idea Session
-       quote / support: the student's statement split into headline + rest
-       project: idea or project name (only if the student gave one)
-       consentConfirmed: true ONLY after written parent/guardian consent to
-       publish this identifiable video with the student's name and age.
-       Slides with false are hidden on the live site and shown on local
-       previews with a "consent to confirm" badge.                          */
+  /* ---------------- STUDENT VOICES (carousel: statement + video, one student per slide) ----------------
+     Never mix students. Statements come only from what the student says in
+     their own video (or verified programme records, marked verbatim: false).
+       type: "idea_showcase"    — student explaining their own idea
+             "programme_review" — student reviewing their YoungPreneurAi experience
+             "session_review"   — student reviewing the ₹99 Startup Idea Session
+       verbatim: true  = quote is the student's own words (shown with quote marks)
+                 false = written by YoungMinds from verified programme records (no quote marks)
+       translated: language the student spoke, if the quote is a translation
+       status: shown as a small label, e.g. "Work in progress"
+       consentConfirmed: true ONLY after written parent/guardian consent to publish
+       this identifiable video with the student's name. Slides with false are
+       hidden on the live site and shown on local previews with a badge.     */
   studentVoices: [
     {
-      type: "session_review",
-      name: "Harikrishnan", age: 16, project: "",
-      quote: "I had a few ideas, but I was stuck.",
-      support: "After attending this session, I got more clarity and confidence to move forward!",
-      video: "/startup-idea-session/videos/testimonial-2.mp4",
-      poster: "/startup-idea-session/images/testimonial-2.webp",
-      videoLabel: "Harikrishnan talking about his ₹99 Startup Idea Session",
+      type: "idea_showcase",
+      name: "Nehan", grade: "", age: "",
+      project: "A Duolingo-style app to help older people use technology",
+      status: "Early app · improvements in progress",
+      verbatim: true, translated: "Malayalam",
+      // From the video's own subtitles (00:01–00:20), translated from Malayalam.
+      quote: "The idea came from my grandparents. Older people don't know how to use technology.",
+      support: "His goal: an app like Duolingo that helps them learn it. Fitting the work around school, he built it over a few days. It's now a small app that runs on a phone, and he says there are still many improvements to make.",
+      video: "assets/voices/nehan-idea.mp4",
+      poster: "assets/voices/nehan-idea.webp",
+      videoLabel: "Nehan explaining his idea for a Duolingo-style technology app for older people (Malayalam with subtitles)",
       consentConfirmed: false,
     },
     {
-      type: "session_review",
-      name: "Roshan", age: 17, project: "",
-      quote: "I struggled for a week with my startup idea, but this one-hour session gave me clarity.",
-      support: "It was really useful, and I'm excited for the next session!",
-      video: "/startup-idea-session/videos/testimonial-3.mp4",
-      poster: "/startup-idea-session/images/testimonial-3.webp",
-      videoLabel: "Roshan's voice-note feedback on his ₹99 Startup Idea Session",
+      type: "idea_showcase",
+      name: "Feva", grade: "", age: "",
+      project: "AI styling assistant (concept in development)",
+      status: "YoungPreneurAi student · work in progress",
+      verbatim: false,
+      // Not a quote: the video has no speech subtitles. Based on the programme
+      // background supplied by YoungMinds and the video's caption
+      // "Feva presenting her MVP to a real user." Replace with her own words
+      // once a transcript is available.
+      quote: "She interviewed five people and found the real problem behind choosing clothes: decision fatigue.",
+      support: "Feva is working through YoungPreneurAi: identifying a real-world problem, interviewing people and exploring solutions. In this video she presents her early AI styling assistant MVP to a real user for feedback.",
+      video: "assets/voices/feva-idea.mp4",
+      poster: "assets/voices/feva-idea.webp",
+      videoLabel: "Feva presenting her early AI styling assistant MVP to a user",
       consentConfirmed: false,
     },
+  ],
+
+  /* ---------------- REVIEWS ----------------
+     programmeReviews: genuine YoungPreneurAi STUDENT or PARENT reviews
+     (permission required; parent's permission for under-18s). Shown first,
+     labelled "YoungPreneurAi". EMPTY = none collected yet.
+       { type: "text", name: "", age: 15, role: "YoungPreneurAi student" | "Parent of a YoungPreneurAi student", text: "" }
+       { type: "video", src: "...mp4", poster: "...webp", name: "", role: "...", alt: "..." }
+
+     sessionReviews: genuine reviews from the ₹99 Startup Idea Session
+     (copied unedited from /startup-idea-session/config.js). Always labelled
+     as ₹99 session experiences — never as programme outcomes.            */
+  programmeReviews: [],
+
+  sessionReviews: [
+    { type: "video", src: "/startup-idea-session/videos/testimonial-2.mp4", poster: "/startup-idea-session/images/testimonial-2.webp", alt: "Student talking about their Startup Idea Session" },
+    { type: "text", name: "Roshan", age: 17, text: "I struggled for a week with my startup idea, but this one-hour session gave me clarity. It was really useful, and I'm excited for the next session!" },
+    { type: "text", name: "Labeeb", age: 16, text: "I never thought a simple problem I see every day could become a startup idea. It was something I had never really paid attention to before. This session helped me look at ordinary problems differently and discover an idea I could actually work on." },
+    { type: "video", src: "/startup-idea-session/videos/testimonial-1.mp4", poster: "/startup-idea-session/images/testimonial-1.webp", alt: "Student's voice-note feedback about the Startup Idea Session" },
+    { type: "text", name: "Sahal", age: 16, text: "It was a great experience! I learned how to turn small problems into solutions and think like a founder. Really insightful and inspiring." },
+    { type: "text", name: "Harikrishnan", age: 16, text: "I had a few ideas, but I was stuck. After attending this session, I got more clarity and confidence to move forward!" },
+    { type: "video", src: "/startup-idea-session/videos/testimonial-3.mp4", poster: "/startup-idea-session/images/testimonial-3.webp", alt: "Student's voice-note feedback about the Startup Idea Session" },
   ],
 
   /* Real student work for "What students build" (photos of prototypes, MVPs,
