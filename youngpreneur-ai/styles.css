@@ -184,9 +184,14 @@ mark {
 .hv-caption { margin-top: 16px; font-size: 14px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--gray); text-align: center; }
 
 /* ============ 01b BRAND STATEMENT ============ */
-.statement { background: #0b3b2e; padding: clamp(72px, 10vw, 128px) 0; text-align: center; }
+.statement {
+  position: relative; padding: clamp(72px, 10vw, 128px) 0; text-align: center;
+  background-color: #0e5a47; /* softer emerald-teal, between the brand green and the old dark green */
+  background-image: radial-gradient(rgba(255,255,255,.16) 1.3px, transparent 1.6px); /* subtle dot grid */
+  background-size: 22px 22px; background-position: center;
+}
 .statement p { font-size: clamp(2rem, 5.2vw, 4.25rem); font-weight: 800; letter-spacing: -.025em; line-height: 1.06; text-wrap: balance; }
-.st-1 { color: #8aa69b; }
+.st-1 { color: #9cc3b4; }
 .st-2 { color: #fff; margin-top: .08em; }
 .st-2 span { color: var(--yellow); white-space: nowrap; }
 
@@ -507,6 +512,7 @@ mark {
 .faq-item::details-content { block-size: 0; overflow: clip; transition: block-size .3s ease, content-visibility .3s allow-discrete; }
 .faq-item[open]::details-content { block-size: auto; }
 .faq-body { padding: 0 22px 20px; color: var(--gray); }
+.faq-body p + p { margin-top: 10px; }
 
 /* ============ 09 FINAL CTA ============ */
 .final { padding-top: 64px; padding-bottom: 0; }
@@ -585,6 +591,7 @@ mark {
   .hv-play .play svg { font-size: 28px; }
   .hv-caption { margin-top: 12px; font-size: 12.5px; }
   .statement p { font-size: clamp(1.75rem, 8.4vw, 2.6rem); }
+  .statement { background-size: 18px 18px; }
 
   .section { padding: 64px 0; }
   .section-head { margin-bottom: 28px; }
