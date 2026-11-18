@@ -63,29 +63,36 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-grid">
-        <div class="hero-copy">
+        <div class="hero-text">
           <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Ages 11–18 <i>·</i> 100 days <i>·</i> 1:1 mentoring</p>
-          <h1 id="hero-title">Build your first startup <mark>before you finish school.</mark></h1>
+          <h1 id="hero-title"><span class="h1-a">Build your first startup</span> <span class="h1-b">before you <span class="h1-hl">finish school.</span></span></h1>
           <p class="hero-sub">100 days to go from experimenting with mini-ventures to building and selling your own startup.</p>
-          <div class="hero-cta">
-            <a class="btn btn-primary btn-lg" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="hero">Start with ₹99 <span class="arrow" aria-hidden="true">→</span></a>
-            <a class="btn btn-lg" href="#journey" data-hero="explore_journey">Explore the journey</a>
-          </div>
-          <p class="hero-note">YoungPreneurAi by YoungMinds.app · <a class="trial-link" href="#experiences" data-hero="see_7_day" aria-label="Or see the 7-day live experience, ₹999">or see the <span class="tl-days">7-day</span> live experience <span class="tl-price">₹999</span></a></p>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-primary btn-lg hero-primary" href="https://youngminds-app.wise.live/book/strartup-seed-session" data-offer="99_session" data-cta="hero">Start with ₹99 <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn-lg hero-secondary" href="#journey" data-hero="explore_journey">Explore the journey</a>
         </div>
 
-        <div class="hero-visual">
-          <figure class="photo-frame" id="hero-media">
-            <img class="hero-poster" src="assets/hero-session.webp" width="720" height="1280" alt="A YoungMinds mentor's laptop during a live 1:1 online session with a student" fetchpriority="high" />
-            <figcaption class="call-bar"><span class="live"><i aria-hidden="true"></i>Live 1:1 mentoring</span></figcaption>
-          </figure>
-          <ol class="route-card" aria-label="The 100-day route">
-            <li><b class="c-blue">01</b>Mini-ventures</li>
-            <li><b class="c-coral">02</b>Your startup</li>
-            <li><b class="c-green">03</b>Sell it</li>
-            <li><b class="c-yellow">★</b>Pitch Day</li>
-          </ol>
-        </div>
+        <!-- Programme explainer video (config.explainerVideo). Click to play, controls, no autoplay, no loop.
+             Until the real video exists, a clearly labelled placeholder is shown. -->
+        <figure class="hero-video" id="hero-video" data-state="placeholder">
+          <div class="hv-placeholder">
+            <span class="hv-ph-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
+            <strong>Programme explainer video</strong>
+            <span>Coming soon: how YoungPreneurAi works, from Day 1 to Pitch Day.</span>
+          </div>
+          <figcaption class="hv-caption">How YoungPreneurAi works</figcaption>
+        </figure>
+
+        <p class="hero-note">YoungPreneurAi by YoungMinds.app · <a class="trial-link" href="#experiences" data-hero="see_7_day" aria-label="Or see the 7-day live experience, ₹999">or see the <span class="tl-days">7-day</span> live experience <span class="tl-price">₹999</span></a></p>
+      </div>
+    </section>
+
+    <!-- ============ 01b BRAND STATEMENT ============ -->
+    <section class="statement" aria-label="What we believe">
+      <div class="container">
+        <p class="st-1">School builds the employee.</p>
+        <p class="st-2">We build <span>the founder.</span></p>
       </div>
     </section>
 

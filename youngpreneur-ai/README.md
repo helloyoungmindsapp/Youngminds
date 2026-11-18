@@ -10,10 +10,15 @@ Nothing outside this folder is changed except one new entry in `/sitemap.xml`.
 | `config.js` | **Everything to configure**: booking links, refund wording, hero media, reviews, student work, GTM ID |
 | `app.js` | Journey map, Student Voices carousel, hero video, booking links, sticky mobile CTA |
 | `analytics.js` | Consent-first GTM loader (same as the ₹99 page) + `yp_*` dataLayer events |
-| `assets/` | YoungMinds logo, hero poster (frame of the real session clip), mentor photo, favicon, 1200×630 share image |
+| `assets/` | YoungMinds logo, mentor photo, Student Voices videos/photos, favicon, 1200×630 share image |
 
-The hero clip and the Student Voices videos are loaded from `/startup-idea-session/` (no copies). If those files move,
-update the paths in `config.js`.
+The restored reviews' videos are loaded from `/startup-idea-session/` (no copies). If those files move, update the paths in
+`config.js`.
+
+**Hero:** headline + CTAs on the left, programme explainer video on the right (click to play, controls, no autoplay, no
+loop). **ASSET REQUIRED:** no explainer video exists yet, so a labelled placeholder is shown. Add the file and poster in
+`config.explainerVideo` and the player appears. A brand statement band ("School builds the employee. We build the
+founder.") follows the hero.
 
 ## Journey map
 

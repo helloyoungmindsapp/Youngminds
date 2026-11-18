@@ -43,16 +43,23 @@ window.YP_CONFIG = {
     whatsappMessage: "Hi YoungMinds! I have a question about YoungPreneurAi.",
   },
 
-  /* ---------------- HERO MEDIA ----------------
-     Today: the real 1:1 session clip used on /startup-idea-session/
-     (muted, looping, no controls; reduced-motion visitors see the poster).
-     Replace with a genuine YoungPreneurAi student clip/photo when one exists
-     (a student building, testing or pitching — with parental permission). */
-  heroVideo: {
-    src: "/startup-idea-session/videos/startup-session.mp4",
-    poster: "assets/hero-session.webp",
-    alt: "A YoungMinds mentor's laptop during a live 1:1 online session with a student",
-    focus: "45% 60%",
+  /* ---------------- HERO: PROGRAMME EXPLAINER VIDEO ----------------
+     ASSET REQUIRED. No programme explainer video exists yet, so the hero shows a
+     labelled placeholder. When the video is ready (ideally 1–3 min, MP4 H.264,
+     ≤ 20 MB, with a poster frame), fill these in and the player appears:
+       src      e.g. "assets/explainer/youngpreneurai-explainer.mp4"
+       poster   e.g. "assets/explainer/youngpreneurai-explainer.webp"
+       title    caption under the video
+       duration e.g. "2:10" (shown on the poster)
+       ratio    "16 / 9" (default) or "9 / 16" / "4 / 5" for portrait cuts
+       captions optional .vtt subtitles file                                    */
+  explainerVideo: {
+    src: "",
+    poster: "",
+    title: "How YoungPreneurAi works",
+    duration: "",
+    ratio: "16 / 9",
+    captions: "",
   },
 
   /* ---------------- GOOGLE RATING ----------------

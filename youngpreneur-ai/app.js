@@ -37,25 +37,33 @@
   function onScrollHeader() { header && header.classList.toggle("scrolled", window.scrollY > 8); }
   window.addEventListener("scroll", onScrollHeader, { passive: true }); onScrollHeader();
 
-  /* ---------- Hero video: muted loop, poster for reduced motion / blocked autoplay ---------- */
-  (function heroVideo() {
-    var hv = C.heroVideo || {}, frame = $("#hero-media"); if (!frame) return;
-    if (hv.focus) frame.style.setProperty("--focus", hv.focus);
-    var poster = $(".hero-poster", frame);
-    if (poster && hv.poster) poster.src = hv.poster;
-    if (poster && hv.alt) poster.alt = hv.alt;
-    if (!hv.src || reduceMotion) return;
-    var v = document.createElement("video");
-    v.muted = true; v.loop = true; v.playsInline = true; v.preload = "metadata";
-    v.setAttribute("muted", ""); v.setAttribute("playsinline", ""); v.setAttribute("aria-hidden", "true");
-    v.src = hv.src;
-    v.addEventListener("playing", function () { v.classList.add("ready"); }, { once: true });
-    v.addEventListener("error", function () { v.remove(); }, { once: true });
-    frame.insertBefore(v, poster.nextSibling);
-    var play = function () { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
-    if ("IntersectionObserver" in window) {
-      new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) play(); else v.pause(); }); }).observe(frame);
-    } else play();
+  /* ---------- Hero: programme explainer video (click to play, controls, no loop) ---------- */
+  (function explainer() {
+    var fig = $("#hero-video"), ev = C.explainerVideo || {};
+    if (!fig || !ev.src) return; // keep the labelled placeholder until the real video exists
+    if (ev.ratio) fig.style.setProperty("--hv-ratio", ev.ratio);
+    var frame = el("div", "hv-frame");
+    var btn = el("button", "hv-play"); btn.type = "button";
+    btn.setAttribute("aria-label", "Play video: " + (ev.title || "How YoungPreneurAi works"));
+    if (ev.poster) { var img = new Image(); img.src = ev.poster; img.alt = ""; img.decoding = "async"; img.setAttribute("fetchpriority", "high"); btn.appendChild(img); }
+    btn.insertAdjacentHTML("beforeend", '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg></span>');
+    if (ev.duration) btn.appendChild(el("span", "hv-len", ev.duration));
+    frame.appendChild(btn);
+    var ph = $(".hv-placeholder", fig); if (ph) ph.replaceWith(frame); else fig.insertBefore(frame, fig.firstChild);
+    var cap = $(".hv-caption", fig); if (cap && ev.title) cap.textContent = ev.title;
+    fig.setAttribute("data-state", "ready");
+    btn.addEventListener("click", function () {
+      var v = document.createElement("video");
+      v.src = ev.src; v.controls = true; v.playsInline = true; v.preload = "auto"; v.loop = false;
+      v.setAttribute("playsinline", ""); if (ev.poster) v.poster = ev.poster;
+      if (ev.captions) { var tr = document.createElement("track"); tr.kind = "captions"; tr.src = ev.captions; tr.srclang = ev.captionsLang || "en"; tr.label = ev.captionsLabel || "English"; v.appendChild(tr); }
+      v.setAttribute("aria-label", ev.title || "How YoungPreneurAi works");
+      var started = false;
+      v.addEventListener("play", function () { if (!started) { started = true; fig.dispatchEvent(new CustomEvent("yp:video", { detail: { kind: "play", video_id: "programme_explainer", content_type: "programme_explainer" } })); } });
+      v.addEventListener("ended", function () { fig.dispatchEvent(new CustomEvent("yp:video", { detail: { kind: "complete", video_id: "programme_explainer", content_type: "programme_explainer" } })); });
+      btn.replaceWith(v);
+      var p = v.play(); if (p && p.catch) p.catch(function () {});
+    });
   })();
 
   /* ---------- Interactive journey map ----------

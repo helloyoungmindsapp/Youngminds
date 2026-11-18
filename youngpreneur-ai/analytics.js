@@ -201,6 +201,13 @@
     else track("yp_student_review_interaction", { interaction: d.interaction, review_id: d.review_id || "", content_type: "session_review", section: "reviews_slider" });
   });
 
+  // Hero explainer video (dispatched by app.js) — same events as Student Voices videos
+  var hv = $("#hero-video"), hvSeen = {};
+  if (hv) hv.addEventListener("yp:video", function (e) {
+    var d = e.detail || {}; if (hvSeen[d.kind]) return; hvSeen[d.kind] = true;
+    track(d.kind === "complete" ? "yp_video_complete" : "yp_video_play", { video_id: d.video_id, content_type: d.content_type, video_location: "hero" });
+  });
+
   // FAQ opens — once per question per page view
   var faqSeen = {};
   document.addEventListener("toggle", function (e) {
