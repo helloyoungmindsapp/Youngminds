@@ -37,10 +37,20 @@
   function onScrollHeader() { header && header.classList.toggle("scrolled", window.scrollY > 8); }
   window.addEventListener("scroll", onScrollHeader, { passive: true }); onScrollHeader();
 
+  /* ---------- Hero photo (temporary hero asset) — config.heroImage overrides the HTML defaults ---------- */
+  (function heroImage() {
+    var hi = C.heroImage || {}, img = $("#hero-video .hv-image img"), chip = $("#hero-video .hv-chip");
+    if (!img) return;
+    if (hi.src) { img.src = hi.src; img.srcset = hi.srcset || ""; }
+    if (hi.alt) img.alt = hi.alt;
+    if (hi.focus) img.style.objectPosition = hi.focus;
+    if (chip) { if (hi.caption === "") chip.remove(); else if (hi.caption) chip.textContent = hi.caption; }
+  })();
+
   /* ---------- Hero: programme explainer video (click to play, controls, no loop) ---------- */
   (function explainer() {
     var fig = $("#hero-video"), ev = C.explainerVideo || {};
-    if (!fig || !ev.src) return; // keep the labelled placeholder until the real video exists
+    if (!fig || !ev.src) return; // no explainer yet: keep the hero photo (config.heroImage)
     if (ev.ratio) fig.style.setProperty("--hv-ratio", ev.ratio);
     var frame = el("div", "hv-frame");
     var btn = el("button", "hv-play"); btn.type = "button";
@@ -49,8 +59,8 @@
     btn.insertAdjacentHTML("beforeend", '<span class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg></span>');
     if (ev.duration) btn.appendChild(el("span", "hv-len", ev.duration));
     frame.appendChild(btn);
-    var ph = $(".hv-placeholder", fig); if (ph) ph.replaceWith(frame); else fig.insertBefore(frame, fig.firstChild);
-    var cap = $(".hv-caption", fig); if (cap && ev.title) cap.textContent = ev.title;
+    var current = $(".hv-image", fig) || $(".hv-placeholder", fig); // temporary hero photo
+    if (current) current.replaceWith(frame); else fig.insertBefore(frame, fig.firstChild);
     fig.setAttribute("data-state", "ready");
     btn.addEventListener("click", function () {
       var v = document.createElement("video");

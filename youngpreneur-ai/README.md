@@ -15,9 +15,10 @@ Nothing outside this folder is changed except one new entry in `/sitemap.xml`.
 The restored reviews' videos are loaded from `/startup-idea-session/` (no copies). If those files move, update the paths in
 `config.js`.
 
-**Hero:** headline + CTAs on the left, programme explainer video on the right (click to play, controls, no autoplay, no
-loop). **ASSET REQUIRED:** no explainer video exists yet, so a labelled placeholder is shown. Add the file and poster in
-`config.explainerVideo` and the player appears. A brand statement band ("School builds the employee. We build the
+**Hero:** headline + CTAs on the left, visual on the right. **Temporary hero asset:** a real photo of Feva
+(YoungPreneurAi student) at work, `assets/hero/hero-student-600/1000.webp`, set in `config.heroImage`. When the programme
+explainer video exists, fill `config.explainerVideo` and the photo is replaced by the player (click to play, controls, no
+autoplay, no loop) with no HTML change. A brand statement band ("School builds the employee. We build the
 founder.") follows the hero.
 
 ## Journey map

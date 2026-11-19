@@ -43,9 +43,22 @@ window.YP_CONFIG = {
     whatsappMessage: "Hi YoungMinds! I have a question about YoungPreneurAi.",
   },
 
+  /* ---------------- HERO PHOTO — TEMPORARY HERO ASSET ----------------
+     Shown until the programme explainer video exists. Real photo of a
+     YoungPreneurAi student (Feva, consent confirmed for her showcase).
+     The same image is written in index.html (so it loads first); values here
+     override it. caption: "" hides the name chip.                           */
+  heroImage: {
+    src: "assets/hero/hero-student-1000.webp",
+    srcset: "assets/hero/hero-student-600.webp 600w, assets/hero/hero-student-1000.webp 1000w",
+    alt: "Feva, a YoungPreneurAi student, smiling at her desk while working on her startup on a laptop",
+    focus: "50% 35%",
+    caption: "Feva · YoungPreneurAi student",
+  },
+
   /* ---------------- HERO: PROGRAMME EXPLAINER VIDEO ----------------
-     ASSET REQUIRED. No programme explainer video exists yet, so the hero shows a
-     labelled placeholder. When the video is ready (ideally 1–3 min, MP4 H.264,
+     ASSET REQUIRED. No programme explainer video exists yet, so the hero shows
+     the photo above. When the video is ready (ideally 1–3 min, MP4 H.264,
      ≤ 20 MB, with a poster frame), fill these in and the player appears:
        src      e.g. "assets/explainer/youngpreneurai-explainer.mp4"
        poster   e.g. "assets/explainer/youngpreneurai-explainer.webp"

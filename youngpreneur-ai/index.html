@@ -64,7 +64,7 @@
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-text">
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Ages 11–18 <i>·</i> 100 days <i>·</i> 1:1 mentoring</p>
+          <p class="eyebrow hero-eyebrow"><span class="dot" aria-hidden="true"></span><span>Ages 11–18</span> <i>·</i> <span>100 days</span> <i>·</i> <span>1:1 personalised mentorship</span></p>
           <h1 id="hero-title"><span class="h1-a">Build your first startup</span> <span class="h1-b">before you <span class="h1-hl">finish school.</span></span></h1>
           <p class="hero-sub">100 days to go from experimenting with mini-ventures to building and selling your own startup.</p>
         </div>
@@ -73,15 +73,17 @@
           <a class="btn btn-lg hero-secondary" href="#journey" data-hero="explore_journey">Explore the journey</a>
         </div>
 
-        <!-- Programme explainer video (config.explainerVideo). Click to play, controls, no autoplay, no loop.
-             Until the real video exists, a clearly labelled placeholder is shown. -->
-        <figure class="hero-video" id="hero-video" data-state="placeholder">
-          <div class="hv-placeholder">
-            <span class="hv-ph-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z"/></svg></span>
-            <strong>Programme explainer video</strong>
-            <span>Coming soon: how YoungPreneurAi works, from Day 1 to Pitch Day.</span>
+        <!-- HERO VISUAL — TEMPORARY HERO ASSET (config.heroImage): a real photo of a YoungPreneurAi student at work.
+             When config.explainerVideo.src is set, app.js replaces this photo with the programme explainer player
+             (click to play, controls, no autoplay, no loop). No HTML change is needed for that swap. -->
+        <figure class="hero-video" id="hero-video" data-state="image">
+          <div class="hv-image">
+            <img src="assets/hero/hero-student-1000.webp"
+                 srcset="assets/hero/hero-student-600.webp 600w, assets/hero/hero-student-1000.webp 1000w"
+                 sizes="(max-width: 920px) 92vw, 460px" width="1000" height="1250" fetchpriority="high" decoding="async"
+                 alt="Feva, a YoungPreneurAi student, smiling at her desk while working on her startup on a laptop" />
+            <span class="hv-chip">Feva · YoungPreneurAi student</span>
           </div>
-          <figcaption class="hv-caption">How YoungPreneurAi works</figcaption>
         </figure>
 
         <p class="hero-note">YoungPreneurAi by YoungMinds.app · <a class="trial-link" href="#experiences" data-hero="see_7_day" aria-label="Or see the 7-day live experience, ₹999">or see the <span class="tl-days">7-day</span> live experience <span class="tl-price">₹999</span></a></p>
