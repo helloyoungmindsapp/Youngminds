@@ -43,17 +43,19 @@ window.YP_CONFIG = {
     whatsappMessage: "Hi YoungMinds! I have a question about YoungPreneurAi.",
   },
 
-  /* ---------------- HERO PHOTO — TEMPORARY HERO ASSET ----------------
-     Shown until the programme explainer video exists. Real photo of a
-     YoungPreneurAi student (Feva, consent confirmed for her showcase).
+  /* ---------------- HERO IMAGE — TEMPORARY HERO ASSET ----------------
+     Shown until the programme explainer video exists. AI-generated
+     (Canva), illustrative only: a young founder presenting the startup they
+     built — the outcome of the 100 days. Not a real student, so no name chip.
      The same image is written in index.html (so it loads first); values here
-     override it. caption: "" hides the name chip.                           */
+     override it. ratio sets the frame shape ("4 / 3" landscape).            */
   heroImage: {
-    src: "assets/hero/hero-student-1000.webp",
-    srcset: "assets/hero/hero-student-600.webp 600w, assets/hero/hero-student-1000.webp 1000w",
-    alt: "Feva, a YoungPreneurAi student, smiling at her desk while working on her startup on a laptop",
-    focus: "50% 35%",
-    caption: "Feva · YoungPreneurAi student",
+    src: "assets/hero/hero-founder-1200.webp",
+    srcset: "assets/hero/hero-founder-800.webp 800w, assets/hero/hero-founder-1200.webp 1200w",
+    alt: "Illustrative image: a confident teenage founder presenting the working prototype, packaging and order boxes of the startup they built",
+    focus: "50% 50%",
+    ratio: "4 / 3",
+    caption: "",
   },
 
   /* ---------------- HERO: PROGRAMME EXPLAINER VIDEO ----------------

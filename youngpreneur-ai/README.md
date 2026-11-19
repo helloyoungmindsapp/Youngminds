@@ -15,7 +15,7 @@ Nothing outside this folder is changed except one new entry in `/sitemap.xml`.
 The restored reviews' videos are loaded from `/startup-idea-session/` (no copies). If those files move, update the paths in
 `config.js`.
 
-**Hero:** headline + CTAs on the left, visual on the right. **Temporary hero asset:** a real photo of Feva
+**Hero:** headline + CTAs on the left, visual on the right. **Temporary hero asset:** an AI-generated (Canva) illustrative image of a young founder presenting their startup, `assets/hero/hero-founder-800/1200.webp`, set in `config.heroImage` (not a real student; no name shown). Previously: a real photo of Feva
 (YoungPreneurAi student) at work, `assets/hero/hero-student-600/1000.webp`, set in `config.heroImage`. When the programme
 explainer video exists, fill `config.explainerVideo` and the photo is replaced by the player (click to play, controls, no
 autoplay, no loop) with no HTML change. A brand statement band ("School builds the employee. We build the

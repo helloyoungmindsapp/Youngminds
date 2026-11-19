@@ -44,6 +44,7 @@
     if (hi.src) { img.src = hi.src; img.srcset = hi.srcset || ""; }
     if (hi.alt) img.alt = hi.alt;
     if (hi.focus) img.style.objectPosition = hi.focus;
+    if (hi.ratio) $("#hero-video .hv-image").style.setProperty("--hero-ratio", hi.ratio);
     if (chip) { if (hi.caption === "") chip.remove(); else if (hi.caption) chip.textContent = hi.caption; }
   })();
 
