@@ -56,8 +56,14 @@
   });
 
   var consentState = null, queue = [];
+  var PARAM_KEYS = ["cta_location", "cta_name", "offer_type", "destination", "interaction", "review_id", "slide_index",
+    "content_type", "section", "section_id", "section_name", "section_order", "phase_name", "phase_index", "journey_mode",
+    "video_id", "video_location", "faq_id", "scroll_percentage"];
   function track(event, params) {
     var data = { event: event, page_name: PAGE_NAME, page_path: PAGE_PATH };
+    // GTM's data layer remembers keys from earlier pushes; clear every event parameter first
+    // so one event's values (e.g. offer_type) never leak into the next event.
+    for (var r = 0; r < PARAM_KEYS.length; r++) data[PARAM_KEYS[r]] = undefined;
     for (var k in params) if (Object.prototype.hasOwnProperty.call(params, k)) data[k] = params[k];
     if (DEBUG && window.console) console.info("[yp-analytics]", event, data, consentState || "waiting for consent");
     if (!GTM_ID || consentState === "denied") return;
