@@ -279,7 +279,10 @@ mark {
 
 /* Scroll-driven journey (desktop): the map pins while the runway scrolls past */
 .jmap-runway { display: none; }
-.journey.is-scrub { overflow: clip; }
+.journey.is-scrub { overflow: visible; overflow: clip; } /* "visible" first: browsers without overflow:clip (Safari < 16) must not keep overflow:hidden, which breaks sticky */
+.journey.is-scrub .stop.active .stop-panel { min-height: var(--panel-h, 0px); } /* one height for every stop while pinned */
+.journey.is-compact .stops { margin-top: 28px; } /* short windows: tighter spacing so the pinned map fits */
+.journey.is-compact .jmap { margin-inline: auto; }
 .journey.is-scrub .jmap { position: sticky; top: calc(var(--header-h) + 16px); z-index: 1; }
 .journey.is-scrub .jmap-runway { display: block; height: 170vh; }
 .journey.is-scrub .road-fill { transition: stroke-dashoffset .12s linear; }

@@ -78,16 +78,25 @@
   })();
 
   /* ---------- Interactive journey map ----------
-     Desktop: the map pins while the visitor scrolls through the section; the road
-     fills with scroll progress and each stop opens when the road reaches it.
-     Clicking a stop scrolls to that point. Mobile: all stops stay open on a vertical
-     road that fills as you scroll; the stop you have reached is highlighted.
-     Reduced motion (or a very short window): click-only, as before.            */
+     The journey follows the visitor's own scrolling (it never moves by itself, so it
+     cannot fight manual scrolling; a click-triggered smooth scroll is cancelled by
+     the browser as soon as the visitor scrolls or touches).
+       pin  (desktop): the map pins below the header while a runway scrolls past;
+            the road fills and each stop opens when the road reaches it. On short
+            windows the map is compacted/scaled down so it still fits.
+       free (desktop, window too short even when compacted): no pinning; progress
+            follows the map's position in the viewport.
+       flow (< 861px): vertical road, all stops open; the road fills and the stop
+            you have reached is highlighted.
+     Reduced motion: same behaviour, without transitions (CSS removes them).
+     Geometry is measured once per layout change (resize, orientation, fonts,
+     ResizeObserver) and cached; the scroll handler only reads scrollY.        */
   (function journey() {
     var section = $("#journey"), map = $("#jmap"); if (!map || !section) return;
-    var stops = $$(".stop", map), fill = $(".road-fill", map), stopsList = $(".stops", map), runway = $(".jmap-runway", section);
+    var stops = $$(".stop", map), fill = $(".road-fill", map), stopsList = $(".stops", map);
+    var runway = $(".jmap-runway", section), road = $(".road", map);
     var desktop = window.matchMedia("(min-width: 861px)");
-    var current = -1, scrub = false;
+    var current = -1, mode = "flow", geo = {}, ticking = false, configuring = false;
 
     // Where each stop sits along the road (0–1000), found from its x position.
     var marks = stops.map(function (s) {
@@ -97,90 +106,149 @@
       return Math.round((lo / total) * 1000);
     });
     var first = marks[0] || 0;
+    // Each stop gets a fair share of the scroll; the last stretch holds Pitch Day.
+    var KNOTS = [0, 0.33, 0.66, 0.9];
 
     function setActive(i) {
       if (i === current) return;
       current = i;
       stops.forEach(function (s, j) {
         s.classList.toggle("active", j === i);
-        $(".stop-btn", s).setAttribute("aria-expanded", String(desktop.matches ? j === i : true));
+        $(".stop-btn", s).setAttribute("aria-expanded", String(mode === "flow" ? true : j === i));
       });
     }
     function setRoad(len) { if (fill) fill.style.setProperty("--fill", String(1000 - len)); }
+    function clamp01(x) { return x < 0 ? 0 : x > 1 ? 1 : x; }
+    function absTop(el) { return el.getBoundingClientRect().top + window.pageYOffset; }
+    function headerOffset() { return (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 68) + 16; }
 
-    /* ----- Desktop scrubbing ----- */
-    function stickyTop() { return (parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 68) + 16; }
-    function progress() { // 0 → 1 while the runway scrolls past under the pinned map
-      var r = runway.getBoundingClientRect(), h = r.height || 1;
-      var start = stickyTop() + map.offsetHeight;
-      return Math.min(1, Math.max(0, (start - r.top) / h));
-    }
-    // Each stop gets a fair share of the scroll: stop k is reached at KNOTS[k];
-    // the road fills smoothly between stops and the last stretch holds Pitch Day.
-    var KNOTS = [0, 0.33, 0.66, 0.9];
     function fromProgress(p) {
       var k = 0;
       for (var i = 0; i < KNOTS.length && i < marks.length; i++) if (p >= KNOTS[i]) k = i;
       var nextK = Math.min(k + 1, marks.length - 1);
-      var span = (KNOTS[nextK] !== undefined && nextK !== k) ? (KNOTS[nextK] - KNOTS[k]) : 1;
-      var t = nextK === k ? 0 : Math.min(1, (p - KNOTS[k]) / span);
+      var t = nextK === k ? 0 : clamp01((p - KNOTS[k]) / (KNOTS[nextK] - KNOTS[k]));
       setRoad(marks[k] + t * (marks[nextK] - marks[k])); setActive(k);
     }
-    function scrollToStop(i) {
-      var p = Math.min(1, (KNOTS[i] || 0) + 0.02);
-      var r = runway.getBoundingClientRect(), target = stickyTop() + map.offsetHeight - p * r.height;
-      window.scrollBy({ top: r.top - target, behavior: reduceMotion ? "auto" : "smooth" });
-    }
 
-    /* ----- Mobile auto-highlight ----- */
-    function mobileUpdate() {
-      var line = window.innerHeight * 0.55, k = 0;
-      stops.forEach(function (s, i) { if (s.getBoundingClientRect().top < line) k = i; });
-      setActive(k);
-      if (stopsList) {
-        var r = stopsList.getBoundingClientRect();
-        stopsList.style.setProperty("--vfill", Math.min(100, Math.max(0, (line - r.top) / (r.height || 1) * 100)) + "%");
+    /* ----- Measuring (layout reads happen only here) ----- */
+    function tallestPanel() { // so the pinned map keeps one height for every stop
+      var max = 0, was = current;
+      stops.forEach(function (s) { s.classList.add("active"); });
+      stops.forEach(function (s) { var p = $(".stop-panel", s); if (p) max = Math.max(max, p.offsetHeight); });
+      stops.forEach(function (s, j) { s.classList.toggle("active", j === was); });
+      return max;
+    }
+    function fitDesktop() {
+      // Returns true when the pinned map fits the window (compacting/scaling if needed).
+      section.classList.remove("is-compact"); map.style.maxWidth = ""; map.style.removeProperty("--panel-h");
+      section.classList.add("is-scrub"); // measure exactly the layout that will be pinned (fixed panel height)
+      var avail = window.innerHeight - geo.top - 12;
+      for (var pass = 0; pass < 4; pass++) {
+        map.style.setProperty("--panel-h", tallestPanel() + "px");
+        var h = map.offsetHeight;
+        if (h <= avail) return true;
+        if (!section.classList.contains("is-compact")) { section.classList.add("is-compact"); continue; }
+        var roadH = road ? road.getBoundingClientRect().height : 0, rest = h - roadH;
+        var target = avail - rest; // height the road may use
+        var w = Math.floor(target / 0.3); // road keeps its 1000:300 shape
+        if (w < 720) return false; // window far too short to pin a readable map
+        map.style.maxWidth = w + "px";
+      }
+      return map.offsetHeight <= avail;
+    }
+    function measure() {
+      geo.vh = window.innerHeight;
+      if (mode === "pin") {
+        geo.mapH = map.offsetHeight; geo.runTop = absTop(runway); geo.runH = runway.offsetHeight || 1;
+      } else if (mode === "free") {
+        geo.mapTop = absTop(map); geo.mapH = map.offsetHeight || 1;
+      } else {
+        geo.stopTops = stops.map(absTop);
+        if (stopsList) { geo.listTop = absTop(stopsList); geo.listH = stopsList.offsetHeight || 1; }
       }
     }
-
-    function update() {
-      if (scrub) fromProgress(progress());
-      else if (!desktop.matches) mobileUpdate();
-    }
-    var onScroll = update; // scroll events already arrive at most once per frame; the work is a few rect reads
-
     function configure() {
-      // Pin only on desktop, without reduced motion, and when the map fits on screen
-      var fits = map.offsetHeight + stickyTop() + 24 <= window.innerHeight;
-      scrub = desktop.matches && !reduceMotion && !!runway && fits;
-      section.classList.toggle("is-scrub", scrub);
-      section.classList.toggle("is-flow", !desktop.matches);
-      current = -1;
-      if (scrub || !desktop.matches) update();
-      else { setActive(Math.max(0, current)); setRoad(marks[Math.max(0, current)] || first); }
+      if (configuring) return; configuring = true;
+      geo = { top: headerOffset() };
+      var wantDesktop = desktop.matches;
+      section.classList.remove("is-scrub", "is-free");
+      section.classList.toggle("is-flow", !wantDesktop);
+      if (wantDesktop && runway) {
+        mode = fitDesktop() ? "pin" : "free";
+        if (mode === "free") { section.classList.remove("is-compact"); map.style.maxWidth = ""; map.style.removeProperty("--panel-h"); }
+        section.classList.toggle("is-scrub", mode === "pin");
+        section.classList.toggle("is-free", mode === "free");
+      } else {
+        mode = "flow"; section.classList.remove("is-compact"); map.style.maxWidth = ""; map.style.removeProperty("--panel-h");
+      }
+      measure();
+      current = -1; update();
+      configuring = false;
     }
 
+    /* ----- Per-scroll work: arithmetic on cached numbers only ----- */
+    function update() {
+      ticking = false;
+      var y = window.pageYOffset;
+      if (mode === "pin") fromProgress(clamp01((y + geo.top + geo.mapH - geo.runTop) / geo.runH));
+      else if (mode === "free") fromProgress(clamp01((y + geo.vh * 0.75 - geo.mapTop) / (geo.mapH + geo.vh * 0.45))); // map top at 75% of the screen → map bottom at 30%
+      else {
+        var line = y + geo.vh * 0.55, k = 0;
+        geo.stopTops.forEach(function (t, i) { if (t < line) k = i; });
+        setActive(k);
+        if (stopsList) stopsList.style.setProperty("--vfill", (clamp01((line - geo.listTop) / geo.listH) * 100) + "%");
+      }
+    }
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      // rAF keeps it to one update per frame; the timeout is a safety net for browsers
+      // that pause rAF (e.g. background or embedded views) so updates never get stuck.
+      var done = false, run = function () { if (!done) { done = true; update(); } };
+      if (window.requestAnimationFrame) requestAnimationFrame(run);
+      setTimeout(run, 80);
+    }
+
+    /* ----- Manual navigation (click / keyboard) ----- */
+    function scrollToStop(i) {
+      var y;
+      if (mode === "pin") y = geo.runTop - geo.top - geo.mapH + Math.min(1, (KNOTS[i] || 0) + 0.02) * geo.runH;
+      else if (mode === "free") y = geo.mapTop - geo.vh * 0.75 + Math.min(1, (KNOTS[i] || 0) + 0.02) * (geo.mapH + geo.vh * 0.45);
+      if (y !== undefined) window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? "auto" : "smooth" });
+    }
     stops.forEach(function (s, i) {
       $(".stop-btn", s).addEventListener("click", function () {
         map.dispatchEvent(new CustomEvent("yp:phase", { detail: { phase: s.getAttribute("data-phase"), index: i + 1 } }));
-        if (scrub) { scrollToStop(i); return; }
-        if (!desktop.matches) { s.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); return; }
-        setActive(i); setRoad(marks[i] || first); // click-only mode
+        if (mode === "flow") { s.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" }); return; }
+        setActive(i); setRoad(marks[i] || first); // instant feedback, then scroll to that point
+        scrollToStop(i);
       });
     });
-    // Arrow keys move between stops on desktop
     map.addEventListener("keydown", function (e) {
-      if (!desktop.matches || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
+      if (mode === "flow" || (e.key !== "ArrowRight" && e.key !== "ArrowLeft")) return;
       var next = Math.max(0, Math.min(stops.length - 1, Math.max(0, current) + (e.key === "ArrowRight" ? 1 : -1)));
       if (next !== current) { e.preventDefault(); $(".stop-btn", stops[next]).click(); $(".stop-btn", stops[next]).focus(); }
     });
 
+    /* ----- Wiring ----- */
+    var reconf = null;
+    function scheduleConfigure() { clearTimeout(reconf); reconf = setTimeout(configure, 120); }
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", configure);
-    if (desktop.addEventListener) desktop.addEventListener("change", configure);
+    window.addEventListener("resize", scheduleConfigure);
+    window.addEventListener("orientationchange", scheduleConfigure);
+    if (desktop.addEventListener) desktop.addEventListener("change", scheduleConfigure);
+    else if (desktop.addListener) desktop.addListener(scheduleConfigure);
+    window.addEventListener("load", configure); // fonts/images can change heights
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(scheduleConfigure);
+    if ("ResizeObserver" in window) { // content above the map changing height moves it
+      var lastH = 0, lastW = 0;
+      new ResizeObserver(function () {
+        var h = document.body.offsetHeight, w = document.documentElement.clientWidth;
+        if (Math.abs(h - lastH) > 2 || w !== lastW) { lastH = h; lastW = w; if (!configuring) scheduleConfigure(); }
+      }).observe(document.body);
+    }
     setActive(0); setRoad(first);
     configure();
-    window.addEventListener("load", configure); // fonts/images can change the map's height
   })();
 
   /* ---------- Student work (genuine, permitted) ---------- */

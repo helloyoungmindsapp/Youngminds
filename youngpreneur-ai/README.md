@@ -23,12 +23,16 @@ founder.") follows the hero.
 
 ## Journey map
 
-Scroll-driven. Desktop: the road map pins below the header while the visitor scrolls through the section; the road
-fills with scroll progress and each phase card opens as the road reaches its stop (Tinkering → Innovation →
-Entrepreneurship → Investor Pitch Day, at roughly 0 / 33 / 66 / 90 % of the pinned scroll). Clicking a stop scrolls to
-that point. Mobile: a vertical road; all four cards stay open, the road fills as you scroll and the reached stop is
-highlighted. Reduced-motion visitors and very short windows get click-only behaviour. Without JavaScript every stop's
-details are shown. `yp_journey_phase_click` fires on clicks only, not on scrolling.
+Scroll-driven; it only follows the visitor's own scrolling (never moves by itself). Three modes, chosen per device and
+re-checked on resize, orientation change, font load and layout changes:
+- **pin** (desktop ≥ 861px): the map pins below the header while a runway scrolls past; the road fills and each phase card
+  opens as the road reaches its stop (≈ 0 / 33 / 66 / 90 % of the pinned scroll). On short windows (e.g. 1366×657 laptops)
+  the map is compacted and scaled (never below 720px wide) so it fits. While pinned, the card area keeps one height.
+- **free** (desktop window too short even when compacted, e.g. 600px tall): no pinning; phases advance as the map passes
+  through the viewport.
+- **flow** (< 861px): vertical road, all cards open; the road fills and the reached stop is highlighted.
+Clicking a stop (or arrow keys on desktop) scrolls to that point. Reduced-motion visitors get the same behaviour without
+transitions. Geometry is cached; the scroll handler only reads `scrollY`. `yp_journey_phase_click` fires on clicks only.
 
 ## Booking
 
