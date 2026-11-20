@@ -20,7 +20,10 @@
                                     (interaction, review_id, slide_index, content_type, section)
      yp_video_play                  first play of a Student Voices or reviews-slider video (video_id, content_type, video_location)
      yp_video_complete              video watched to the end (video_id, content_type)
-     yp_journey_phase_click         journey stop opened (phase_name, phase_index)
+     yp_journey_phase_click         journey stop clicked/selected manually (phase_name, phase_index)
+     yp_journey_phase_view          journey reached a phase while on screen, once per phase (phase_name, phase_index, journey_mode)
+     yp_section_view                section ≥50% visible for 1 s, once per section (section_id, section_name, section_order)
+     yp_video_50                    a video passed 50 %, once per video (video_id, content_type, video_location)
      yp_faq_open                    FAQ opened, once per question (faq_id)
      yp_scroll_depth                25 / 50 / 75 / 90 %
 
@@ -207,6 +210,68 @@
     var d = e.detail || {}; if (hvSeen[d.kind]) return; hvSeen[d.kind] = true;
     track(d.kind === "complete" ? "yp_video_complete" : "yp_video_play", { video_id: d.video_id, content_type: d.content_type, video_location: "hero" });
   });
+
+  // Journey phase views (dispatched by app.js when the journey reaches a phase on screen) — once per phase
+  var phaseSeen = {};
+  if (map) map.addEventListener("yp:phaseview", function (e) {
+    var d = e.detail || {}; if (phaseSeen[d.phase]) return; phaseSeen[d.phase] = true;
+    track("yp_journey_phase_view", { phase_name: d.phase, phase_index: d.index, journey_mode: d.mode });
+  });
+
+  // Video 50 % — any video on the page that carries data-video-id (Student Voices, hero explainer)
+  // or sits in the reviews slider. Once per video per page view.
+  var halfSeen = {};
+  document.addEventListener("timeupdate", function (e) {
+    var v = e.target; if (!v || v.tagName !== "VIDEO" || !v.duration || v.currentTime / v.duration < 0.5) return;
+    var card = v.closest("[data-review-id]");
+    var id = v.getAttribute("data-video-id") || (card && card.getAttribute("data-review-id")) || "";
+    var loc = v.getAttribute("data-video-location") || (card ? "reviews_slider" : "other");
+    if (!id || halfSeen[loc + ":" + id]) return; halfSeen[loc + ":" + id] = true;
+    track("yp_video_50", { video_id: id, content_type: v.getAttribute("data-content-type") || (card ? "session_review" : ""), video_location: loc });
+  }, true);
+
+  // Section visibility — same rule as /startup-idea-session/: ≥50% of the section (or of the
+  // screen, for tall sections) visible for ~1 s; each section once per page view. "Reached", not "read".
+  var SECTIONS = [
+    { id: "hero",            name: "Hero",                       sel: "section.hero" },
+    { id: "brand_statement", name: "Brand Statement",            sel: "section.statement" },
+    { id: "positioning",     name: "Positioning",                sel: "section.position" },
+    { id: "journey",         name: "100-Day Journey",            sel: "#journey" },
+    { id: "outcomes",        name: "What Students Build",        sel: "section.build" },
+    { id: "student_voices",  name: "Student Voices",             sel: "#voices" },
+    { id: "reviews",         name: "Student Reviews",            sel: "#reviews" },
+    { id: "mentorship",      name: "Mentorship & Parent Access", sel: "section.guide" },
+    { id: "experiences",     name: "Experience Options",         sel: "#experiences" },
+    { id: "faq",             name: "FAQ",                        sel: "#faq" },
+    { id: "final_cta",       name: "Final CTA",                  sel: "section.final" },
+  ];
+  if ("IntersectionObserver" in window) {
+    var thresholds = []; for (var ti = 0; ti <= 20; ti++) thresholds.push(ti / 20);
+    var secTimers = new Map();
+    var sectionIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        var sx = en.target._ypSection; if (!sx || sx.done) return;
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        var base = Math.min(en.boundingClientRect.height, vh) || 1;
+        var visible = en.isIntersecting && en.intersectionRect.height / base >= 0.5;
+        if (visible && !secTimers.has(en.target)) {
+          secTimers.set(en.target, setTimeout(function () {
+            secTimers.delete(en.target);
+            if (sx.done) return; sx.done = true; sectionIO.unobserve(en.target);
+            track("yp_section_view", { section_id: sx.id, section_name: sx.name, section_order: sx.order });
+          }, 1000));
+        } else if (!visible && secTimers.has(en.target)) { clearTimeout(secTimers.get(en.target)); secTimers.delete(en.target); }
+      });
+    }, { threshold: thresholds });
+    // Observe once app.js has finished (Student Voices is unhidden by app.js); hidden sections are skipped.
+    setTimeout(function () {
+      SECTIONS.forEach(function (sx, i) {
+        var el = $(sx.sel);
+        if (!el || el.hidden || el.closest("[hidden]")) return;
+        sx.order = i + 1; el._ypSection = sx; sectionIO.observe(el);
+      });
+    }, 0);
+  }
 
   // FAQ opens — once per question per page view
   var faqSeen = {};

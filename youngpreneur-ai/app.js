@@ -66,6 +66,7 @@
     btn.addEventListener("click", function () {
       var v = document.createElement("video");
       v.src = ev.src; v.controls = true; v.playsInline = true; v.preload = "auto"; v.loop = false;
+      v.setAttribute("data-video-id", "programme_explainer"); v.setAttribute("data-video-location", "hero");
       v.setAttribute("playsinline", ""); if (ev.poster) v.poster = ev.poster;
       if (ev.captions) { var tr = document.createElement("track"); tr.kind = "captions"; tr.src = ev.captions; tr.srclang = ev.captionsLang || "en"; tr.label = ev.captionsLabel || "English"; v.appendChild(tr); }
       v.setAttribute("aria-label", ev.title || "How YoungPreneurAi works");
@@ -112,6 +113,7 @@
     function setActive(i) {
       if (i === current) return;
       current = i;
+
       stops.forEach(function (s, j) {
         s.classList.toggle("active", j === i);
         $(".stop-btn", s).setAttribute("aria-expanded", String(mode === "flow" ? true : j === i));
@@ -187,6 +189,16 @@
     }
 
     /* ----- Per-scroll work: arithmetic on cached numbers only ----- */
+    // Analytics: announce each phase the first time it is the active phase while the journey is on
+    // screen (yp_journey_phase_view). Only reads layout until every phase has been announced.
+    var announced = {}, announcedCount = 0;
+    function announce() {
+      if (current < 0 || announced[current] || announcedCount >= stops.length || configuring) return;
+      var r = section.getBoundingClientRect(), vh = window.innerHeight || 800;
+      if (r.bottom <= vh * 0.2 || r.top >= vh * 0.8) return; // journey not meaningfully on screen
+      announced[current] = true; announcedCount++;
+      map.dispatchEvent(new CustomEvent("yp:phaseview", { detail: { phase: stops[current].getAttribute("data-phase"), index: current + 1, mode: mode } }));
+    }
     var lastY = -1;
     function update() {
       ticking = false;
@@ -199,6 +211,7 @@
         setActive(k);
         if (stopsList) stopsList.style.setProperty("--vfill", (clamp01((line - geo.listTop) / geo.listH) * 100) + "%");
       }
+      announce();
     }
     function onScroll() {
       if (ticking) return;
@@ -353,6 +366,7 @@
       btn.addEventListener("click", function () {
         var vid = document.createElement("video");
         vid.src = v.video; vid.controls = true; vid.playsInline = true; vid.preload = "auto";
+        vid.setAttribute("data-video-id", slideId(v)); vid.setAttribute("data-video-location", "student_voices"); vid.setAttribute("data-content-type", v.type);
         vid.setAttribute("playsinline", ""); if (v.poster) vid.poster = v.poster;
         vid.setAttribute("aria-label", v.videoLabel || (v.name + " video"));
         var started = false;
