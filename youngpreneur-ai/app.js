@@ -187,9 +187,10 @@
     }
 
     /* ----- Per-scroll work: arithmetic on cached numbers only ----- */
+    var lastY = -1;
     function update() {
       ticking = false;
-      var y = window.pageYOffset;
+      var y = window.pageYOffset; lastY = y;
       if (mode === "pin") fromProgress(clamp01((y + geo.top + geo.mapH - geo.runTop) / geo.runH));
       else if (mode === "free") fromProgress(clamp01((y + geo.vh * 0.75 - geo.mapTop) / (geo.mapH + geo.vh * 0.45))); // map top at 75% of the screen → map bottom at 30%
       else {
@@ -234,6 +235,10 @@
     var reconf = null;
     function scheduleConfigure() { clearTimeout(reconf); reconf = setTimeout(configure, 120); }
     window.addEventListener("scroll", onScroll, { passive: true });
+    // Safety net: some browsers/situations deliver no scroll event for a scroll (e.g. older iOS
+    // momentum scrolling, throttled windows). A cheap check of scrollY 5×/s catches up; it does
+    // nothing unless the position actually changed.
+    setInterval(function () { if (!ticking && !configuring && window.pageYOffset !== lastY) update(); }, 200);
     window.addEventListener("resize", scheduleConfigure);
     window.addEventListener("orientationchange", scheduleConfigure);
     if (desktop.addEventListener) desktop.addEventListener("change", scheduleConfigure);
