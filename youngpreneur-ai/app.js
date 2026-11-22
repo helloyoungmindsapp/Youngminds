@@ -22,12 +22,14 @@
      ₹99  → Wise.live booking page (same tab).
      ₹999 → WhatsApp chat with the official YoungMinds number, pre-filled
             enquiry the visitor can edit before sending (new tab).        */
-  var s99 = C.session99 && C.session99.bookingUrl;
+  // Temporary: config.bookingFormUrl sends both offers to one Google Form (same tab/new tab behaviour as before).
+  var form = C.bookingFormUrl;
+  var s99 = form || (C.session99 && C.session99.bookingUrl);
   if (s99) $$('a[data-offer="99_session"]').forEach(function (a) { a.href = s99; a.removeAttribute("target"); });
 
   var t = C.trial999 || {};
   $$("a[data-trial]").forEach(function (a) {
-    a.href = waLink(t.whatsappMessage); a.target = "_blank"; a.rel = "noopener";
+    a.href = form || waLink(t.whatsappMessage); a.target = "_blank"; a.rel = "noopener";
   });
   var refund = $("[data-refund]"); if (refund && t.refundTerms) { refund.textContent = t.refundTerms; refund.hidden = false; }
   $$("a[data-wa]").forEach(function (a) { a.href = waLink(C.contact && C.contact.whatsappMessage); });

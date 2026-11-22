@@ -11,6 +11,16 @@ window.YP_CONFIG = {
      on a preview). Keep false on the live site.                         */
   showContentPlaceholders: false,
 
+  /* ---------------- TEMPORARY BOOKING FORM (since 22 Nov 2026) ----------------
+     While set, EVERY ₹99 and ₹999 booking button opens this Google Form
+     instead of Wise.live / WhatsApp. Click tracking is unchanged
+     (yp_99_session_click / yp_999_trial_click = button clicks, not form
+     submissions). The form URL is also written in index.html (no-JS fallback).
+     TO GO BACK: set this to "" and put the Wise.live URL back in the five
+     ₹99 hrefs and "https://wa.me/919496040431" in the two ₹999 hrefs of
+     index.html (git history has the exact lines). Nothing else changes.   */
+  bookingFormUrl: "https://forms.gle/kXyv9iSWpZmeNMRKA",
+
   /* ---------------- OFFER A: ₹99 Startup Idea Session ----------------
      Same Wise.live page as /startup-idea-session/. "strartup" is the real,
      working spelling (checked 17 Nov 2026); ".../startup-seed-session"
