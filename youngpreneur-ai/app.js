@@ -364,7 +364,7 @@
       if (v.poster) { var img = new Image(); img.alt = ""; img.decoding = "async"; img.src = v.poster; img.onerror = function () { this.remove(); }; btn.appendChild(img); }
       btn.insertAdjacentHTML("beforeend", '<span class="play">' + PLAY + "</span>");
       media.appendChild(btn);
-      media.appendChild(el("p", "v-tag", v.name));
+      if (!v.posterHasName) media.appendChild(el("p", "v-tag", v.name)); // covers with a built-in name banner skip the overlay tag
       btn.addEventListener("click", function () {
         var vid = document.createElement("video");
         vid.src = v.video; vid.controls = true; vid.playsInline = true; vid.preload = "auto";

@@ -119,7 +119,8 @@ window.YP_CONFIG = {
       support: "His goal: an app like Duolingo that helps them learn it. Fitting the work around school, he built it over a few days. It's now a small app that runs on a phone, and he says there are still many improvements to make.",
       photo: "assets/voices/nehan-photo.webp", // from nehan_photo.jpeg (matched to his video)
       video: "assets/voices/nehan-idea.mp4",
-      poster: "assets/voices/nehan-idea.webp",
+      poster: "assets/voices/nehan-cover.webp", // cover from "nerhan cover.png" (23 Nov 2026)
+      posterHasName: true, // the cover already shows "Nehan · YoungPreneurAi Student", so no name tag on top
       videoLabel: "Nehan explaining his idea for a Duolingo-style technology app for older people (Malayalam with subtitles)",
       consentConfirmed: true, // parent/guardian consent confirmed by YoungMinds, 17 Nov 2026
     },
@@ -137,7 +138,8 @@ window.YP_CONFIG = {
       support: "Feva is working through YoungPreneurAi: identifying a real-world problem, interviewing people and exploring solutions. In this video she presents her early AI styling assistant MVP to a real user for feedback.",
       photo: "assets/voices/feva-photo.webp", // from feva_photo.JPG (same room and outfit as her video)
       video: "assets/voices/feva-idea.mp4",
-      poster: "assets/voices/feva-idea.webp",
+      poster: "assets/voices/feva-cover.webp", // cover from "feva cover.png" (23 Nov 2026)
+      posterHasName: true, // the cover already shows "Feva · YoungPreneurAi Student", so no name tag on top
       videoLabel: "Feva presenting her early AI styling assistant MVP to a user",
       consentConfirmed: true, // parent/guardian consent confirmed by YoungMinds, 17 Nov 2026
     },
